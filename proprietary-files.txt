@@ -1,0 +1,4 @@
+# Put anything that cannot be in serrano-common
+# Radio
+lib/libril-qc-qmi-1.so
+lib/libril.so
