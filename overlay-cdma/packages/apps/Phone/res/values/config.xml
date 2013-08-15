@@ -14,10 +14,7 @@
      limitations under the License.
 -->
 
-<!-- shooteru-specific phone app resources. -->
 <resources>
-
     <!-- Flag indicating if the phone is a world phone -->
     <bool name="world_phone">true</bool>
-
 </resources>
