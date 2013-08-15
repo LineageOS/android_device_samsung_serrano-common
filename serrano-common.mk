@@ -137,7 +137,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.rild.nitz_short_ons_3="" \
     ril.subscription.types=NV,RUIM \
     persist.gps.qmienabled=true \
-    persist.gps.qc_nlp_in_use=0
+    persist.gps.qc_nlp_in_use=0 \
+    persist.fuse_sdcard=true
 
 # For userdebug builds
 ADDITIONAL_DEFAULT_PROPERTIES += \
