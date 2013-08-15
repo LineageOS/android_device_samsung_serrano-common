@@ -2873,8 +2873,8 @@ SectionDevice
 		'RX4 MIX1 INP1':0:RX1
 		'SLIM RX1 MUX':0:AIF1_PB
 		'SPK DAC Switch':1:1
-		'RX4 Digital Volume':1:68%
-		'SPK DRV Volume':2:87.5%
+		'RX4 Digital Volume':1:67.7%
+		'SPK DRV Volume':1:100%
 	EndSequence
 
 	DisableSequence
@@ -2887,7 +2887,6 @@ SectionDevice
 
 	ACDBID	15:1
 	EffectsMixerCTL "SRS TruMedia"
-	EC_REF_RXMixerCTL "I2S_RX"
 
 EndSection
 
@@ -2913,31 +2912,6 @@ SectionDevice
 	EndSequence
 
 	ACDBID 15:1
-
-EndSection
-
-SectionDevice
-	Name "Sub Mic"
-	Comment "Sub Mic Tx device"
-
-	EnableSequence
-		'PRI_TX Channels':0:One
-		'AIF1_CAP Mixer SLIM TX1':1:1
-		'SLIM TX1 MUX':0:DEC4
-		'DEC4 MUX':0:ADC3
-		'ADC3 Volume':1:63.2%
-		'DEC4 Volume':2:67.7%
-	EndSequence
-
-	DisableSequence
-		'AIF1_CAP Mixer SLIM TX1':0:ZERO
-		'SLIM TX1 MUX':0:ZERO
-		'DEC4 MUX':0:ZERO
-		'ADC3 Volume':1:0
-		'DEC4 Volume':1:0
-	EndSequence
-
-	ACDBID  11:2
 
 EndSection
 
@@ -3581,7 +3555,7 @@ SectionDevice
 		'AIF1_CAP Mixer SLIM TX1':1:1
 		'SLIM TX1 MUX':0:DEC4
 		'DEC4 MUX':0:ADC3
-		'ADC3 Volume':1:63.2%
+		'ADC3 Volume':1:100%
 		'DEC4 Volume':2:67.7%
 	EndSequence
 
