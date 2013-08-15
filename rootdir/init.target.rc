@@ -301,7 +301,7 @@ on post-fs-data
 
     # Camera permission
     chown system radio /sys/class/camera/flash/rear_flash
-    chmod 664 /sys/class/camera/flash/rear_flash
+    chmod 666 /sys/class/camera/flash/rear_flash
 
     # Adjust YUV to RGB Conversion
     chown system media_rw /sys/class/graphics/fb0/csc_cfg
