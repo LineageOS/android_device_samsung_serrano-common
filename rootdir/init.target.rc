@@ -98,14 +98,17 @@ on post-fs-data
     write /sys/class/input/input6/distortion "400 50 15"
     write /sys/class/input/input7/distortion "400 50 15"
 
+    write /sys/class/input/input5/dynamic_matrix "9712 -450 -197 -450 10032 -665 -197 -665 10311"
+    write /sys/class/input/input5/offsets "-1 9 1 496457 -132993 1404077 3"
+
     # geomagnetic_raw
     chown compass input /sys/class/input/input4/offsets
     chown compass input /sys/class/input/input4/dynamic_matrix
     chown system input /sys/class/input/input4/threshold
     chown system input /sys/class/input/input4/distortion
     chown system input /sys/class/input/input4/shape
-    chown compass input /sys/class/input/input5/offsets
-    chown compass input /sys/class/input/input5/dynamic_matrix
+    chown system input /sys/class/input/input5/offsets
+    chown system input /sys/class/input/input5/dynamic_matrix
     chown system input /sys/class/input/input5/threshold
     chown system input /sys/class/input/input5/distortion
     chown system input /sys/class/input/input5/shape
