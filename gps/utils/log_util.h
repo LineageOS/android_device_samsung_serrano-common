@@ -1,4 +1,4 @@
-/* Copyright (c) 2011 The Linux Foundation. All rights reserved.
+/* Copyright (c) 2011 Code Aurora Forum. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -9,7 +9,7 @@
  *       copyright notice, this list of conditions and the following
  *       disclaimer in the documentation and/or other materials provided
  *       with the distribution.
- *     * Neither the name of The Linux Foundation nor the names of its
+ *     * Neither the name of Code Aurora Forum, Inc. nor the names of its
  *       contributors may be used to endorse or promote products derived
  *       from this software without specific prior written permission.
  *
@@ -78,29 +78,23 @@ extern char* get_timestamp(char* str, unsigned long buf_size);
 #ifndef DEBUG_DMN_LOC_API
 
 /* LOGGING MACROS */
-/*loc_logger.DEBUG_LEVEL is initialized to 0xff in loc_cfg.cpp
-  if that value remains unchanged, it means gps.conf did not
-  provide a value and we default to the initial value to use
-  Android's logging levels*/
-#define LOC_LOGE(...) \
-if ((loc_logger.DEBUG_LEVEL >= 1) && (loc_logger.DEBUG_LEVEL <= 5)) { ALOGE("W/"__VA_ARGS__); } \
-else if (loc_logger.DEBUG_LEVEL == 0xff) { ALOGE("W/"__VA_ARGS__); }
+#define LOC_LOGE(...) ALOGE("E/"__VA_ARGS__)
 
 #define LOC_LOGW(...) \
-if ((loc_logger.DEBUG_LEVEL >= 2) && (loc_logger.DEBUG_LEVEL <= 5)) { ALOGE("W/"__VA_ARGS__); }  \
-else if (loc_logger.DEBUG_LEVEL == 0xff) { ALOGW("W/"__VA_ARGS__); }
+if (loc_logger.DEBUG_LEVEL >= 2) { ALOGE("W/"__VA_ARGS__); } \
+else if (loc_logger.DEBUG_LEVEL <= 0) { ALOGW("W/"__VA_ARGS__); }
 
 #define LOC_LOGI(...) \
-if ((loc_logger.DEBUG_LEVEL >= 3) && (loc_logger.DEBUG_LEVEL <= 5)) { ALOGE("I/"__VA_ARGS__); }   \
-else if (loc_logger.DEBUG_LEVEL == 0xff) { ALOGI("I/"__VA_ARGS__); }
+if (loc_logger.DEBUG_LEVEL >= 3) { ALOGE("I/"__VA_ARGS__); } \
+else if (loc_logger.DEBUG_LEVEL <= 0) { ALOGI("W/"__VA_ARGS__); }
 
 #define LOC_LOGD(...) \
-if ((loc_logger.DEBUG_LEVEL >= 4) && (loc_logger.DEBUG_LEVEL <= 5)) { ALOGE("D/"__VA_ARGS__); }   \
-else if (loc_logger.DEBUG_LEVEL == 0xff) { ALOGD("D/"__VA_ARGS__); }
+if (loc_logger.DEBUG_LEVEL >= 4) { ALOGE("D/"__VA_ARGS__); } \
+else if (loc_logger.DEBUG_LEVEL <= 0) { ALOGD("W/"__VA_ARGS__); }
 
 #define LOC_LOGV(...) \
-if ((loc_logger.DEBUG_LEVEL >= 5) && (loc_logger.DEBUG_LEVEL <= 5)) { ALOGE("V/"__VA_ARGS__); }   \
-else if (loc_logger.DEBUG_LEVEL == 0xff) { ALOGV("V/"__VA_ARGS__); }
+if (loc_logger.DEBUG_LEVEL >= 5) { ALOGE("V/"__VA_ARGS__); } \
+else if (loc_logger.DEBUG_LEVEL <= 0) { ALOGV("W/"__VA_ARGS__); }
 
 #else /* DEBUG_DMN_LOC_API */
 
@@ -141,6 +135,7 @@ else if (loc_logger.DEBUG_LEVEL == 0xff) { ALOGV("V/"__VA_ARGS__); }
 #define EXIT_LOG(SPEC, VAL) LOG_V(EXIT_TAG, __func__, SPEC, VAL)
 
 
+#ifdef DEBUG_TRACE_CALLFLOW
 // Used for logging callflow from Android Framework
 #define ENTRY_LOG_CALLFLOW() LOG_I(FROM_AFW, __func__, %s, "")
 // Used for logging callflow to Modem
@@ -149,6 +144,12 @@ else if (loc_logger.DEBUG_LEVEL == 0xff) { ALOGV("V/"__VA_ARGS__); }
 #define MODEM_LOG_CALLFLOW(SPEC, VAL) LOG_I(FROM_MODEM, __func__, SPEC, VAL)
 // Used for logging callflow to Android Framework
 #define CALLBACK_LOG_CALLFLOW(CB, SPEC, VAL) LOG_I(TO_AFW, CB, SPEC, VAL)
+#else
+#define ENTRY_LOG_CALLFLOW()
+#define EXIT_LOG_CALLFLOW(SPEC, VAL)
+#define MODEM_LOG_CALLFLOW(SPEC, VAL)
+#define CALLBACK_LOG_CALLFLOW(CB, SPEC, VAL)
+#endif
 
 #ifdef __cplusplus
 }

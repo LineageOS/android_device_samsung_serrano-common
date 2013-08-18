@@ -106,55 +106,32 @@ typedef uint16_t GpsLocationFlags;
 
 /** Flags used to specify which aiding data to delete
     when calling delete_aiding_data(). */
-typedef uint32_t GpsAidingData;
+typedef uint16_t GpsAidingData;
 // IMPORTANT: Note that the following values must match
 // constants in GpsLocationProvider.java.
-#define GPS_DELETE_EPHEMERIS                     0x00000001
-#define GPS_DELETE_ALMANAC                       0x00000002
-#define GPS_DELETE_POSITION                      0x00000004
-#define GPS_DELETE_TIME                          0x00000008
-#define GPS_DELETE_IONO                          0x00000010
-#define GPS_DELETE_UTC                           0x00000020
-#define GPS_DELETE_HEALTH                        0x00000040
-#define GPS_DELETE_SVDIR                         0x00000080
-#define GPS_DELETE_SVSTEER                       0x00000100
-#define GPS_DELETE_SADATA                        0x00000200
-#define GPS_DELETE_RTI                           0x00000400
-#define GPS_DELETE_CELLDB_INFO                   0x00000800
-#define GPS_DELETE_ALMANAC_CORR                  0x00001000
-#define GPS_DELETE_FREQ_BIAS_EST                 0x00002000
-#define GPS_DELETE_EPHEMERIS_GLO                 0x00004000
-#define GPS_DELETE_ALMANAC_GLO                   0x00008000
-#define GPS_DELETE_SVDIR_GLO                     0x00010000
-#define GPS_DELETE_SVSTEER_GLO                   0x00020000
-#define GPS_DELETE_ALMANAC_CORR_GLO              0x00040000
-#define GPS_DELETE_TIME_GPS                      0x00080000
-#define GPS_DELETE_TIME_GLO                      0x00100000
-
-#define GPS_DELETE_ALL                           0xFFFFFFFF
+#define GPS_DELETE_EPHEMERIS        0x0001
+#define GPS_DELETE_ALMANAC          0x0002
+#define GPS_DELETE_POSITION         0x0004
+#define GPS_DELETE_TIME             0x0008
+#define GPS_DELETE_IONO             0x0010
+#define GPS_DELETE_UTC              0x0020
+#define GPS_DELETE_HEALTH           0x0040
+#define GPS_DELETE_SVDIR            0x0080
+#define GPS_DELETE_SVSTEER          0x0100
+#define GPS_DELETE_SADATA           0x0200
+#define GPS_DELETE_RTI              0x0400
+#define GPS_DELETE_CELLDB_INFO      0x8000
+#define GPS_DELETE_ALL              0xFFFF
 
 /** AGPS type */
-typedef int16_t AGpsType;
-#define AGPS_TYPE_INVALID       -1
-#define AGPS_TYPE_ANY           0
+typedef uint16_t AGpsType;
 #define AGPS_TYPE_SUPL          1
 #define AGPS_TYPE_C2K           2
-#define AGPS_TYPE_WWAN_ANY      3
-#define AGPS_TYPE_WIFI          4
-
-/** SSID length */
-#define SSID_BUF_SIZE (32+1)
 
 typedef uint16_t AGpsSetIDType;
 #define AGPS_SETID_TYPE_NONE    0
 #define AGPS_SETID_TYPE_IMSI    1
 #define AGPS_SETID_TYPE_MSISDN  2
-
-typedef int16_t AGpsBearerType;
-#define AGPS_APN_BEARER_INVALID    -1
-#define AGPS_APN_BEARER_IPV4        0
-#define AGPS_APN_BEARER_IPV6        1
-#define AGPS_APN_BEARER_IPV4V6      2
 
 /**
  * String length constants
@@ -251,11 +228,6 @@ typedef uint16_t AGpsStatusValue;
  */
 #define AGPS_RIL_INTERFACE      "agps_ril"
 
-/**
- * The GPS chipset can use Psc for AGPS.
- */
-#define AGPS_USE_PSC
-
 /** Represents a location. */
 typedef struct {
     /** set to sizeof(GpsLocation) */
@@ -335,9 +307,6 @@ typedef struct {
     uint16_t mcc;
     uint16_t mnc;
     uint16_t lac;
-#ifdef AGPS_USE_PSC
-    uint16_t psc;
-#endif
     uint32_t cid;
 } AGpsRefLocationCellID;
 
@@ -504,10 +473,7 @@ typedef struct {
 
     AGpsType        type;
     AGpsStatusValue status;
-    uint32_t        ipv4_addr;
-    char            ipv6_addr[16];
-    char            ssid[SSID_BUF_SIZE];
-    char            password[SSID_BUF_SIZE];
+    uint32_t        ipaddr;
 } AGpsStatus;
 
 /** Callback with AGPS status information.
@@ -536,16 +502,15 @@ typedef struct {
      * Notifies that a data connection is available and sets
      * the name of the APN to be used for SUPL.
      */
-    int  (*data_conn_open)( AGpsType agpsType,
-                            const char* apn, AGpsBearerType bearerType );
+    int  (*data_conn_open)( const char* apn );
     /**
      * Notifies that the AGPS data connection has been closed.
      */
-    int  (*data_conn_closed)( AGpsType agpsType );
+    int  (*data_conn_closed)();
     /**
      * Notifies that a data connection is not available for AGPS.
      */
-    int  (*data_conn_failed)(AGpsType  agpsType );
+    int  (*data_conn_failed)();
     /**
      * Sets the hostname and port for the AGPS server.
      */
