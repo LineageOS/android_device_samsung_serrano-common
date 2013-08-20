@@ -42,7 +42,6 @@ TARGET_BOOTLOADER_BOARD_NAME := MSM8960
 BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/serrano-common/recovery/graphics.c
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/serrano-common/recovery/recovery_keys.c
 BOARD_USES_MMCUTILS := true
-BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_HAS_NO_MISC_PARTITION := true
 TARGET_RECOVERY_FSTAB := device/samsung/serrano-common/recovery.fstab
 TARGET_RECOVERY_INITRC := device/samsung/serrano-common/rootdir/init.recovery.rc
