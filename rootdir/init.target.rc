@@ -98,8 +98,8 @@ on post-fs-data
     write /sys/class/input/input6/distortion "400 50 15"
     write /sys/class/input/input7/distortion "400 50 15"
 
-    write /sys/class/input/input5/dynamic_matrix "9712 -450 -197 -450 10032 -665 -197 -665 10311"
-    write /sys/class/input/input5/offsets "-1 9 1 496457 -132993 1404077 3"
+    write /sys/class/input/input5/dynamic_matrix "10157 184 -98 184 9741 -556 -98 -556 10139"
+    write /sys/class/input/input5/offsets "-1 9 1 493163 -131368 1406126 3"
 
     # geomagnetic_raw
     chown compass input /sys/class/input/input4/offsets
@@ -416,9 +416,3 @@ service geomagneticd /system/bin/geomagneticd
     class main
     user compass
     group system input
-
-# TVout
-#service TvoutService_C /system/bin/bintvoutservice
-#    class main
-#    user system
-#    group system
