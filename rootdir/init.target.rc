@@ -98,17 +98,14 @@ on post-fs-data
     write /sys/class/input/input6/distortion "400 50 15"
     write /sys/class/input/input7/distortion "400 50 15"
 
-    write /sys/class/input/input5/dynamic_matrix "10157 184 -98 184 9741 -556 -98 -556 10139"
-    write /sys/class/input/input5/offsets "-1 9 1 493163 -131368 1406126 3"
-
     # geomagnetic_raw
     chown compass input /sys/class/input/input4/offsets
     chown compass input /sys/class/input/input4/dynamic_matrix
     chown system input /sys/class/input/input4/threshold
     chown system input /sys/class/input/input4/distortion
     chown system input /sys/class/input/input4/shape
-    chown system input /sys/class/input/input5/offsets
-    chown system input /sys/class/input/input5/dynamic_matrix
+    chown compass input /sys/class/input/input5/offsets
+    chown compass input /sys/class/input/input5/dynamic_matrix
     chown system input /sys/class/input/input5/threshold
     chown system input /sys/class/input/input5/distortion
     chown system input /sys/class/input/input5/shape
@@ -256,7 +253,6 @@ on post-fs-data
     chown system radio /sys/class/sensors/light_sensor/raw_data
     chown system radio /sys/class/sensors/light_sensor/vendor
     chown system radio /sys/class/sensors/light_sensor/name
-
 
     # Permissions for NCM
     chmod 0660 /sys/class/android_usb/android0/terminal_version
@@ -416,3 +412,7 @@ service geomagneticd /system/bin/geomagneticd
     class main
     user compass
     group system input
+
+on property:sys.boot_completed=1
+    write /sys/class/input/input5/dynamic_matrix "10157 184 -98 184 9741 -556 -98 -556 10139"
+    write /sys/class/input/input5/offsets "-1 9 1 493163 -131368 1406126 3"
