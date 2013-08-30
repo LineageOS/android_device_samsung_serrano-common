@@ -2,10 +2,9 @@
 bin/btnvtool
 bin/fm_qsoc_patches
 bin/hci_qcomm_init
-bin/mpdecision
 
 # Thermal
-bin/thermal-engine
+bin/mpdecision
 bin/thermald
 
 # Audio
