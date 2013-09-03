@@ -34,7 +34,7 @@ export PATH
 
 STATUS=`getprop persist.qcom.wifi_mac.init`
 
-if [ "$STATUS" != "complete" ]; then
+if [ "$STATUS" != "complete" ] || [ ! -f "$DEST" ]; then
 
 # Load correct MAC address
 DEST="/system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin_"
