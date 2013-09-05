@@ -23,8 +23,6 @@
     <!-- Ignore preferred preview size and use best value from supported preview sizes -->
     <bool name="ignorePreferredPreviewSizeForVideo">true</bool>
     <bool name="noFaceDetectOnFrontCamera">true</bool>
-    <!-- Use ZSL mode for Qualcomm cameras -->
-    <bool name="enableZSL">true</bool>
     <!-- Magic for enabling ZSL on Samsung cameras -->
     <bool name="sendMagicSamsungZSLCommand">true</bool>
 </resources>
