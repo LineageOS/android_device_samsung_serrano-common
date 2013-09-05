@@ -303,7 +303,7 @@ on post-fs-data
     chmod 664 /sys/class/camera/flash/rear_flash
 
     # Adjust YUV to RGB Conversion
-    chown system media_rw /sys/class/graphics/fb0/csc_cfg
+    chown system camera /sys/class/graphics/fb0/csc_cfg
     chmod 0660 /sys/class/graphics/fb0/csc_cfg
 
     # Ap thermister permission
