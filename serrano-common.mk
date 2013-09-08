@@ -57,6 +57,8 @@ PRODUCT_COPY_FILES += \
 
 # Ramdisk
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/charger:root/charger \
+    $(LOCAL_PATH)/rootdir/charger:recovery/root/charger \
     $(LOCAL_PATH)/rootdir/fstab.qcom:root/fstab.qcom \
     $(LOCAL_PATH)/rootdir/fstab.qcom:recovery/root/fstab.qcom \
     $(LOCAL_PATH)/rootdir/lpm.rc:root/lpm.rc \

@@ -37,7 +37,12 @@ LINEEND=" \\"
 COUNT=`wc -l ../serrano-common/proprietary-files.txt | awk {'print $1'}`
 DISM=`egrep -c '(^#|^$)' ../serrano-common/proprietary-files.txt`
 COUNT=`expr $COUNT - $DISM`
+FIRST=1
 for FILE in `egrep -v '(^#|^$)' ../serrano-common/proprietary-files.txt`; do
+  if [ $FIRST = 1 ]; then
+  echo "PRODUCT_COPY_FILES += \\" >> $MAKEFILE
+  FIRST=0
+  fi
   COUNT=`expr $COUNT - 1`
   if [ $COUNT = "0" ]; then
     LINEEND=""

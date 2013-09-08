@@ -92,13 +92,13 @@ lib/libchromatix_imx175_zsl.so
 lib/libchromatix_imx175_zsl_drama.so
 lib/libchromatix_imx175_zsl_panorama.so
 lib/libchromatix_s5k3h5xa_antishake.so
-lib/libchromatix_s5k3h~a_default_video.so
+lib/libchromatix_s5k3h5xa_default_video.so
 lib/libchromatix_s5k3h5xa_lls.so
 lib/libchromatix_s5k3h5xa_preview.so
 lib/libchromatix_s5k3h5xa_zsl.so
 lib/libchromatix_s5k3h5xa_zsl_drama.so
 lib/libchromatix_s5k3h5xa_zsl_panorama.so
-lib/libchromatix_s5k6a~x_default_video.so
+lib/libchromatix_s5k6a3yx_default_video.so
 lib/libchromatix_s5k6a3yx_preview.so
 lib/libchromatix_s5k6a3yx_smart_stay.so
 lib/libchromatix_s5k6a3yx_vt.so
@@ -144,7 +144,6 @@ lib/libWVStreamControlAPI_L3.so
 lib/libwvm.so
 
 # Offmode charging
-bin/charger
 bin/lpmkey
 bin/playlpm
 lib/libQmageAndroidDecoderPaddingSo.so
