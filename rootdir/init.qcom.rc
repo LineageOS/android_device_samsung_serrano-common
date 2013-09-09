@@ -129,6 +129,10 @@ on boot
     chmod 0664 /sys/class/leds/button-backlight/brightness
     chmod 0664 /sys/class/backlight/msmfb_bl0/brightness
 
+    # For disabling softkeys
+    chown root system /sys/class/leds/button-backlight/max_brightness
+    chmod 0664 /sys/class/leds/button-backlight/max_brightness
+
     # For bridgemgr daemon to inform the USB driver of the correct transport
     chown radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
 
