@@ -32,15 +32,15 @@
 PATH=/sbin:/system/sbin:/system/bin:/system/xbin
 export PATH
 
+DEST="/system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin_"
+NVSOURCE="/system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin"
+MACSOURCE="/efs/wifi/.mac.info"
+
 STATUS=`getprop persist.qcom.wifi_mac.init`
 
 if [ "$STATUS" != "complete" ] || [ ! -f "$DEST" ]; then
 
 # Load correct MAC address
-DEST="/system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin_"
-NVSOURCE="/system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin"
-MACSOURCE="/efs/wifi/.mac.info"
-
 MACADDR=""
 
 mv $NVSOURCE $DEST
