@@ -89,8 +89,6 @@ on boot
 
     setprop wifi.interface wlan0
 
-    setprop ro.telephony.call_ring.multiple false
-
     # Remove SUID bit for iproute2 ip tool
     chmod 0755 /system/bin/ip
 
