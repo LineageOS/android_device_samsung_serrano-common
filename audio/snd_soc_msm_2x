@@ -1553,6 +1553,7 @@ SectionVerb
 	Name "FM Digital Radio"
 
 	EnableSequence
+		'Internal FM RX Volume':1:0
 		'PRI_I2S_RX Port Mixer INTERNAL_FM_TX':1:1
 		'PRI_I2S_RX_DL_HL Switch':1:1
 	EndSequence
@@ -1572,6 +1573,7 @@ SectionVerb
 	Name "FM Digital RadioPROXY Rx"
 
 	EnableSequence
+		'Internal FM RX Volume':1:0
 		'AFE_PCM_RX Port Mixer INTERNAL_FM_TX':1:1
 		'PCM_RX_DL_HL Switch':1:1
 	EndSequence
@@ -4687,6 +4689,28 @@ SectionModifier
 	Name "Play FM"
 
 	EnableSequence
+		'Internal FM RX Volume':1:0
+		'PRI_I2S_RX Port Mixer INTERNAL_FM_TX':1:1
+		'PRI_I2S_RX_DL_HL Switch':1:1
+	EndSequence
+
+	DisableSequence
+		'PRI_I2S_RX Port Mixer INTERNAL_FM_TX':1:0
+		'PRI_I2S_RX_DL_HL Switch':1:0
+	EndSequence
+
+	# ALSA PCMs
+	PlaybackPCM 5
+	CapturePCM 6
+	PlaybackVolume "Internal FM RX Volume"
+
+EndSection
+
+SectionModifier
+	Name "Play FMSpeaker FM Tx"
+
+	EnableSequence
+		'Internal FM RX Volume':1:0
 		'PRI_I2S_RX Port Mixer INTERNAL_FM_TX':1:1
 		'PRI_I2S_RX_DL_HL Switch':1:1
 	EndSequence
@@ -4706,6 +4730,7 @@ SectionModifier
 	Name "Play FMPROXY Rx"
 
 	EnableSequence
+		'Internal FM RX Volume':1:0
 		'AFE_PCM_RX Port Mixer INTERNAL_FM_TX':1:1
 		'PCM_RX_DL_HL Switch':1:1
 	EndSequence

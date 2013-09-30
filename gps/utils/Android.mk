@@ -8,7 +8,8 @@ include $(CLEAR_VARS)
 ## Libs
 LOCAL_SHARED_LIBRARIES := \
     libutils \
-    libcutils
+    libcutils \
+    liblog
 
 LOCAL_SRC_FILES += \
     loc_log.cpp \
