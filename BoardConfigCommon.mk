@@ -32,9 +32,7 @@ BOARD_MKBOOTIMG_ARGS         := --ramdisk_offset 0x02000000
 BOARD_KERNEL_PAGESIZE        := 2048
 TARGET_KERNEL_SOURCE         := kernel/samsung/msm8930-common
 TARGET_KERNEL_CONFIG         := cyanogen_serrano_defconfig
-ifeq ($(HAVE_SELINUX),true)
 TARGET_KERNEL_SELINUX_CONFIG := selinux_defconfig
-endif
 
 TARGET_BOOTLOADER_BOARD_NAME := MSM8960
 
@@ -43,7 +41,7 @@ BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/serrano-common/recovery/graphic
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/serrano-common/recovery/recovery_keys.c
 BOARD_USES_MMCUTILS := true
 BOARD_HAS_NO_MISC_PARTITION := true
-TARGET_RECOVERY_FSTAB := device/samsung/serrano-common/recovery.fstab
+TARGET_RECOVERY_FSTAB := device/samsung/serrano-common/rootdir/fstab.qcom
 TARGET_RECOVERY_INITRC := device/samsung/serrano-common/rootdir/init.recovery.rc
 
 TARGET_USERIMAGES_USE_EXT4 := true

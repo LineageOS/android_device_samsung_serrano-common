@@ -126,9 +126,6 @@ lib/libsecnativefeature.so
 lib/libTsAccm.so
 lib/libTsAwb.so
 
-# Wi-Fi
-etc/wifi/wpa_supplicant.conf
-
 # Perf
 lib/libqc-opt.so
 

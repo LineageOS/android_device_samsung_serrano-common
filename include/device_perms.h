@@ -19,5 +19,6 @@
 
 #define PROPERTY_PERMS_APPEND \
     { "persist.audio.",   AID_SYSTEM,   0 }, \
-    { "persist.sys.camera.", AID_MEDIA, 0 },
+    { "persist.sys.camera.", AID_MEDIA, 0 }, \
+    { "sys.media.vdec.sw", AID_SHELL, 0 },
 #endif /* DEVICE_PERMS_H */

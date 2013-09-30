@@ -43,7 +43,6 @@
         <item>"mobile_dun,4,0,2,60000,true"</item>
         <item>"mobile_hipri,5,0,3,60000,true"</item>
         <item>"bluetooth,7,7,2,-1,true"</item>
-        <item>"wifi_p2p,13,1,0,-1,true"</item>
     </string-array>
 
     <!-- An Array of "[ConnectivityManager connectionType],
@@ -85,6 +84,12 @@
         <item>5</item>
         <item>7</item>
     </integer-array>
+
+    <!-- Boolean indicating whether the wifi chipset has dual frequency band support -->
+    <bool translatable="false" name="config_wifi_dual_band_support">true</bool>
+
+    <!-- Boolean indicating whether the wifi chipset has background scan support -->
+    <bool translatable="false" name="config_wifi_background_scan_support">true</bool>
 
     <!-- Control whether being in the desk dock should enable accelerometer
          based screen orientation.  This defaults to true because it is
@@ -228,4 +233,8 @@
 
     <!-- Integer to configure panel auto brightness mode when changed -->
     <integer name="config_panelAutoBrightnessValue">1</integer>
+
+    <!-- True if the Irda service should be started at system start. This currently only
+         supports Samsung Galaxy S4. -->
+    <bool name="config_enableIrdaManagerService">true</bool>
 </resources>

@@ -37,6 +37,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml
 
+# Expose Irda feature
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/system/etc/permissions/com.sec.feature.irda_service.xml:system/etc/permissions/com.sec.feature.irda_service.xml
+
 # GPS
 PRODUCT_PACKAGES += \
     gps.msm8960 \
@@ -60,7 +64,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/charger:root/charger \
     $(LOCAL_PATH)/rootdir/charger:recovery/root/charger \
     $(LOCAL_PATH)/rootdir/fstab.qcom:root/fstab.qcom \
-    $(LOCAL_PATH)/rootdir/fstab.qcom:recovery/root/fstab.qcom \
     $(LOCAL_PATH)/rootdir/lpm.rc:root/lpm.rc \
     $(LOCAL_PATH)/rootdir/lpm.rc:recovery/root/lpm.rc \
     $(LOCAL_PATH)/rootdir/init.carrier.rc:root/init.carrier.rc \
@@ -78,9 +81,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/system/etc/init.qcom.modem_links.sh:system/etc/init.qcom.modem_links.sh \
     $(LOCAL_PATH)/rootdir/system/etc/init.qcom.wifi.sh:system/etc/init.qcom.wifi.sh
 
-# Vold configuration
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/vold.fstab:system/etc/vold.fstab
+    $(LOCAL_PATH)/rootdir/system/etc/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
+    $(LOCAL_PATH)/rootdir/system/etc/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
 
 # Torch
 PRODUCT_PACKAGES += Torch
@@ -92,9 +95,8 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 # Lights
 PRODUCT_PACKAGES += lights.msm8960
 
-# Increase the HWUI font cache since we have tons of RAM
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.hwui.text_cache_width=2048
+# Irda
+PRODUCT_PACKAGES += irda.msm8960
 
 # QC Perf
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -138,7 +140,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ril.subscription.types=NV,RUIM \
     persist.gps.qmienabled=true \
     persist.gps.qc_nlp_in_use=0 \
-    persist.fuse_sdcard=true
+    persist.fuse_sdcard=true \
+    ro.vold.umsdirtyratio=50
 
 # For userdebug builds
 ADDITIONAL_DEFAULT_PROPERTIES += \
