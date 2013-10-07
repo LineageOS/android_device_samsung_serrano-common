@@ -141,7 +141,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.gps.qmienabled=true \
     persist.gps.qc_nlp_in_use=0 \
     persist.fuse_sdcard=true \
-    ro.vold.umsdirtyratio=50
+    ro.vold.umsdirtyratio=50 \
+    ro.cwm.enable_key_repeat=true
 
 # For userdebug builds
 ADDITIONAL_DEFAULT_PROPERTIES += \
