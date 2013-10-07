@@ -41,12 +41,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/system/etc/permissions/com.sec.feature.irda_service.xml:system/etc/permissions/com.sec.feature.irda_service.xml
 
-# GPS
-PRODUCT_PACKAGES += \
-    gps.msm8960 \
-    gps.conf \
-    sap.conf
-
 # Keylayouts
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/atmel_mxt_ts.kl:system/usr/keylayout/atmel_mxt_ts.kl \
@@ -85,18 +79,11 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/system/etc/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
     $(LOCAL_PATH)/rootdir/system/etc/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
 
-# Torch
-PRODUCT_PACKAGES += Torch
-
-# Set default USB interface
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=mtp
-
-# Lights
-PRODUCT_PACKAGES += lights.msm8960
-
-# Irda
-PRODUCT_PACKAGES += irda.msm8960
+# GPS
+PRODUCT_PACKAGES += \
+    gps.msm8960 \
+    gps.conf \
+    sap.conf
 
 # FM radio
 PRODUCT_PACKAGES += \
@@ -105,12 +92,25 @@ PRODUCT_PACKAGES += \
     FM2 \
     FMRecord
 
-# QC Perf
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.extension_library=/system/lib/libqc-opt.so
+# Torch
+PRODUCT_PACKAGES += Torch
+
+# Lights
+PRODUCT_PACKAGES += lights.msm8960
+
+# Irda
+PRODUCT_PACKAGES += irda.msm8960
 
 # QRNGD
 PRODUCT_PACKAGES += qrngd
+
+# Set default USB interface
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    persist.sys.usb.config=mtp
+
+# QC Perf
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.extension_library=/system/lib/libqc-opt.so
 
 #common build.props
 PRODUCT_PROPERTY_OVERRIDES += \
