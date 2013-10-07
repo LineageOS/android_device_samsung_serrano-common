@@ -92,11 +92,6 @@ on boot
     # Remove SUID bit for iproute2 ip tool
     chmod 0755 /system/bin/ip
 
-    # NFC
-    setprop ro.nfc.port "I2C"
-    chmod 0777 /dev/pn547
-    chown nfc nfc /dev/pn547
-
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
     # Create symlink for fb1 as HDMI
