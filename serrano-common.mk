@@ -126,7 +126,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.warmboot.capability=1 \
     ro.qualcomm.cabl=0 \
     ro.opengles.version=131072 \
-    debug.gr.numframebuffers=3 \
     af.resampler.quality=255 \
     persist.audio.fluence.mode=endfire \
     persist.audio.vr.enable=false \
