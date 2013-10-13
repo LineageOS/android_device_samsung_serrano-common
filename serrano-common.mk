@@ -115,6 +115,9 @@ PRODUCT_PACKAGES += irda.msm8960
 # QRNGD
 PRODUCT_PACKAGES += qrngd
 
+# qcmediaplayer
+PRODUCT_PACKAGES += qcmediaplayer
+
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
