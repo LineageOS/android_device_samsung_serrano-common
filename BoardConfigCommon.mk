@@ -23,6 +23,8 @@
 # inherit from common msm8930
 -include device/samsung/msm8930-common/BoardConfigCommon.mk
 
+TARGET_ADDITIONAL_BOOTCLASSPATH := qcmediaplayer:qcom.fmradio
+
 TARGET_SPECIFIC_HEADER_PATH := device/samsung/serrano-common/include
 
 # FM radio
