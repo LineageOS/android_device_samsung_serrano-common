@@ -74,3 +74,6 @@ BOARD_USES_SEPERATED_VOIP := true
 
 # Use USB Dock Audio
 BOARD_HAVE_DOCK_USBAUDIO := true
+
+# Allow suspend in charge mode
+BOARD_ALLOW_SUSPEND_IN_CHARGER := true
