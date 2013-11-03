@@ -77,3 +77,6 @@ BOARD_HAVE_DOCK_USBAUDIO := true
 
 # Allow suspend in charge mode
 BOARD_CHARGER_ENABLE_SUSPEND := true
+
+# Time services
+BOARD_USES_QC_TIME_SERVICES := true
