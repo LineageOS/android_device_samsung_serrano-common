@@ -23,15 +23,13 @@
 # inherit from common msm8930
 -include device/samsung/msm8930-common/BoardConfigCommon.mk
 
-TARGET_ADDITIONAL_BOOTCLASSPATH := qcmediaplayer:qcom.fmradio
-
 TARGET_SPECIFIC_HEADER_PATH := device/samsung/serrano-common/include
 
 # FM radio
-COMMON_GLOBAL_CFLAGS += -DQCOM_FM_ENABLED
+#COMMON_GLOBAL_CFLAGS += -DQCOM_FM_ENABLED
 
 # Kernel
-BOARD_KERNEL_CMDLINE         := androidboot.hardware=qcom user_debug=31 zcache
+BOARD_KERNEL_CMDLINE         := androidboot.hardware=qcom androidboot.selinux=permissive user_debug=31 zcache
 BOARD_KERNEL_BASE            := 0x80200000
 BOARD_MKBOOTIMG_ARGS         := --ramdisk_offset 0x02000000
 BOARD_KERNEL_PAGESIZE        := 2048
