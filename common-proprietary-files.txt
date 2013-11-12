@@ -37,6 +37,7 @@ lib/libOpenVG.so
 lib/libsc-a3xx.so
 
 # Graphics
+lib/libI420colorconvert.so
 lib/libmm-color-convertor.so
 
 # Radio
