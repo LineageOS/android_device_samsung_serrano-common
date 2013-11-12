@@ -37,6 +37,7 @@ lib/libOpenVG.so
 lib/libsc-a3xx.so
 
 # Graphics
+lib/libI420colorconvert.so
 lib/libmm-color-convertor.so
 
 # Radio
@@ -136,7 +137,6 @@ lib/libdrmfs.so
 lib/libdrmtime.so
 lib/libhdcp2.so
 lib/libQSEEComAPI.so
-lib/libtzplayready.so
 lib/libWVStreamControlAPI_L3.so
 lib/libwvm.so
 
