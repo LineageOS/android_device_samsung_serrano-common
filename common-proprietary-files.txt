@@ -137,6 +137,5 @@ lib/libdrmfs.so
 lib/libdrmtime.so
 lib/libhdcp2.so
 lib/libQSEEComAPI.so
-lib/libtzplayready.so
 lib/libWVStreamControlAPI_L3.so
 lib/libwvm.so
