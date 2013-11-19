@@ -25,9 +25,6 @@
 
 TARGET_SPECIFIC_HEADER_PATH := device/samsung/serrano-common/include
 
-# FM radio
-#COMMON_GLOBAL_CFLAGS += -DQCOM_FM_ENABLED
-
 # For backwards compatibility with camera blobs
 COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 
