@@ -442,6 +442,8 @@ service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw
 
 on property:ro.fuse_sdcard=true
     start sdcard
+    start fuse_sdcard
+    start fuse_usbdisk
 
 # This will make sure that sdcard service starts as late_start.
 on nonencrypted
