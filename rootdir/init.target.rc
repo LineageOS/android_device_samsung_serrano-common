@@ -397,10 +397,6 @@ on post-fs-data
     chmod 0660 /sys/class/lcd/panel/panel_colors
     chown system system /sys/class/lcd/panel/panel_colors
 
-    # communicate with mpdecision and thermald
-    mkdir /dev/socket/mpdecision 0770 system system
-    chmod 2770 /dev/socket/mpdecision
-
 # Start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
@@ -413,7 +409,6 @@ service thermald /system/bin/thermald
     group root
 
 service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
-    class main
     user root
     disabled
 
