@@ -43,7 +43,6 @@ lib/libmm-color-convertor.so
 # Radio
 bin/ds_fmc_appd
 bin/netmgrd
-bin/qmiproxy
 bin/qmuxd
 bin/rild
 bin/rmt_storage
