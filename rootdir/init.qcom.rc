@@ -262,7 +262,7 @@ service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
 service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
     class late_start
     user bluetooth
-    group qcom_oncrpc bluetooth net_bt_admin
+    group bluetooth net_bt_admin
     disabled
     oneshot
 
@@ -355,7 +355,7 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
 service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
     class late_start
     user root
-    group system qcom_oncrpc
+    group system
     disabled
     oneshot
 
@@ -418,7 +418,7 @@ service ril-daemon1 /system/bin/rild -c 1
     socket rild-debug1 stream 660 radio system
     user root
     disabled
-    group radio cache inet misc audio sdcard_r sdcard_rw qcom_oncrpc diag qcom_diag log
+    group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
 
 # virtual sdcard daemon running as media_rw (1023)
 service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
