@@ -1059,10 +1059,6 @@ public class FMRadioService extends Service
               stopRecording();
               break;
           case FOCUSCHANGE:
-              if( false == isFmOn() ) {
-                  Log.v(LOGTAG, "FM is not running, not handling change");
-                  return;
-              }
               switch (msg.arg1) {
                   case AudioManager.AUDIOFOCUS_LOSS:
                       Log.v(LOGTAG, "AudioFocus: received AUDIOFOCUS_LOSS");
@@ -1083,7 +1079,7 @@ public class FMRadioService extends Service
                   case AudioManager.AUDIOFOCUS_GAIN:
                       Log.v(LOGTAG, "AudioFocus: received AUDIOFOCUS_GAIN");
                       if(false == mPlaybackInProgress)
-                          startFM();
+                          fmOn();
                       mStoppedOnFocusLoss = false;
                       break;
                   case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
@@ -2458,6 +2454,7 @@ public class FMRadioService extends Service
    {
       public void FmRxEvEnableReceiver() {
          Log.d(LOGTAG, "FmRxEvEnableReceiver");
+         tune(FmSharedPreferences.getTunedFrequency());
          mReceiver.setRawRdsGrpMask();
       }
       public void FmRxEvDisableReceiver()

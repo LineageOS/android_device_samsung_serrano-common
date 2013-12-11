@@ -1631,7 +1631,6 @@ public class FMRadio extends Activity
                 if((false == mService.isFmOn()) && isAntennaAvailable()) {
                     bStatus = mService.fmOn();
                     if(bStatus) {
-                       tuneRadio(FmSharedPreferences.getTunedFrequency());
                        enableRadioOnOffUI();
                     }else {
                        Log.e(LOGTAG, "mService.fmOn failed");
@@ -2580,7 +2579,6 @@ public class FMRadio extends Activity
          enableRadioOnOffUI(true);
          /* Tune to the last tuned frequency */
          mUpdatePickerValue = true;
-         tuneRadio(FmSharedPreferences.getTunedFrequency());
       }
    };
 
