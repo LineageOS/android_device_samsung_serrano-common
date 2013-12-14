@@ -117,6 +117,13 @@ PRODUCT_PACKAGES += qrngd
 # qcmediaplayer
 PRODUCT_PACKAGES += qcmediaplayer
 
+# IR package
+PRODUCT_PACKAGES += consumerir.msm8960
+
+# IR feature permission
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.consumerir.xml:system/etc/permissions/android.hardware.consumerir.xml
+
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
