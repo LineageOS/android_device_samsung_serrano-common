@@ -506,7 +506,7 @@ public class Settings extends PreferenceActivity implements
               if(chan_spacing < 0) {
                  chan_spacing = 0;
               }
-              mBandPreference.setSummary(summaryBandItems[index] + "( "
+              mBandPreference.setSummary(summaryBandItems[index] + " ("
                        + (min_freq / 1000.0) +"Mhz To " + (max_freq / 1000.0) +
                        "Mhz)");
               mChannelSpacingPref.setValueIndex(2 - chan_spacing);

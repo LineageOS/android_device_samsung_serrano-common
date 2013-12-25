@@ -130,38 +130,38 @@
 
 
   <string-array name="search_category_rds_entries">
-    <item>All Stations</item>
-    <item>Culture</item>
-    <item>Current Affairs</item>
-    <item>Children programs</item>
-    <item>Country Music</item>
-    <item>Documentary</item>
-    <item>Drama</item>
-    <item>Easy Listening Music</item>
-    <item>Education</item>
-    <item>Emergency</item>
-    <item>Emergency Test</item>
-    <item>Finance</item>
-    <item>Folk Music</item>
-    <item>Information</item>
-    <item>Jazz Music</item>
-    <item>Light classical</item>
-    <item>Leisure</item>
-    <item>News</item>
-    <item>National Music</item>
-    <item>Other Music</item>
-    <item>Oldies Music</item>
-    <item>Phone In</item>
-    <item>Pop Music</item>
-    <item>Religion</item>
-    <item>Rock Music</item>
-    <item>Science</item>
-    <item>Serious classical</item>
-    <item>Social Affairs</item>
+    <item>Wszystkie stacje</item>
+    <item>Kultura</item>
+    <item>Sprawy bieżące</item>
+    <item>Programy dla dzieci</item>
+    <item>Muzyka Country</item>
+    <item>Dokumentalne</item>
+    <item>Słuchowiska</item>
+    <item>Lekka muzyka</item>
+    <item>Edukacyjne</item>
+    <item>Nagłe wypadki</item>
+    <item>Nagłe wypadki (Test)</item>
+    <item>Finanse</item>
+    <item>Muzyka folkowa</item>
+    <item>Informacyjne</item>
+    <item>Jazz</item>
+    <item>Lekka klasyczna</item>
+    <item>Relaksacyjna</item>
+    <item>Wiadomości</item>
+    <item>Polskie kawałki</item>
+    <item>Inne</item>
+    <item>Starsze kawałki</item>
+    <item>Konkursy</item>
+    <item>Pop</item>
+    <item>Muzyka religijna</item>
+    <item>Rock</item>
+    <item>Naukowe</item>
+    <item>Muzyka klasyczna</item>
+    <item>Sprawy społeczne</item>
     <item>Sport</item>
-    <item>Travel</item>
-    <item>Varied</item>
-    <item>Weather</item>
+    <item>Podróże</item>
+    <item>Różne</item>
+    <item>Pogoda</item>
   </string-array>
 
   <string-array name="search_category_rds_values">
@@ -287,42 +287,42 @@
   </string-array>
 
   <string-array name="regional_band_summary">
-    <item>Ameryka północna (Od 87.5MHz do 108.0MHz co 200 Khz)</item>
-    <item>Europa (Od 87.5MHz do 108.0MHz co 100 Khz)</item>
-    <item>Japonia (Od 76.0MHz do  90.0MHz co 100 Khz)</item>
-    <item>Japonia (Od Wide) (90.0MHz do 108.0MHz co 50 Khz)</item>
-    <item>Australia (Od 87.7MHz do 108.0MHz co 100 Khz)</item>
-    <item>Austria (Od 87.5MHz do 108.0MHz co  50 Khz)</item>
-    <item>Belgia (Od 87.5MHz do 108.0MHz co 100 Khz)</item>
-    <item>Brazylia (Od 87.5MHz do 108.0MHz co 200 Khz Step)</item>
-    <item>Chiny (Od 87.0MHz do 108.0MHz co 100 Khz)</item>
-    <item>Czechy (Od 87.5MHz do 108.0MHz co 100 Khz)</item>
-    <item>Dania (Od 87.5MHz do 108.0MHz co 50 Khz)</item>
-    <item>Finlandia (Od 87.5MHz do 108.0MHz co 100 Khz)</item>
-    <item>Francja (Od 87.5MHz do 108.0MHz co 100 Khz)</item>
-    <item>Niemcy (Od 87.5MHz do 108.0MHz co 50 Khz)</item>
-    <item>Grecja (Od 87.5MHz do 108.0MHz co 50 Khz)</item>
-    <item>Hong Kong (Od 87.5MHz do 108.0MHz co 100 Khz)</item>
-    <item>Indie (Od 91.0MHz do 106.4MHz co 100 Khz)</item>
-    <item>Irlandia (Od 87.5MHz do 108.0MHz co 50 Khz)</item>
-    <item>Włochy (Od 87.5MHz do 108.0MHz co 50 Khz)</item>
-    <item>Korea (Od 87.5MHz do 108.0MHz co 200 Khz)</item>
-    <item>Meksyk (Od 88.1MHz do 107.9MHz co 200 Khz)</item>
-    <item>Holandia (Od 87.5MHz do 108.0MHz co 100 Khz)</item>
-    <item>Nowa Zelandia (Od 88.0MHz do 107.0MHz co 100 Khz)</item>
-    <item>Norwegia (Od 87.5MHz do 108.0MHz co 100 Khz)</item>
-    <item>Polska (Od 87.5MHz do 108.0MHz co 100 Khz)</item>
-    <item>Portugalia (Od 87.5MHz do 108.0MHz co 50 Khz)</item>
-    <item>Rosja (Od 87.5MHz do 108.0MHz co 100 Khz)</item>
-    <item>Singapur (Od 88.0MHz do 108.0MHz co 100 Khz)</item>
-    <item>Słowacja (Od 87.5MHz do 108.0MHz co 100 Khz)</item>
-    <item>Hiszpania (Od 87.5MHz do 108.0MHz co 100 Khz)</item>
-    <item>Szwajcarja (Od 87.5MHz do 108.0MHz co 100 Khz)</item>
-    <item>Szwecja (Od 87.5MHz do 108.0MHz co 100 Khz)</item>
-    <item>Tajwan (Od 87.5MHz do 108.0MHz co 100 Khz)</item>
-    <item>Turcja (Od 87.5MHz do 108.0MHz co 100 Khz)</item>
-    <item>Wielka Brytania (Od 87.5MHz do 108.0MHz co 100 Khz)</item>
-    <item>Stany Zjednoczone (Od 88.1MHz do 107.9MHz co 200 Khz)</item>
+    <item>Ameryka północna (Od 87.5MHz do 108.0MHz co 200 KHz)</item>
+    <item>Europa (Od 87.5MHz do 108.0MHz co 100 KHz)</item>
+    <item>Japonia (Od 76.0MHz do  90.0MHz co 100 KHz)</item>
+    <item>Japonia (Od Wide) (90.0MHz do 108.0MHz co 50 KHz)</item>
+    <item>Australia (Od 87.7MHz do 108.0MHz co 100 KHz)</item>
+    <item>Austria (Od 87.5MHz do 108.0MHz co  50 KHz)</item>
+    <item>Belgia (Od 87.5MHz do 108.0MHz co 100 KHz)</item>
+    <item>Brazylia (Od 87.5MHz do 108.0MHz co 200 KHz Step)</item>
+    <item>Chiny (Od 87.0MHz do 108.0MHz co 100 KHz)</item>
+    <item>Czechy (Od 87.5MHz do 108.0MHz co 100 KHz)</item>
+    <item>Dania (Od 87.5MHz do 108.0MHz co 50 KHz)</item>
+    <item>Finlandia (Od 87.5MHz do 108.0MHz co 100 KHz)</item>
+    <item>Francja (Od 87.5MHz do 108.0MHz co 100 KHz)</item>
+    <item>Niemcy (Od 87.5MHz do 108.0MHz co 50 KHz)</item>
+    <item>Grecja (Od 87.5MHz do 108.0MHz co 50 KHz)</item>
+    <item>Hong Kong (Od 87.5MHz do 108.0MHz co 100 KHz)</item>
+    <item>Indie (Od 91.0MHz do 106.4MHz co 100 KHz)</item>
+    <item>Irlandia (Od 87.5MHz do 108.0MHz co 50 KHz)</item>
+    <item>Włochy (Od 87.5MHz do 108.0MHz co 50 KHz)</item>
+    <item>Korea (Od 87.5MHz do 108.0MHz co 200 KHz)</item>
+    <item>Meksyk (Od 88.1MHz do 107.9MHz co 200 KHz)</item>
+    <item>Holandia (Od 87.5MHz do 108.0MHz co 100 KHz)</item>
+    <item>Nowa Zelandia (Od 88.0MHz do 107.0MHz co 100 KHz)</item>
+    <item>Norwegia (Od 87.5MHz do 108.0MHz co 100 KHz)</item>
+    <item>Polska (Od 87.5MHz do 108.0MHz co 100 KHz)</item>
+    <item>Portugalia (Od 87.5MHz do 108.0MHz co 50 KHz)</item>
+    <item>Rosja (Od 87.5MHz do 108.0MHz co 100 KHz)</item>
+    <item>Singapur (Od 88.0MHz do 108.0MHz co 100 KHz)</item>
+    <item>Słowacja (Od 87.5MHz do 108.0MHz co 100 KHz)</item>
+    <item>Hiszpania (Od 87.5MHz do 108.0MHz co 100 KHz)</item>
+    <item>Szwajcarja (Od 87.5MHz do 108.0MHz co 100 KHz)</item>
+    <item>Szwecja (Od 87.5MHz do 108.0MHz co 100 KHz)</item>
+    <item>Tajwan (Od 87.5MHz do 108.0MHz co 100 KHz)</item>
+    <item>Turcja (Od 87.5MHz do 108.0MHz co 100 KHz)</item>
+    <item>Wielka Brytania (Od 87.5MHz do 108.0MHz co 100 KHz)</item>
+    <item>Stany Zjednoczone (Od 88.1MHz do 107.9MHz co 200 KHz)</item>
     <item>Własne</item>
   </string-array>
 
@@ -378,9 +378,9 @@
   </string-array>
 
   <string-array name="channel_spacing_entries">
-      <item>50 Khz</item>
-      <item>100 Khz</item>
-      <item>200 Khz</item>
+      <item>50 KHz</item>
+      <item>100 KHz</item>
+      <item>200 KHz</item>
   </string-array>
 
   <string-array name="band_sweep_methods">

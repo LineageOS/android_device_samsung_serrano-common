@@ -46,5 +46,5 @@
     <!-- all recordings will show up in the media database in a playlist with this name -->
     <string name="audio_db_playlist_name">Nagrania FM</string>
     <string name="save_record_file">Nagranie zapisane w "<xliff:g id="record_file">%1$s</xliff:g>"</string>
-    <string name="fm_record_progress">Aktualnie trwa nagrywanie.</string>
+    <string name="fm_record_progress">Nagrywam radio FM.</string>
 </resources>
