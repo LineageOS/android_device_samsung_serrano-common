@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">FM Radio</string>
-    <string name="tx_app_name">FM Tx</string>
+    <string name="app_name">Radio FM</string>
+    <string name="tx_app_name">Transmiter FM</string>
 
     <string name="default_sleep"></string>
     <string name="menu_add_to_preset">Dodaj</string>
@@ -36,7 +36,7 @@
     <string name="msg_noantenna">Podłącz słuchawki aby używać radia FM</string>
     <string name="msg_headsetpluggedin">Disconnect all Headsets for using FM Tx</string>
     <string name="msg_callactive">FM Tx is not supported when there is active voice call</string>
-    <string name="dialog_sleep_title">Select Auto-Off Sleep Time</string>
+    <string name="dialog_sleep_title">Wybierz czas do wyłączenia</string>
         <string name="preset_select_name">Select "<xliff:g id="preset_name">%1$s</xliff:g>"</string>
         <string name="presetlist_select_name">Select "<xliff:g id="presetlist_name">%1$s</xliff:g>"</string>
     <string name="presetlist_add_new">Dodaj listę</string>
@@ -84,12 +84,12 @@
         </string>
 
     <string name="stat_notif_frequency">"<xliff:g id="frequency">%1$s</xliff:g>" MHz</string>
-    <string name="stat_notif_tx_frequency">Transmitting at: "<xliff:g id="frequency">%1$s</xliff:g>"</string>
+    <string name="stat_notif_tx_frequency">Nadaję na: "<xliff:g id="frequency">%1$s</xliff:g>"</string>
 
     <string name="sel_band_menu">Wybierz zakres częstotliwości</string>
     <string name="test_menu">Select Test</string>
 
-    <string name="settings_menu">Settings</string>
+    <string name="settings_menu">Ustawienia</string>
     <string name="regional_band">Zakres częstotliwości</string>
 
     <string name="aud_output_mode">Rodzaj dźwięku</string>
@@ -124,15 +124,15 @@
     <string name="station_move">Przenieś</string>
     <string name="station_edit">Edytuj</string>
     <!-- alert to the user that USB storage must be available before using FM recording  [CHAR LIMIT=NONE] -->
-   <string name="no_storage">Zamontuj kartę SD zanim zaczniesz nagrywać</string>
-   <!-- alert to the user that the USB storage is being disk-checked [CHAR LIMIT=30] -->
-   <string name="preparing_sd">Przygotowanie karty SD</string>
-   <!-- alert to the user that the FM fails to read or write the USB storage. [CHAR LIMIT=NONE] -->
-   <string name="access_sd_fail">Brak dostępu do karty SD</string>
-   <!-- Low-memory dialog message [CHAR LIMT=NONE] -->
-   <string name="spaceIsLow_content">Na karcie SD zaczyna brakować miejsca, zmniejsz jakość nagrań lub zwolnij trochę miejsca na karcie.</string>
-   <!-- The messsage shown when FM record reaches size limit. -->
-   <string name="FMRecording_reach_size_limit">Osiągnięto limit.</string>
+    <string name="no_storage">Zamontuj kartę SD zanim zaczniesz nagrywać</string>
+    <!-- alert to the user that the USB storage is being disk-checked [CHAR LIMIT=30] -->
+    <string name="preparing_sd">Przygotowanie karty SD</string>
+    <!-- alert to the user that the FM fails to read or write the USB storage. [CHAR LIMIT=NONE] -->
+    <string name="access_sd_fail">Brak dostępu do karty SD</string>
+    <!-- Low-memory dialog message [CHAR LIMT=NONE] -->
+    <string name="spaceIsLow_content">Na karcie SD zaczyna brakować miejsca, zmniejsz jakość nagrań lub zwolnij trochę miejsca na karcie.</string>
+    <!-- The messsage shown when FM record reaches size limit. -->
+    <string name="FMRecording_reach_size_limit">Osiągnięto limit.</string>
 
     <string name="delete_station_title">Usuń</string>
     <string name="find_af_station">Znajdź</string>
@@ -193,16 +193,16 @@
     <string name="default_station"> FM </string>
     <string name="default_blank"> </string>
     <string name="add_station">+</string>
-    <string name="stop_scanning">Stop Scanning</string>
-    <string name="transmit_msg_string">Transmitting at:</string>
+    <string name="stop_scanning">Przerwij</string>
+    <string name="transmit_msg_string">Nadaję na:</string>
     <!-- the name under which recordings will be visible in the media database is formatted like this -->
     <string name="audio_db_title_format"><xliff:g id="format">yyyy-MM-dd HH:mm:ss</xliff:g></string>
     <!-- all recordings will show up in the media database with this 'artist' name -->
-    <string name="audio_db_artist_name">My FM recordings</string>
+    <string name="audio_db_artist_name">Radio FM</string>
     <!-- all recordings will show up in the media database with this 'album' name -->
-    <string name="audio_db_album_name">FM recordings</string>
+    <string name="audio_db_album_name">Nagrania FM</string>
     <!-- all recordings will show up in the media database in a playlist with this name -->
-    <string name="audio_db_playlist_name">FM recordings</string>
+    <string name="audio_db_playlist_name">Nagrania FM</string>
     <string name="test_prompt">Choose a test</string>
     <string name="test_run">Run Test</string>
     <string name="set_rmmsi_delta">Configure RMSSI Delta</string>
