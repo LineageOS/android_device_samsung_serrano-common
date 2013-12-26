@@ -82,7 +82,7 @@ lib/hw/sensors.msm8960.so
 bin/mm-qcamera-daemon
 cameradata/datapattern_420sp.yuv
 cameradata/datapattern_front_420sp.yuv
-lib/hw/camera.msm8960.so
+lib/hw/camera.msm8960.so:/lib/hw/camera.vendor.msm8960.so
 lib/libadsprpc.so
 lib/libchromatix_imx175_antishake.so
 lib/libchromatix_imx175_default_video.so
