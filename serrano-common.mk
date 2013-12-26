@@ -143,7 +143,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.warmboot.capability=1 \
     ro.qualcomm.cabl=0 \
     ro.opengles.version=196608 \
-    hwui.use_gpu_pixel_buffers=true \
     af.resampler.quality=4 \
     persist.audio.fluence.mode=endfire \
     persist.audio.vr.enable=false \
