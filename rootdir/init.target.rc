@@ -33,7 +33,6 @@ on early-init
     mount debugfs debugfs /sys/kernel/debug
     chown system system /sys/kernel/debug/kgsl/proc
     mkdir /efs 0771 system radio
-    chmod 644 /proc/cmdline
 
 service ril-qmi /system/bin/sh /init.qcom.ril.sh
     class main
@@ -396,6 +395,8 @@ on post-fs-data
     # Panel color temperature
     chmod 0660 /sys/class/lcd/panel/panel_colors
     chown system system /sys/class/lcd/panel/panel_colors
+
+    chown root radio /proc/cmdline
 
 # Start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
