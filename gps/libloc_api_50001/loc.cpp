@@ -37,6 +37,8 @@
 #include <fcntl.h>
 #include <errno.h>
 
+#include <cutils/properties.h>
+
 static gps_location_callback gps_loc_cb = NULL;
 static gps_sv_status_callback gps_sv_cb = NULL;
 
@@ -247,7 +249,8 @@ static int loc_init(GpsCallbacks* callbacks)
                                     callbacks->release_wakelock_cb, /* release_wakelock_cb */
                                     callbacks->create_thread_cb, /* create_thread_cb */
                                     NULL, /* location_ext_parser */
-                                    NULL  /* sv_ext_parser */};
+                                    NULL, /* sv_ext_parser */
+                                    callbacks->request_utc_time_cb /* request_utc_time_cb */};
     gps_loc_cb = callbacks->location_cb;
     gps_sv_cb = callbacks->sv_status_cb;
 
@@ -395,7 +398,6 @@ static int loc_inject_time(GpsUtcTime time, int64_t timeReference, int uncertain
 {
     ENTRY_LOG();
     int ret_val = loc_eng_inject_time(loc_afw_data, time, timeReference, uncertainty);
-
     EXIT_LOG(%d, ret_val);
     return ret_val;
 }
@@ -419,9 +421,32 @@ SIDE EFFECTS
 ===========================================================================*/
 static int loc_inject_location(double latitude, double longitude, float accuracy)
 {
+    static bool initialized = false;
+    static bool enable_cpi = true;
     ENTRY_LOG();
-    int ret_val = loc_eng_inject_location(loc_afw_data, latitude, longitude, accuracy);
 
+    if(!initialized)
+    {
+        char value[PROPERTY_VALUE_MAX];
+        memset(value, 0, sizeof(value));
+        (void)property_get("persist.gps.qc_nlp_in_use", value, "0");
+        if(0 == strcmp(value, "1"))
+        {
+            enable_cpi = false;
+            LOC_LOGI("GPS HAL coarse position injection disabled");
+        }
+        else
+        {
+            LOC_LOGI("GPS HAL coarse position injection enabled");
+        }
+        initialized = true;
+    }
+
+    int ret_val = 0;
+    if(enable_cpi)
+    {
+      ret_val = loc_eng_inject_location(loc_afw_data, latitude, longitude, accuracy);
+    }
     EXIT_LOG(%d, ret_val);
     return ret_val;
 }
@@ -556,19 +581,17 @@ static const void* loc_get_extension(const char* name)
    {
       ret_val = &sLocEngAGpsRilInterface;
    }
+
+   else if (strcmp(name, GPS_GEOFENCING_INTERFACE) == 0)
+   {
+       ret_val = get_geofence_interface();
+   }
 #ifdef QCOM_FEATURE_ULP
    else if (strcmp(name, ULP_RAW_CMD_INTERFACE) == 0)
    {
       ret_val = &sLocEngInjectRawCmdInterface;
    }
 #endif
-
-   else if (strcmp(name, GPS_GEOFENCING_INTERFACE) == 0)
-   {
-       if ((gps_conf.CAPABILITIES | GPS_CAPABILITY_GEOFENCING) == gps_conf.CAPABILITIES ){
-           ret_val = get_geofence_interface();
-       }
-   }
    else
    {
       LOC_LOGE ("get_extension: Invalid interface passed in\n");

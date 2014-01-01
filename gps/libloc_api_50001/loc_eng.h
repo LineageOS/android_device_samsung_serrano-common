@@ -89,6 +89,7 @@ typedef struct
     gps_ni_notify_callback         ni_notify_cb;
     gps_acquire_wakelock           acquire_wakelock_cb;
     gps_release_wakelock           release_wakelock_cb;
+    gps_request_utc_time           request_utc_time_cb;
     boolean                        intermediateFix;
     AGpsStatusValue                agps_status;
     // used to defer stopping the GPS engine until AGPS data calls are done

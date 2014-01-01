@@ -88,7 +88,7 @@ LOCAL_CFLAGS += \
 
 LOCAL_C_INCLUDES:= \
     $(TARGET_OUT_HEADERS)/gps.utils \
-    hardware/qcom/gps/loc_api/ulp/inc
+    $(LOCAL_PATH)/../ulp/inc
 
 LOCAL_PRELINK_MODULE := false
 
