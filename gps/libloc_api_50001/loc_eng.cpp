@@ -90,6 +90,7 @@ private:
 pthread_mutex_t LocEngContext::lock = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t LocEngContext::cond = PTHREAD_COND_INITIALIZER;
 LocEngContext* LocEngContext::me = NULL;
+unsigned int agpsStatus = 0;
 
 LocEngContext::LocEngContext(gps_create_thread threadCreator) :
     deferred_q((const void*)loc_eng_create_msg_q()),
@@ -250,7 +251,7 @@ int loc_eng_init(loc_eng_data_s_type &loc_eng_data, LocCallbacks* callbacks,
     loc_eng_data.nmea_cb      = callbacks->nmea_cb;
     loc_eng_data.acquire_wakelock_cb = callbacks->acquire_wakelock_cb;
     loc_eng_data.release_wakelock_cb = callbacks->release_wakelock_cb;
-
+    loc_eng_data.request_utc_time_cb = callbacks->request_utc_time_cb;
     loc_eng_data.intermediateFix = gps_conf.INTERMEDIATE_POS;
 
     // initial states taken care of by the memset above
@@ -325,6 +326,13 @@ static int loc_eng_reinit(loc_eng_data_s_type &loc_eng_data)
                                                        gps_conf.SENSOR_GYRO_BATCHES_PER_SEC));
         msg_q_snd((void*)((LocEngContext*)(loc_eng_data.context))->deferred_q,
                   sensor_perf_control_conf_msg, loc_eng_free_msg);
+
+        //Send data disable to modem. This will be set to enable when
+        //an UPDATE_NETWORK_STATE event is received from Android
+        loc_eng_msg_set_data_enable *msg(new loc_eng_msg_set_data_enable(&loc_eng_data, NULL,
+                                                                         0, 0));
+        msg_q_snd((void*)((LocEngContext*)(loc_eng_data.context))->deferred_q,
+                  msg, loc_eng_free_msg);
     }
 
     EXIT_LOG(%d, ret_val);
@@ -608,7 +616,6 @@ int loc_eng_inject_time(loc_eng_data_s_type &loc_eng_data, GpsUtcTime time,
                                  uncertainty));
     msg_q_snd((void*)((LocEngContext*)(loc_eng_data.context))->deferred_q,
               msg, loc_eng_free_msg);
-
     EXIT_LOG(%d, 0);
     return 0;
 }
@@ -1146,6 +1153,14 @@ void loc_eng_agps_ril_update_network_availability(loc_eng_data_s_type &loc_eng_d
                                                   int available, const char* apn)
 {
     ENTRY_LOG_CALLFLOW();
+
+    //This is to store the status of data availability over the network.
+    //If GPS is not enabled, the INIT_CHECK will fail and the modem will
+    //not be updated with the network's availability. Since the data status
+    //can change before GPS is enabled the, storing the status will enable
+    //us to inform the modem after GPS is enabled
+    agpsStatus = available;
+
     INIT_CHECK(loc_eng_data.context, return);
     if (apn != NULL)
     {
@@ -1559,6 +1574,14 @@ static void loc_eng_deferred_action_thread(void* arg)
             break;
 
         case LOC_ENG_MSG_REQUEST_TIME:
+            if (loc_eng_data_p->request_utc_time_cb != NULL)
+            {
+                loc_eng_data_p->request_utc_time_cb();
+            }
+            else
+            {
+                LOC_LOGE("%s] ERROR: Callback function for request_time is NULL", __func__);
+            }
             break;
 
         case LOC_ENG_MSG_REQUEST_POSITION:
@@ -1572,7 +1595,8 @@ static void loc_eng_deferred_action_thread(void* arg)
         {
             loc_eng_msg_set_data_enable *unaMsg = (loc_eng_msg_set_data_enable*)msg;
             loc_eng_data_p->client_handle->enableData(unaMsg->enable);
-            loc_eng_data_p->client_handle->setAPN(unaMsg->apn, unaMsg->length);
+            if(unaMsg->apn != NULL)
+                loc_eng_data_p->client_handle->setAPN(unaMsg->apn, unaMsg->length);
         }
         break;
 
