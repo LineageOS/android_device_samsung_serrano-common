@@ -73,6 +73,9 @@ BOARD_USES_SEPERATED_VOICE_SPEAKER := true
 # Use seperate devices for VOIP
 BOARD_USES_SEPERATED_VOIP := true
 
+# Use seperate device for FM
+BOARD_USES_SEPERATED_FM := true
+
 # Use USB Dock Audio
 BOARD_HAVE_DOCK_USBAUDIO := true
 
