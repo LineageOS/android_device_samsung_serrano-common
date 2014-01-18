@@ -81,3 +81,6 @@ BOARD_HAVE_DOCK_USBAUDIO := true
 
 # Allow suspend in charge mode
 BOARD_CHARGER_ENABLE_SUSPEND := true
+
+# We have new GPS
+BOARD_HAVE_NEW_QC_GPS := true

@@ -1,4 +1,4 @@
-/* Copyright (c) 2011-2012, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2012, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -9,7 +9,7 @@
  *       copyright notice, this list of conditions and the following
  *       disclaimer in the documentation and/or other materials provided
  *       with the distribution.
- *     * Neither the name of The Linux Foundation, nor the names of its
+ *     * Neither the name of The Linux Foundation nor the names of its
  *       contributors may be used to endorse or promote products derived
  *       from this software without specific prior written permission.
  *
@@ -27,36 +27,16 @@
  *
  */
 
-#ifndef LOC_ENG_LOG_H
-#define LOC_ENG_LOG_H
+#ifndef LOC_ENG_NMEA_H
+#define LOC_ENG_NMEA_H
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-
-#include <ctype.h>
 #include <hardware/gps.h>
-#include <loc.h>
 
-const char* loc_get_gps_status_name(GpsStatusValue gps_status);
-const char* loc_get_msg_name(int id);
-const char* loc_get_position_mode_name(GpsPositionMode mode);
-const char* loc_get_position_recurrence_name(GpsPositionRecurrence recur);
-const char* loc_get_aiding_data_mask_names(GpsAidingData data);
-const char* loc_get_agps_type_name(AGpsType type);
-const char* loc_get_ni_type_name(GpsNiType type);
-const char* loc_get_ni_response_name(GpsUserResponseType response);
-const char* loc_get_ni_encoding_name(GpsNiEncodingType encoding);
-#ifdef FEATURE_IPV6
-const char* loc_get_agps_bear_name(AGpsBearerType bear);
-#endif
-const char* loc_get_server_type_name(LocServerType type);
-const char* loc_get_position_sess_status_name(enum loc_sess_status status);
-const char* loc_get_agps_status_name(AGpsStatusValue status);
+#define NMEA_SENTENCE_MAX_LENGTH 200
 
-#ifdef __cplusplus
-}
-#endif
+void loc_eng_nmea_send(char *pNmea, int length, loc_eng_data_s_type *loc_eng_data_p);
+int loc_eng_nmea_put_checksum(char *pNmea, int maxSize);
+void loc_eng_nmea_generate_sv(loc_eng_data_s_type *loc_eng_data_p, const GpsSvStatus &svStatus, const GpsLocationExtended &locationExtended);
+void loc_eng_nmea_generate_pos(loc_eng_data_s_type *loc_eng_data_p, const GpsLocation &location, const GpsLocationExtended &locationExtended);
 
-#endif /* LOC_ENG_LOG_H */
+#endif // LOC_ENG_NMEA_H

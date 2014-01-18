@@ -8,8 +8,7 @@ include $(CLEAR_VARS)
 ## Libs
 LOCAL_SHARED_LIBRARIES := \
     libutils \
-    libcutils \
-    liblog
+    libcutils
 
 LOCAL_SRC_FILES += \
     loc_log.cpp \
@@ -20,6 +19,8 @@ LOCAL_SRC_FILES += \
 LOCAL_CFLAGS += \
      -fno-short-enums \
      -D_ANDROID_
+
+LOCAL_LDFLAGS += -Wl,--export-dynamic
 
 ## Includes
 LOCAL_C_INCLUDES:=
