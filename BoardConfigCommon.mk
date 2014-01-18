@@ -86,3 +86,6 @@ PRODUCT_BOOT_JARS := $(subst $(space),:,$(PRODUCT_BOOT_JARS))
 # Camera
 TARGET_NEED_SAMSUNG_MAGIC_ZSL_1508 := true
 TARGET_NEED_PREVIEW_SIZE_FIXUP := true
+
+# We have new GPS
+BOARD_HAVE_NEW_QC_GPS := true
