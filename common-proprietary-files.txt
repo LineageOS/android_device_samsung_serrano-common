@@ -47,7 +47,6 @@ bin/qmuxd
 bin/rild
 bin/rmt_storage
 bin/sec-ril
-lib/libatparser.so
 lib/libcordon.so
 lib/libdiag.so
 lib/libdsi_netctrl.so
@@ -73,6 +72,7 @@ vendor/lib/libqmiservices.so
 
 # GPS
 lib/libloc_api_v02.so
+lib/libgeofence.so
 
 # Sensors
 bin/geomagneticd
@@ -80,8 +80,6 @@ lib/hw/sensors.msm8960.so
 
 # Camera
 bin/mm-qcamera-daemon
-cameradata/datapattern_420sp.yuv
-cameradata/datapattern_front_420sp.yuv
 lib/hw/camera.msm8960.so:/lib/hw/camera.vendor.msm8960.so
 lib/libadsprpc.so
 lib/libchromatix_imx175_antishake.so
@@ -134,8 +132,6 @@ bin/qseecomd
 lib/libdrmdecrypt.so
 lib/libdrmfs.so
 lib/libdrmtime.so
-lib/libhdcp2.so
 lib/libQSEEComAPI.so
-lib/libtzplayready.so
 lib/libWVStreamControlAPI_L3.so
 lib/libwvm.so
