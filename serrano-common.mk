@@ -24,7 +24,7 @@ DEVICE_PACKAGE_OVERLAYS += device/samsung/serrano-common/overlay
 PRODUCT_AAPT_CONFIG := normal hdpi
 PRODUCT_AAPT_PREF_CONFIG := hdpi
 
-PRODUCT_BOOT_JARS += qcom.fmradio:qcmediaplayer
+PRODUCT_BOOT_JARS += qcmediaplayer
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 960
@@ -150,7 +150,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.mode=endfire \
     persist.audio.vr.enable=false \
     persist.audio.handset.mic=digital \
-    ro.fm.transmitter=false \
     ro.use_data_netmgrd=true \
     lpa.decode=true \
     lpa.use-stagefright=true \
