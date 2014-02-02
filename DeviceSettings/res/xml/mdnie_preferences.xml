@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/app_name">
+
+    <PreferenceCategory
+            android:key="mdnie"
+            android:title="@string/screen_colors_title">
+
+    <!-- mDNIe Scenario modes -->
+    <com.cyanogenmod.settings.device.mDNIeScenario
+	        android:key="mdnie_scenario"
+	        android:title="@string/mdnie_scenario_title_head"
+	        android:summary="@string/mdnie_scenario_summary_head"
+	        android:entries="@array/mdnie_scenario_entries"
+  			android:entryValues="@array/mdnie_scenario_entries_values"
+  			android:defaultValue="0" />
+
+    <!-- mDNIe Mode -->
+    <com.cyanogenmod.settings.device.mDNIeMode
+	        android:key="mdnie_mode"
+	        android:title="@string/mdnie_mode_title_head"
+	        android:summary="@string/mdnie_mode_summary_head"
+	        android:entries="@array/mdnie_mode_entries"
+  			android:entryValues="@array/mdnie_mode_entries_values"
+			android:defaultValue="4" />
+
+    <!-- mDNIe Outdoor mode -->
+    <com.cyanogenmod.settings.device.mDNIeOutdoor
+	        android:key="mdnie_outdoor_mode"
+	        android:title="@string/mdnie_outdoor_title_head"
+	        android:summary="@string/mdnie_outdoor_summary_head"
+  			android:defaultValue="false" />
+
+    <!-- mDNIe Negative mode -->
+    <com.cyanogenmod.settings.device.mDNIeNegative
+            android:key="mdnie_negative_mode"
+            android:title="@string/mdnie_negative_title_head"
+            android:summary="@string/mdnie_negative_summary_head"
+            android:defaultValue="false" />
+
+    <!-- Panel color temperature mode -->
+    <com.cyanogenmod.settings.device.PanelColorTemperature
+            android:key="panel_color_temperature"
+            android:title="@string/panel_color_temp_title_head"
+            android:summary="@string/panel_color_temp_summary_head"
+            android:entries="@array/panel_color_temp_entries"
+            android:entryValues="@array/panel_color_temp_entries_values"
+            android:defaultValue="2"/>
+    </PreferenceCategory>
+</PreferenceScreen>

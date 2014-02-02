@@ -103,6 +103,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # QRNGD
 PRODUCT_PACKAGES += qrngd
 
+# Device settings
+PRODUCT_PACKAGES += S4MiniSettings
+
 #common build.props
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.chipname=MSM8930AB \

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Pokročilé nastavení</string>
+    <string name="defaults_button">Obnovit výchozí</string>
+    <string name="screen_colors_title">Barvy</string>
+    <string name="category_mdnie_title">Obrazovka</string>
+    <string name="mdnie_scenario_title_head">Scénář</string>
+    <string name="mdnie_scenario_summary_head">Nastavit scénář pro mDNIe</string>
+    <string name="mdnie_mode_title_head">Režim</string>
+    <string name="mdnie_mode_summary_head">Nastavit režim mDNIe</string>
+    <string name="mdnie_negative_title_head">Inverzní režim</string>
+    <string name="mdnie_negative_summary_head">Použít invertování barev</string>
+    <string name="mdnie_outdoor_title_head">Venkovní režim</string>
+    <string name="mdnie_outdoor_summary_head">Použít venkovní režim</string>
+    <string name="panel_gamma_title_head">Gamma obrazovky</string>
+    <string name="panel_gamma_summary_head">Nastavit hodnotu gamma pro obrazovku</string>
+    <string name="panel_color_temp_title_head">Barevné podání obrazovky</string>
+    <string name="panel_color_temp_summary_head">Pro aktivaci funkce je potřeba obrazovku vypnout a zapnout</string>
+    <string name="category_sensors_title">Senzory</string>
+    <string name="touchkey_subcat_title">Dotyková tlačítka</string>
+    <string name="touchkey_light_title_head">Povolit podsvícení tlačítek</string>
+    <string name="touchkey_light_summary_head">Rozsvítit podsvícení tlačítek při zapnuté obrazovce</string>
+    <string name="category_sound_title">Zvuk</string>
+    <string name="sound_volume_title">Hlasitost</string>
+    <string name="voc_ep_xgain_title_head">Zesílení při telefonních hovorech</string>
+    <string name="voc_ep_xgain_summary_head">Zesílení hlasitosti sluchátka při telefonních hovorech</string>
+    <string name="category_dock_title">Dok</string>
+    <string name="dockaudio_subcat_title">Zvuk</string>
+    <string name="use_dock_audio_title_head">Použít zvuk doku přes USB</string>
+    <string name="use_dock_audio_summary_head">Použít pasivní zvukový výstup v doku</string>
+</resources>

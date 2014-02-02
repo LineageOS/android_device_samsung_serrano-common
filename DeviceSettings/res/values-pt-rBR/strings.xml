@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Configurações avançadas</string>
+    <string name="defaults_button">Redefinir para padrão</string>
+    <string name="screen_colors_title">Cores</string>
+    <string name="category_mdnie_title">Tela</string>
+    <string name="mdnie_scenario_title_head">Cenário</string>
+    <string name="mdnie_scenario_summary_head">Definir o cenário mDNIe</string>
+    <string name="mdnie_mode_title_head">Modo</string>
+    <string name="mdnie_mode_summary_head">Definir o modo mDNIe</string>
+    <string name="mdnie_negative_title_head">Modo negativo</string>
+    <string name="mdnie_negative_summary_head">Ativar/Desativar cores invertidas</string>
+    <string name="mdnie_outdoor_title_head">Modo ao ar livre</string>
+    <string name="mdnie_outdoor_summary_head">Ativar/Desativar modo ao ar livre</string>
+    <string name="panel_gamma_title_head">Gamma da tela</string>
+    <string name="panel_gamma_summary_head">Definir o valor da gamma da tela</string>
+    <string name="panel_color_temp_title_head">Temperatura das cores da tela</string>
+    <string name="panel_color_temp_summary_head">Ligue e desligue a tela para ativar</string>
+    <string name="category_sensors_title">Sensores</string>
+    <string name="touchkey_subcat_title">Botões capacitivos</string>
+    <string name="touchkey_light_title_head">Ativar luz de fundo dos botões</string>
+    <string name="touchkey_light_summary_head">Acender os botões capacitivos quando a tela estiver ligada</string>
+    <string name="category_sound_title">Som</string>
+    <string name="sound_volume_title">Volume</string>
+    <string name="voc_ep_xgain_title_head">Ganho extra nas ligações</string>
+    <string name="voc_ep_xgain_summary_head">Ganho de volume no alto falante durante as ligações</string>
+    <string name="category_dock_title">Dock</string>
+    <string name="dockaudio_subcat_title">Áudio do dock</string>
+    <string name="use_dock_audio_title_head">Usar áudio USB do dock</string>
+    <string name="use_dock_audio_summary_head">Usar a saída de áudio passiva no dock</string>
+</resources>
