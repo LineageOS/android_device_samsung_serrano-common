@@ -18,6 +18,8 @@
 -->
 
 <resources>
+    <!-- Use ZSL mode for Qualcomm cameras -->
+    <bool name="enableZSL">true</bool>
     <!-- Ignore bogus preferred preview size -->
     <bool name="ignorePreferredPreviewSizeForVideo">true</bool>
 </resources>
