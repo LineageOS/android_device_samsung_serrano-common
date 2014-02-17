@@ -82,7 +82,6 @@ QCOM_FM_ENABLED := true
 BOARD_USES_SEPERATED_FM := true
 
 # Camera
-TARGET_NEED_CAMERA_ZSL := true
 TARGET_NEED_SAMSUNG_MAGIC_ZSL_1508 := true
 
 # We have new GPS
