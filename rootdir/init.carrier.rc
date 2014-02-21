@@ -31,22 +31,22 @@ on init
 
     wait /dev/block/mmcblk0p20
     mount ext4 /dev/block/mmcblk0p20 /persdata/absolute nosuid nodev barrier=1
-    chown system system /persdata
-    chmod 0755 /persdata
-    chown system system /persdata/absolute
-    chmod 0750 /persdata/absolute
+    chown -h system system /persdata
+    chmod -h 0755 /persdata
+    chown -h system system /persdata/absolute
+    chmod -h 0750 /persdata/absolute
 
 on boot
-    chown system system /sys/class/leds/button-backlight/brightness
+    chown -h system system /sys/class/leds/button-backlight/brightness
 
     # Permissions for bluetooth
     setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
-    chown bluetooth net_bt_stack ro.bt.bdaddr_path
-    chown bluetooth net_bt_stack /dev/ttyHS0
-    chmod 0660 /dev/ttyHS0
-    chmod 0660 /sys/class/rfkill/rfkill0/state
-    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
-    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
+    chown -h bluetooth net_bt_stack ro.bt.bdaddr_path
+    chown -h bluetooth net_bt_stack /dev/ttyHS0
+    chmod -h 0660 /dev/ttyHS0
+    chmod -h 0660 /sys/class/rfkill/rfkill0/state
+    chown -h bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
+    chown -h bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
 
     # Sensor - soft iron
     write /sys/class/input/input5/static_matrix "9665 -302 -5 -268 10196 146 83 645 10159"

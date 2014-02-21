@@ -69,49 +69,49 @@ on early-boot
 
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
-    chown bluetooth bluetooth /sys/module/hci_smd/parameters/hcismd_set
-    chmod 0660 /sys/module/hci_smd/parameters/hcismd_set
-    chown bluetooth net_bt_stack /sys/devices/platform/msm_serial_hs.0/clock
-    chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
+    chown -h bluetooth bluetooth /sys/module/hci_smd/parameters/hcismd_set
+    chmod -h 0660 /sys/module/hci_smd/parameters/hcismd_set
+    chown -h bluetooth net_bt_stack /sys/devices/platform/msm_serial_hs.0/clock
+    chmod -h 0660 /sys/devices/platform/msm_serial_hs.0/clock
 
-    chmod 0660 /dev/ttyHS2
-    chown bluetooth bluetooth /dev/ttyHS2
+    chmod -h 0660 /dev/ttyHS2
+    chown -h bluetooth bluetooth /dev/ttyHS2
 
     # Create QMUX deamon socket area
     mkdir /dev/socket/qmux_radio 0770 radio radio
-    chmod 2770 /dev/socket/qmux_radio
+    chmod -h 2770 /dev/socket/qmux_radio
     mkdir /dev/socket/qmux_audio 0770 media audio
-    chmod 2770 /dev/socket/qmux_audio
+    chmod -h 2770 /dev/socket/qmux_audio
     mkdir /dev/socket/qmux_bluetooth 0770 bluetooth bluetooth
-    chmod 2770 /dev/socket/qmux_bluetooth
+    chmod -h 2770 /dev/socket/qmux_bluetooth
     mkdir /dev/socket/qmux_gps 0770 gps gps
-    chmod 2770 /dev/socket/qmux_gps
+    chmod -h 2770 /dev/socket/qmux_gps
 
     # Remove SUID bit for iproute2 ip tool
-    chmod 0755 /system/bin/ip
+    chmod -h 0755 /system/bin/ip
 
-    chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
+    chmod -h 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
     # Change permissions for fps_level nodes
-    chown system graphics /sys/class/graphics/fb0/msm_fb_fps_level
-    chown system graphics /sys/class/graphics/fb1/msm_fb_fps_level
-    chown system graphics /sys/class/graphics/fb2/msm_fb_fps_level
-    chmod 644 /sys/class/graphics/fb0/msm_fb_fps_level
-    chmod 400 /sys/class/graphics/fb1/msm_fb_fps_level
-    chmod 400 /sys/class/graphics/fb2/msm_fb_fps_level
+    chown -h system graphics /sys/class/graphics/fb0/msm_fb_fps_level
+    chown -h system graphics /sys/class/graphics/fb1/msm_fb_fps_level
+    chown -h system graphics /sys/class/graphics/fb2/msm_fb_fps_level
+    chmod -h 644 /sys/class/graphics/fb0/msm_fb_fps_level
+    chmod -h 400 /sys/class/graphics/fb1/msm_fb_fps_level
+    chmod -h 400 /sys/class/graphics/fb2/msm_fb_fps_level
 
     # Change permission for the backlight control
-    chown system system /sys/class/leds/button-backlight/brightness
-    chown system system /sys/class/backlight/msmfb_bl0/brightness
-    chmod 0664 /sys/class/leds/button-backlight/brightness
-    chmod 0664 /sys/class/backlight/msmfb_bl0/brightness
+    chown -h system system /sys/class/leds/button-backlight/brightness
+    chown -h system system /sys/class/backlight/msmfb_bl0/brightness
+    chmod -h 0664 /sys/class/leds/button-backlight/brightness
+    chmod -h 0664 /sys/class/backlight/msmfb_bl0/brightness
 
     # For disabling softkeys
-    chown root system /sys/class/leds/button-backlight/max_brightness
-    chmod 0664 /sys/class/leds/button-backlight/max_brightness
+    chown -h root system /sys/class/leds/button-backlight/max_brightness
+    chmod -h 0664 /sys/class/leds/button-backlight/max_brightness
 
     # For bridgemgr daemon to inform the USB driver of the correct transport
-    chown radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
+    chown -h radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
 
     # To allow interfaces to get v6 address when tethering is enabled
     write /proc/sys/net/ipv6/conf/rmnet0/accept_ra 2
@@ -173,19 +173,19 @@ on post-fs-data
     mkdir /data/misc/audio 0770 audio audio
 
     # Mounting of persist is moved to 'on emmc-fs' and 'on fs' sections
-    # We chown/chmod /persist again so because mount is run as root + defaults
-    chown system system /persist
-    chmod 0771 /persist
-    chmod 0664 /sys/devices/platform/msm_sdcc.1/polling
-    chmod 0664 /sys/devices/platform/msm_sdcc.2/polling
-    chmod 0664 /sys/devices/platform/msm_sdcc.3/polling
-    chmod 0664 /sys/devices/platform/msm_sdcc.4/polling
+    # We chown -h/chmod -h /persist again so because mount is run as root + defaults
+    chown -h system system /persist
+    chmod -h 0771 /persist
+    chmod -h 0664 /sys/devices/platform/msm_sdcc.1/polling
+    chmod -h 0664 /sys/devices/platform/msm_sdcc.2/polling
+    chmod -h 0664 /sys/devices/platform/msm_sdcc.3/polling
+    chmod -h 0664 /sys/devices/platform/msm_sdcc.4/polling
 
-    # Chown polling nodes as needed from UI running on system server
-    chown system system /sys/devices/platform/msm_sdcc.1/polling
-    chown system system /sys/devices/platform/msm_sdcc.2/polling
-    chown system system /sys/devices/platform/msm_sdcc.3/polling
-    chown system system /sys/devices/platform/msm_sdcc.4/polling
+    # chown -h polling nodes as needed from UI running on system server
+    chown -h system system /sys/devices/platform/msm_sdcc.1/polling
+    chown -h system system /sys/devices/platform/msm_sdcc.2/polling
+    chown -h system system /sys/devices/platform/msm_sdcc.3/polling
+    chown -h system system /sys/devices/platform/msm_sdcc.4/polling
 
     # Create the symlink to qcn wpa_supplicant folder for ar6000 wpa_supplicant
     mkdir /data/system 0775 system system
@@ -204,11 +204,11 @@ on post-fs-data
 
     # Create directory from IMS services
     mkdir /data/shared 0755
-    chown system system /data/shared
+    chown -h system system /data/shared
 
     # Create directory for FOTA
     mkdir /data/fota 0771
-    chown system system /data/fota
+    chown -h system system /data/fota
 
     # Create directory for hostapd
     mkdir /data/hostapd 0770 system wifi

@@ -84,19 +84,19 @@ on fs
 # Create cgroup mount points for process groups
     mkdir /dev/cpuctl
     mount cgroup none /dev/cpuctl cpu
-    chown system system /dev/cpuctl
-    chown system system /dev/cpuctl/tasks
-    chmod 0777 /dev/cpuctl/tasks
+    chown -h system system /dev/cpuctl
+    chown -h system system /dev/cpuctl/tasks
+    chmod -h 0777 /dev/cpuctl/tasks
     write /dev/cpuctl/cpu.shares 1024
 
     mkdir /dev/cpuctl/fg_boost
-    chown system system /dev/cpuctl/fg_boost/tasks
-    chmod 0777 /dev/cpuctl/fg_boost/tasks
+    chown -h system system /dev/cpuctl/fg_boost/tasks
+    chmod -h 0777 /dev/cpuctl/fg_boost/tasks
     write /dev/cpuctl/fg_boost/cpu.shares 1024
 
     mkdir /dev/cpuctl/bg_non_interactive
-    chown system system /dev/cpuctl/bg_non_interactive/tasks
-    chmod 0777 /dev/cpuctl/bg_non_interactive/tasks
+    chown -h system system /dev/cpuctl/bg_non_interactive/tasks
+    chmod -h 0777 /dev/cpuctl/bg_non_interactive/tasks
     # 5.0 %
     write /dev/cpuctl/bg_non_interactive/cpu.shares 52
 
@@ -116,13 +116,13 @@ on post-fs
     mount ext4 /dev/block/platform/msm_sdcc.1/by-name/cache /cache nosuid nodev barrier=1
 
     #Setting permissons for misc partition
-	chmod 0666 /dev/block/platform/msm_sdcc.1/by-name/fota
+    chmod -h 0666 /dev/block/platform/msm_sdcc.1/by-name/fota
 
     wait /dev/block/platform/msm_sdcc.1/by-name/efs
     check_fs /dev/block/platform/msm_sdcc.1/by-name/efs ext4
     mount ext4 /dev/block/platform/msm_sdcc.1/by-name/efs /efs nosuid nodev noatime noauto_da_alloc,discard,journal_async_commit,errors=panic
-	chown system radio /efs
-	chmod 0771 /efs
+    chown -h system radio /efs
+    chmod -h 0771 /efs
 
 on boot
 
@@ -139,7 +139,7 @@ service ueventd /sbin/ueventd
 
 # 1293840000 represents seconds for 2011/1/1 0:0:0 GMT since epoch
 # service time_reset /system/bin/date 1293840000
-#	oneshot
+¤    oneshot
 
 service console /system/bin/sh
     console

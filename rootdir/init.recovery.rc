@@ -26,8 +26,8 @@ on init
     mkdir /usbdisk
     mount /tmp /tmp tmpfs
 
-    chown root shell /tmp
-    chmod 0775 /tmp
+    chown -h root shell /tmp
+    chmod -h 0775 /tmp
 
     mkdir /mnt 0775 root system
     mkdir /storage 0050 root sdcard_r
