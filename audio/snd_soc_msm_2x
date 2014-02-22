@@ -3267,8 +3267,8 @@ SectionDevice
 		'PRI_TX Channels':0:Two
 		'AIF1_CAP Mixer SLIM TX1':1:1
 		'AIF1_CAP Mixer SLIM TX2':1:1
-		'SLIM TX1 MUX':0:DEC1
-		'SLIM TX2 MUX':0:DEC2
+		'SLIM TX1 MUX':0:DEC2
+		'SLIM TX2 MUX':0:DEC1
 		'DEC1 MUX':0:ADC1
 		'DEC2 MUX':0:ADC3
 		'ADC1 Volume':2:78.4%
