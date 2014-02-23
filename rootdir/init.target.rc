@@ -434,6 +434,11 @@ service geomagneticd /system/bin/geomagneticd
     user compass
     group system input
 
+service time_daemon /system/bin/time_daemon
+   class late_start
+   user root
+   group root
+
 on property:sys.boot_completed=1
     write /sys/class/input/input5/dynamic_matrix "10157 184 -98 184 9741 -556 -98 -556 10139"
     write /sys/class/input/input5/offsets "-1 9 1 493163 -131368 1406126 3"

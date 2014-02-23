@@ -59,7 +59,6 @@ lib/libqdp.so
 lib/libreference-ril.so
 lib/libril-qcril-hook-oem.so
 lib/libsecril-client.so
-lib/libtime_genoff.so
 vendor/lib/libidl.so
 vendor/lib/libqcci_legacy.so
 vendor/lib/libqmi.so
@@ -69,6 +68,10 @@ vendor/lib/libqmi_common_so.so
 vendor/lib/libqmi_csi.so
 vendor/lib/libqmi_encdec.so
 vendor/lib/libqmiservices.so
+
+# Time services
+bin/time_daemon
+lib/libtime_genoff.so
 
 # GPS
 lib/libloc_api_v02.so
