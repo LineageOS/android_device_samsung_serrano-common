@@ -83,6 +83,7 @@ BOARD_USES_SEPERATED_FM := true
 
 # Camera
 TARGET_NEED_CAMERA_ZSL := true
+TARGET_NEED_FFC_PICTURE_FIXUP := true
 
 # We have new GPS
 BOARD_HAVE_NEW_QC_GPS := true
