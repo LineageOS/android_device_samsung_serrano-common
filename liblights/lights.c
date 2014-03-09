@@ -277,7 +277,7 @@ set_light_leds_attention(struct light_device_t *dev,
 
 #ifdef GENERIC_BLN
 static int
-set_light_notifications(struct light_device_t* dev,
+set_light_leds_notifications(struct light_device_t* dev,
         struct light_state_t const* state)
 {
     int err = 0;
@@ -339,9 +339,9 @@ static int open_lights(const struct hw_module_t* module, char const* name,
         set_light = set_light_backlight;
     else if (0 == strcmp(LIGHT_ID_BUTTONS, name))
         set_light = set_light_buttons;
-#if defined(GENERIC_BLN) && defined(MULTI_COLOR_LED)
+#if defined(GENERIC_BLN) || defined(MULTI_COLOR_LED)
     else if (0 == strcmp(LIGHT_ID_NOTIFICATIONS, name))
-        set_light = set_light_notifications;
+        set_light = set_light_leds_notifications;
 #endif
 #ifdef MULTI_COLOR_LED
     else if (0 == strcmp(LIGHT_ID_BATTERY, name))
