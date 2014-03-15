@@ -25,9 +25,6 @@
 
 TARGET_SPECIFIC_HEADER_PATH := device/samsung/serrano-common/include
 
-# For backwards compatibility with camera blobs
-COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
-
 # Kernel
 BOARD_KERNEL_CMDLINE         := androidboot.hardware=qcom androidboot.selinux=permissive user_debug=31 zcache
 BOARD_KERNEL_BASE            := 0x80200000
@@ -86,6 +83,7 @@ QCOM_FM_ENABLED := true
 BOARD_USES_SEPERATED_FM := true
 
 # Camera
+COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 TARGET_NEED_CAMERA_ZSL := true
 TARGET_NEED_FFC_PICTURE_FIXUP := true
 

@@ -95,8 +95,7 @@ PRODUCT_PACKAGES += \
 # GPS
 PRODUCT_PACKAGES += \
     gps.msm8960 \
-    gps.conf \
-    sap.conf
+    gps.conf
 
 # FM radio
 PRODUCT_PACKAGES += \
