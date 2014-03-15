@@ -173,10 +173,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     mm.enable.smoothstreaming=true \
     persist.timed.enable=true
 
-# For userdebug builds
-ADDITIONAL_DEFAULT_PROPERTIES += \
-    ro.secure=0
-
 # call common msm8930
 $(call inherit-product, device/samsung/msm8930-common/msm8930.mk)
 
