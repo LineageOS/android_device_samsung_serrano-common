@@ -41,7 +41,7 @@ on init
     mkdir /storage/usbdisk 0000 system system
 
     export EXTERNAL_STORAGE /storage/emulated/legacy
-    export SECONDARY_STORAGE /storage/sdcard1:/storage/usbdisk
+    export SECONDARY_STORAGE /storage/sdcard1
     export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
     export EMULATED_STORAGE_TARGET /storage/emulated
     export BOOTCLASSPATH ${BOOTCLASSPATH}:/system/framework/qcmediaplayer.jar:/system/framework/qcom.fmradio.jar
