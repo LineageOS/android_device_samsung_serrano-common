@@ -172,8 +172,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vold.umsdirtyratio=50 \
     ro.cwm.enable_key_repeat=true \
     persist.debug.wfd.enable=1 \
-    persist.sys.wfd.virtual=0 \
-    mm.enable.smoothstreaming=true
+    persist.sys.wfd.virtual=0
 
 # For userdebug builds
 ADDITIONAL_DEFAULT_PROPERTIES += \
