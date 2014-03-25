@@ -142,6 +142,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.transmitpower=true \
     ro.warmboot.capability=1 \
     ro.qualcomm.cabl=0 \
+    debug.composition.type=c2d \
     ro.opengles.version=196608 \
     af.resampler.quality=255 \
     persist.audio.fluence.mode=endfire \
