@@ -164,6 +164,12 @@ on boot
     # Don't disable dmesg access for apps
     write /proc/sys/kernel/dmesg_restrict 0
 
+    write /sys/module/cpu_boost/parameters/boost_ms 20
+    write /sys/module/cpu_boost/parameters/sync_threshold 1458000
+    write /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor 100000
+    write /sys/module/cpu_boost/parameters/input_boost_freq 1134000
+    write /sys/module/cpu_boost/parameters/input_boost_ms 40
+
 # MSM specific files that need to be created on /data
 on post-fs-data
     # We will remap this as /mnt/sdcard with the sdcard fuse tool
