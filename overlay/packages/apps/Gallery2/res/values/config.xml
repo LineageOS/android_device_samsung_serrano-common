@@ -22,7 +22,4 @@
     <bool name="wantsFocusModes">true</bool>
     <!-- Ignore preferred preview size and use best value from supported preview sizes -->
     <bool name="ignorePreferredPreviewSizeForVideo">true</bool>
-    <bool name="noFaceDetectOnFrontCamera">true</bool>
-    <!-- Magic for enabling ZSL on Samsung cameras -->
-    <bool name="sendMagicSamsungZSLCommand">true</bool>
 </resources>
