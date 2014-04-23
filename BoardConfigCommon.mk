@@ -41,7 +41,6 @@ TARGET_KERNEL_SELINUX_CONFIG := selinux_defconfig
 TARGET_BOOTLOADER_BOARD_NAME := MSM8960
 
 # Recovery
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/serrano-common/recovery/recovery_keys.c
 BOARD_USES_MMCUTILS := true
 BOARD_HAS_NO_MISC_PARTITION := true
 TARGET_RECOVERY_FSTAB := device/samsung/serrano-common/rootdir/fstab.qcom
