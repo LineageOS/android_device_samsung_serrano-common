@@ -168,7 +168,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.cwm.enable_key_repeat=true \
     persist.debug.wfd.enable=1 \
     persist.sys.wfd.virtual=0 \
-    persist.timed.enable=true
+    persist.timed.enable=true \
+    persist.audio.lowlatency.rec=false
 
 # Enable Samsung EMS dial path
 PRODUCT_PROPERTY_OVERRIDES += \
