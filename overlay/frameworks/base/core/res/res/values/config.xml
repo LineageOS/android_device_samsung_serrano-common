@@ -199,6 +199,10 @@
         <item>0</item>
     </integer-array>
 
+    <!-- Boolean indicating if current platform supports bluetooth wide band
+         speech -->
+    <bool name="config_bluetooth_wide_band_speech">false</bool>
+
     <!-- Boolean indicating if current platform supports BLE peripheral mode -->
     <bool name="config_bluetooth_le_peripheral_mode_supported">true</bool>
 
