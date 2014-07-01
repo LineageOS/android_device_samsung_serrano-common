@@ -164,13 +164,6 @@ on boot
     # Don't disable dmesg access for apps
     write /proc/sys/kernel/dmesg_restrict 0
 
-    # For CPU boost interface
-    write /sys/module/cpu_boost/parameters/boost_ms 20
-    write /sys/module/cpu_boost/parameters/sync_threshold 1458000
-    write /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor 100000
-    write /sys/module/cpu_boost/parameters/input_boost_freq 1134000
-    write /sys/module/cpu_boost/parameters/input_boost_ms 40
-
     # Increase read_ahead
     write /sys/block/mmcblk0/bdi/read_ahead_kb 256
 
