@@ -93,6 +93,3 @@ BOARD_HAVE_NEW_QC_GPS := true
 
 # Time services
 BOARD_USES_QC_TIME_SERVICES := true
-
-# PowerHAL
-TARGET_POWERHAL_VARIANT := qcom
