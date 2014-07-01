@@ -480,6 +480,12 @@ service time_daemon /system/bin/time_daemon
     user root
     group root
 
+service wcnss-service /system/bin/wcnss_service
+    class late_start
+    user system
+    group system wifi
+    oneshot
+
 # bugreport is triggered by holding down volume down, volume up and power
 service bugreport /system/bin/dumpstate -d -p -B \
         -o /data/data/com.android.shell/files/bugreports/bugreport
