@@ -155,7 +155,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.handset.mic=digital \
     ro.use_data_netmgrd=true \
     lpa.decode=true \
-    lpa.use-stagefright=true \
     persist.rild.nitz_plmn="" \
     persist.rild.nitz_long_ons_0="" \
     persist.rild.nitz_long_ons_1="" \
