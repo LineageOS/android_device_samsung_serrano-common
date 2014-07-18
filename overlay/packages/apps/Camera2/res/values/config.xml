@@ -18,8 +18,6 @@
 -->
 
 <resources>
-    <!-- Ignore bogus preferred preview size -->
-    <bool name="ignorePreferredPreviewSizeForVideo">true</bool>
     <!-- Enable histogram support -->
     <bool name="enableHistogram">true</bool>
 </resources>
