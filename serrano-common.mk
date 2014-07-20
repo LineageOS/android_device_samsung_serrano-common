@@ -175,7 +175,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.wfd.virtual=0 \
     persist.timed.enable=true \
     persist.audio.lowlatency.rec=false \
-    audio.gapless.playback.disable=true
+    audio.gapless.playback.disable=true \
+    qcom.hw.aac.encoder=true
 
 # Enable Samsung EMS dial path
 PRODUCT_PROPERTY_OVERRIDES += \
