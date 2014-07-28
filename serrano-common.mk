@@ -137,6 +137,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 #common build.props
 PRODUCT_PROPERTY_OVERRIDES += \
+    ro.product_ship=true \
     wifi.interface=wlan0 \
     ro.chipname=MSM8930AB \
     ro.ril.hsxpa=1 \
@@ -155,7 +156,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.handset.mic=digital \
     ro.use_data_netmgrd=true \
     lpa.decode=true \
-    lpa.use-stagefright=true \
     persist.rild.nitz_plmn="" \
     persist.rild.nitz_long_ons_0="" \
     persist.rild.nitz_long_ons_1="" \
@@ -175,7 +175,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.wfd.virtual=0 \
     persist.timed.enable=true \
     persist.audio.lowlatency.rec=false \
-    audio.gapless.playback.disable=true
+    audio.gapless.playback.disable=true \
+    qcom.hw.aac.encoder=true
 
 # Enable Samsung EMS dial path
 PRODUCT_PROPERTY_OVERRIDES += \
