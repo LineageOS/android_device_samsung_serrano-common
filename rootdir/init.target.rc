@@ -35,11 +35,6 @@ on early-init
     mkdir /efs 0771 system radio
     chmod 644 /proc/cmdline
 
-service ril-qmi /system/bin/sh /init.qcom.ril.sh
-    class main
-    user root
-    oneshot
-
 on fs
     mount_all fstab.qcom
 
