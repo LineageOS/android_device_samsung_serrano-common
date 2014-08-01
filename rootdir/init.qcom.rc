@@ -64,7 +64,6 @@ on early-boot
     # Set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
 
-    exec /system/bin/sh /init.qcom.early_boot.sh ${ro.board.platform}
     exec /system/bin/sh /init.qcom.syspart_fixup.sh ${ro.board.platform} ${ro.serialno}
 
 on boot
@@ -92,19 +91,16 @@ on boot
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
-    # Create symlink for fb1 as HDMI
-    symlink /dev/graphics/fb1 /dev/graphics/hdmi
-
-    # Setup permissions for fb1 related nodes
     chown system graphics /sys/class/graphics/fb1/hpd
-    chmod 0664 /sys/devices/virtual/graphics/fb1/hpd
-    chmod 0664 /sys/devices/virtual/graphics/fb1/video_mode
-    chmod 0664 /sys/devices/virtual/graphics/fb1/format_3d
-    chown system graphics /sys/class/graphics/fb1/vscr_info
-    chmod 0664 /sys/devices/virtual/graphics/fb1/vscr_info
-
-    # Change owner and group for media server and surface flinger
-    chown system system /sys/devices/virtual/graphics/fb1/format_3d
+    chown system graphics /sys/class/graphics/fb1/vendor_name
+    chown system graphics /sys/class/graphics/fb1/product_description
+    chown system system /sys/class/graphics/fb1/format_3d
+    chmod 0664 /sys/class/graphics/fb1/hpd
+    chmod 0664 /sys/class/graphics/fb1/vendor_name
+    chmod 0664 /sys/class/graphics/fb1/product_description
+    chmod 0664 /sys/class/graphics/fb1/format_3d
+    chmod 0664 /sys/class/graphics/fb1/video_mode
+    symlink /dev/graphics/fb1 /dev/graphics/hdmi
 
     # Change permissions for fps_level nodes
     chown system graphics /sys/class/graphics/fb0/msm_fb_fps_level
@@ -237,18 +233,7 @@ on post-fs-data
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
 
-service qcom-c_core-sh /system/bin/sh /init.qcom.class_core.sh
-    class core
-    user root
-    oneshot
-
-service qcom-c_main-sh /system/bin/sh /init.qcom.class_main.sh
-    class main
-    user root
-    oneshot
-
 on property:vold.decrypt=trigger_restart_framework
-    start qcom-c_main-sh
     start config_bluetooth
 
 service rmt_storage /system/bin/rmt_storage
@@ -282,15 +267,9 @@ service qmuxd /system/bin/qmuxd
     class main
     user radio
     group radio audio bluetooth gps qcom_diag log
-    disabled
 
 service netmgrd /system/bin/netmgrd
     class main
-    disabled
-
-on property:ro.use_data_netmgrd=false
-    # netmgr not supported on specific target
-    stop netmgrd
 
 # Adjust socket buffer to enlarge TCP receive window for high bandwidth
 # but only if ro.data.large_tcp_window_size property is set.
@@ -371,11 +350,6 @@ on property:crypto.driver.load=1
 on property:crypto.driver.load=0
     exec /system/bin/rmmod qcedev.ko
     exec /system/bin/rmmod qce.ko
-
-service qcom-sh /system/bin/sh /init.qcom.sh
-    class late_start
-    user root
-    oneshot
 
 service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
     class late_start
