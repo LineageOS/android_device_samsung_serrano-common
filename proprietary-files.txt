@@ -1,7 +1,10 @@
-# Bins
+# Bluetooth
 bin/btnvtool
-bin/fm_qsoc_patches
 bin/hci_qcomm_init
+lib/libbtnv.so
+
+# FM Radio
+bin/fm_qsoc_patches
 
 # Thermal
 bin/mpdecision
@@ -78,8 +81,16 @@ bin/time_daemon
 lib/libtime_genoff.so
 
 # GPS
+bin/irsc_util
+lib/hw/gps.default.so
+lib/libgps.utils.so
 lib/libloc_api_v02.so
-lib/libgeofence.so
+lib/libloc_core.so
+lib/libloc_eng.so
+vendor/lib/libgeofence.so
+vendor/lib/libizat_core.so
+vendor/lib/liblbs_core.so
+vendor/lib/liblocationservice.so
 
 # Sensors
 bin/geomagneticd
@@ -128,6 +139,7 @@ lib/libmmmpod.so
 lib/libmmstillomx.so
 lib/liboemcamera.so
 lib/libsecnativefeature.so
+lib/libsensor1.so
 lib/libTsAccm.so
 lib/libTsAwb.so
 
@@ -135,16 +147,27 @@ lib/libTsAwb.so
 lib/libqc-opt.so
 
 # DRM
+bin/insthk
 bin/qseecomd
+lib/drm/libdrmwvmplugin.so
 lib/libdrmdecrypt.so
 lib/libdrmfs.so
 lib/libdrmtime.so
+lib/libhdcp2.so
 lib/libQSEEComAPI.so
-lib/libWVStreamControlAPI_L3.so
 lib/libwvm.so
+vendor/lib/mediadrm/libwvdrmengine.so
+vendor/lib/libwvdrm_L3.so
+vendor/lib/libWVStreamControlAPI_L3.so
+
+# Media
+lib/libOmxAacDec.so
+lib/libOmxAmrwbplusDec.so
+lib/libOmxEvrcDec.so
+lib/libOmxMux.so
+lib/libOmxQcelp13Dec.so
+lib/libOmxWmaDec.so
 
 # NFC firmware
 vendor/firmware/bcm2079xB4_firmware.ncd
 vendor/firmware/bcm2079xB4_pre_firmware.ncd
-vendor/firmware/bcm2079xB5_firmware.ncd
-vendor/firmware/bcm2079xB5_pre_firmware.ncd

@@ -236,6 +236,11 @@ on property:init.svc.wpa_supplicant=stopped
 on property:vold.decrypt=trigger_restart_framework
     start config_bluetooth
 
+service irsc_util /system/bin/logwrapper /system/bin/irsc_util "/etc/sec_config"
+    class main
+    user root
+    oneshot
+
 service rmt_storage /system/bin/rmt_storage
     class core
     user root

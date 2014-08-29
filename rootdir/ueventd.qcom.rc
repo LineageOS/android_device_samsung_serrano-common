@@ -39,7 +39,7 @@
 /dev/smd4                 0660   system     system
 /dev/smd_cxm_qmi          0640   radio      radio
 /dev/smd7                 0660   bluetooth  net_bt_stack
-/dev/smd11                0660   radio      radio
+/dev/smd11                0660   system     radio
 /dev/radio0               0640   system     system
 /dev/rfcomm0              0660   bluetooth  net_bt_stack
 /dev/gss                  0660   gps        gps
@@ -123,6 +123,7 @@
 /dev/msm_preproc_ctl      0660   system     audio
 /dev/msm_rtac             0660   system     audio
 /dev/msm_voicememo        0660   system     audio
+/dev/audience_a2220       0660   system     audio
 /dev/smd3                 0660   bluetooth  net_bt_stack
 /dev/smd2                 0660   bluetooth  net_bt_stack
 /dev/ttyHSL0              0660   radio      system
@@ -143,6 +144,14 @@
 /sys/devices/i2c-12/12-*  pollrate_ms 0664 system system
 /sys/devices/i2c-12/12-*  enable  0664 system system
 /sys/devices/i2c-12/12-*  poll_delay 0664 system system
+
+# sensor sysfs properties
+/sys/devices/virtual/input/input*	poll_delay	0660	system	radio
+/sys/devices/virtual/input/input*	enable		0660	system	radio
+/sys/devices/virtual/input/input*	acc_enable	0660	system	radio
+/sys/devices/virtual/input/input*	gyro_enable	0660	system	radio
+/sys/devices/virtual/input/input*	acc_delay	0660	system	radio
+/sys/devices/virtual/input/input*	gyro_delay	0660	system	radio
 
 # wlan
 /dev/wcnss_wlan           0660   system     system
