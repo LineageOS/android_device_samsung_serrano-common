@@ -47,25 +47,21 @@ lib/libmm-color-convertor.so
 
 # Radio
 bin/ds_fmc_appd
-bin/netmgrd
 bin/qmuxd
 bin/rild
 bin/rmt_storage
-bin/sec-ril
 lib/libcordon.so
-lib/libdiag.so
-lib/libdsi_netctrl.so
-lib/libdsutils.so
 lib/libfactoryutil.so
-lib/libnetmgr.so
 lib/libomission_avoidance.so
-lib/libqdi.so
-lib/libqdp.so
 lib/libreference-ril.so
-lib/libril-qc-qmi-1.so
-lib/libril-qcril-hook-oem.so
 lib/libril.so
+lib/libsec-ril.so
+lib/libsecnativefeature.so
 lib/libsecril-client.so
+lib/libxml.so
+vendor/lib/libconfigdb.so
+vendor/lib/libdiag.so
+vendor/lib/libdsutils.so
 vendor/lib/libidl.so
 vendor/lib/libqcci_legacy.so
 vendor/lib/libqmi.so
@@ -75,6 +71,7 @@ vendor/lib/libqmi_common_so.so
 vendor/lib/libqmi_csi.so
 vendor/lib/libqmi_encdec.so
 vendor/lib/libqmiservices.so
+vendor/lib/libril-qcril-hook-oem.so
 
 # Time services
 bin/time_daemon
@@ -138,7 +135,6 @@ lib/libmmjpeg_interface.so
 lib/libmmmpod.so
 lib/libmmstillomx.so
 lib/liboemcamera.so
-lib/libsecnativefeature.so
 lib/libsensor1.so
 lib/libTsAccm.so
 lib/libTsAwb.so
