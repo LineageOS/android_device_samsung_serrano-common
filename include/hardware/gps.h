@@ -125,38 +125,31 @@ typedef uint32_t GpsAidingData;
 #define GPS_DELETE_CELLDB_INFO                   0x00000800
 #define GPS_DELETE_ALMANAC_CORR                  0x00001000
 #define GPS_DELETE_FREQ_BIAS_EST                 0x00002000
-#define GPS_DELETE_EPHEMERIS_GLO                 0x00004000
-#define GPS_DELETE_ALMANAC_GLO                   0x00008000
-#define GPS_DELETE_SVDIR_GLO                     0x00010000
-#define GPS_DELETE_SVSTEER_GLO                   0x00020000
-#define GPS_DELETE_ALMANAC_CORR_GLO              0x00040000
+#define GLO_DELETE_EPHEMERIS                     0x00004000
+#define GLO_DELETE_ALMANAC                       0x00008000
+#define GLO_DELETE_SVDIR                         0x00010000
+#define GLO_DELETE_SVSTEER                       0x00020000
+#define GLO_DELETE_ALMANAC_CORR                  0x00040000
 #define GPS_DELETE_TIME_GPS                      0x00080000
-#define GPS_DELETE_TIME_GLO                      0x00100000
+#define GLO_DELETE_TIME                          0x00100000
+#define BDS_DELETE_SVDIR                         0X00200000
+#define BDS_DELETE_SVSTEER                       0X00400000
+#define BDS_DELETE_TIME                          0X00800000
+#define BDS_DELETE_ALMANAC_CORR                  0X01000000
+#define BDS_DELETE_EPHEMERIS                     0X02000000
+#define BDS_DELETE_ALMANAC                       0X04000000
 
 #define GPS_DELETE_ALL                           0xFFFFFFFF
 
 /** AGPS type */
-typedef int16_t AGpsType;
-#define AGPS_TYPE_INVALID       -1
-#define AGPS_TYPE_ANY           0
+typedef uint16_t AGpsType;
 #define AGPS_TYPE_SUPL          1
 #define AGPS_TYPE_C2K           2
-#define AGPS_TYPE_WWAN_ANY      3
-#define AGPS_TYPE_WIFI          4
-
-/** SSID length */
-#define SSID_BUF_SIZE (32+1)
 
 typedef uint16_t AGpsSetIDType;
 #define AGPS_SETID_TYPE_NONE    0
 #define AGPS_SETID_TYPE_IMSI    1
 #define AGPS_SETID_TYPE_MSISDN  2
-
-typedef int16_t AGpsBearerType;
-#define AGPS_APN_BEARER_INVALID    -1
-#define AGPS_APN_BEARER_IPV4        0
-#define AGPS_APN_BEARER_IPV6        1
-#define AGPS_APN_BEARER_IPV4V6      2
 
 /**
  * String length constants
@@ -254,14 +247,10 @@ typedef uint16_t AGpsStatusValue;
 #define AGPS_RIL_INTERFACE      "agps_ril"
 
 /**
- * The GPS chipset can use Psc for AGPS
- */
-#define AGPS_USE_PSC
-
-/**
  * Name for the GPS_Geofencing interface.
  */
 #define GPS_GEOFENCING_INTERFACE   "gps_geofencing"
+
 
 /** Represents a location. */
 typedef struct {
@@ -298,17 +287,20 @@ typedef struct {
     /** set to sizeof(GpsSvInfo) */
     size_t          size;
     /** Pseudo-random number for the SV. */
+
     int     prn;
+
     /** Signal to noise ratio. */
     float   snr;
+
     /** Elevation of SV in degrees. */
     float   elevation;
+
     /** Azimuth of SV in degrees. */
     float   azimuth;
-#if 1
-    /** Placeholder for Samsung ABI compat */
-    int     unknown;
-#endif
+
+    int used;
+
 } GpsSvInfo;
 
 /** Represents SV status. */
@@ -337,6 +329,7 @@ typedef struct {
      * were used for computing the most recent position fix.
      */
     uint32_t    used_in_fix_mask;
+
 } GpsSvStatus;
 
 /* 2G and 3G */
@@ -515,10 +508,7 @@ typedef struct {
 
     AGpsType        type;
     AGpsStatusValue status;
-    uint32_t        ipv4_addr;
-    char            ipv6_addr[16];
-    char            ssid[SSID_BUF_SIZE];
-    char            password[SSID_BUF_SIZE];
+    uint32_t        ipaddr;
 } AGpsStatus;
 
 /** Callback with AGPS status information.
@@ -547,16 +537,15 @@ typedef struct {
      * Notifies that a data connection is available and sets
      * the name of the APN to be used for SUPL.
      */
-    int  (*data_conn_open)( AGpsType agpsType,
-                            const char* apn, AGpsBearerType bearerType );
+    int  (*data_conn_open)( const char* apn );
     /**
      * Notifies that the AGPS data connection has been closed.
      */
-    int  (*data_conn_closed)( AGpsType agpsType );
+    int  (*data_conn_closed)();
     /**
      * Notifies that a data connection is not available for AGPS.
      */
-    int  (*data_conn_failed)(AGpsType  agpsType );
+    int  (*data_conn_failed)();
     /**
      * Sets the hostname and port for the AGPS server.
      */

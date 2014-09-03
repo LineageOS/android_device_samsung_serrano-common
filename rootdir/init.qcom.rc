@@ -64,7 +64,6 @@ on early-boot
     # Set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
 
-    exec /system/bin/sh /init.qcom.early_boot.sh ${ro.board.platform}
     exec /system/bin/sh /init.qcom.syspart_fixup.sh ${ro.board.platform} ${ro.serialno}
 
 on boot
@@ -92,19 +91,16 @@ on boot
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
-    # Create symlink for fb1 as HDMI
-    symlink /dev/graphics/fb1 /dev/graphics/hdmi
-
-    # Setup permissions for fb1 related nodes
     chown system graphics /sys/class/graphics/fb1/hpd
-    chmod 0664 /sys/devices/virtual/graphics/fb1/hpd
-    chmod 0664 /sys/devices/virtual/graphics/fb1/video_mode
-    chmod 0664 /sys/devices/virtual/graphics/fb1/format_3d
-    chown system graphics /sys/class/graphics/fb1/vscr_info
-    chmod 0664 /sys/devices/virtual/graphics/fb1/vscr_info
-
-    # Change owner and group for media server and surface flinger
-    chown system system /sys/devices/virtual/graphics/fb1/format_3d
+    chown system graphics /sys/class/graphics/fb1/vendor_name
+    chown system graphics /sys/class/graphics/fb1/product_description
+    chown system system /sys/class/graphics/fb1/format_3d
+    chmod 0664 /sys/class/graphics/fb1/hpd
+    chmod 0664 /sys/class/graphics/fb1/vendor_name
+    chmod 0664 /sys/class/graphics/fb1/product_description
+    chmod 0664 /sys/class/graphics/fb1/format_3d
+    chmod 0664 /sys/class/graphics/fb1/video_mode
+    symlink /dev/graphics/fb1 /dev/graphics/hdmi
 
     # Change permissions for fps_level nodes
     chown system graphics /sys/class/graphics/fb0/msm_fb_fps_level
@@ -237,19 +233,13 @@ on post-fs-data
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
 
-service qcom-c_core-sh /system/bin/sh /init.qcom.class_core.sh
-    class core
-    user root
-    oneshot
+on property:vold.decrypt=trigger_restart_framework
+    start config_bluetooth
 
-service qcom-c_main-sh /system/bin/sh /init.qcom.class_main.sh
+service irsc_util /system/bin/logwrapper /system/bin/irsc_util "/etc/sec_config"
     class main
     user root
     oneshot
-
-on property:vold.decrypt=trigger_restart_framework
-    start qcom-c_main-sh
-    start config_bluetooth
 
 service rmt_storage /system/bin/rmt_storage
     class core
@@ -267,7 +257,7 @@ service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
 service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
     class late_start
     user bluetooth
-    group bluetooth net_bt_admin
+    group qcom_oncrpc bluetooth net_bt_admin
     disabled
     oneshot
 
@@ -281,16 +271,10 @@ on property:bluetooth.hciattach=false
 service qmuxd /system/bin/qmuxd
     class main
     user radio
-    group radio audio bluetooth gps qcom_diag log
-    disabled
+    group radio audio bluetooth gps qcom_diag
 
 service netmgrd /system/bin/netmgrd
     class main
-    disabled
-
-on property:ro.use_data_netmgrd=false
-    # netmgr not supported on specific target
-    stop netmgrd
 
 # Adjust socket buffer to enlarge TCP receive window for high bandwidth
 # but only if ro.data.large_tcp_window_size property is set.
@@ -300,7 +284,7 @@ on property:ro.data.large_tcp_window_size=true
 service wpa_supplicant /system/bin/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
     -I/system/etc/wifi/wpa_supplicant_overlay.conf \
-    -O/data/misc/wifi/sockets \
+    -O/data/misc/wifi/sockets -dddd \
     -e/data/misc/wifi/entropy.bin -g@android:wpa_wlan0
     #   we will start as root and wpa_supplicant will switch to user wifi
     #   after setting up the capabilities required for WEXT
@@ -316,7 +300,7 @@ service p2p_supplicant /system/bin/wpa_supplicant \
     -I/system/etc/wifi/p2p_supplicant_overlay.conf -N \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
     -I/system/etc/wifi/wpa_supplicant_overlay.conf \
-    -O/data/misc/wifi/sockets -puse_p2p_group_interface=1 \
+    -O/data/misc/wifi/sockets -puse_p2p_group_interface=1 -dddd \
     -e/data/misc/wifi/entropy.bin -g@android:wpa_wlan0
     #   we will start as root and wpa_supplicant will switch to user wifi
     #   after setting up the capabilities required for WEXT
@@ -327,12 +311,12 @@ service p2p_supplicant /system/bin/wpa_supplicant \
     disabled
     oneshot
 
-service dhcpcd_wlan0 /system/bin/dhcpcd -aABDKL
+service dhcpcd_wlan0 /system/bin/dhcpcd -ABKLG
     class main
     disabled
     oneshot
 
-service dhcpcd_p2p /system/bin/dhcpcd -aABKL
+service dhcpcd_p2p /system/bin/dhcpcd -ABKLG
     class main
     disabled
     oneshot
@@ -360,7 +344,7 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
 service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
     class late_start
     user root
-    group system
+    group system qcom_oncrpc
     disabled
     oneshot
 
@@ -371,11 +355,6 @@ on property:crypto.driver.load=1
 on property:crypto.driver.load=0
     exec /system/bin/rmmod qcedev.ko
     exec /system/bin/rmmod qce.ko
-
-service qcom-sh /system/bin/sh /init.qcom.sh
-    class late_start
-    user root
-    oneshot
 
 service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
     class late_start
@@ -423,7 +402,7 @@ service ril-daemon1 /system/bin/rild -c 1
     socket rild-debug1 stream 660 radio system
     user root
     disabled
-    group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
+    group radio cache inet misc audio sdcard_r sdcard_rw qcom_oncrpc diag qcom_diag log
 
 # virtual sdcard daemon running as media_rw (1023)
 service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated

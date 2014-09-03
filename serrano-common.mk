@@ -42,6 +42,7 @@ PRODUCT_COPY_FILES += \
 
 # Media Profile
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/media/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml
 
 # Keylayouts
@@ -60,6 +61,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/fstab.qcom:root/fstab.qcom \
     $(LOCAL_PATH)/rootdir/init.qcom.rc:root/init.qcom.rc \
+    $(LOCAL_PATH)/rootdir/init.qcom.syspart_fixup.sh:root/init.qcom.syspart_fixup.sh \
     $(LOCAL_PATH)/rootdir/init.qcom.usb.rc:root/init.qcom.usb.rc \
     $(LOCAL_PATH)/rootdir/init.target.rc:root/init.target.rc \
     $(LOCAL_PATH)/rootdir/ueventd.qcom.rc:root/ueventd.qcom.rc
@@ -70,36 +72,19 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/system/etc/init.qcom.audio.sh:system/etc/init.qcom.audio.sh \
     $(LOCAL_PATH)/rootdir/system/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
     $(LOCAL_PATH)/rootdir/system/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh \
-    $(LOCAL_PATH)/rootdir/system/etc/init.qcom.mdm_links.sh:system/etc/init.qcom.mdm_links.sh \
     $(LOCAL_PATH)/rootdir/system/etc/init.qcom.modem_links.sh:system/etc/init.qcom.modem_links.sh \
+    $(LOCAL_PATH)/rootdir/system/etc/init.qcom.post_boot.sh:system/etc/init.qcom.post_boot.sh \
+    $(LOCAL_PATH)/rootdir/system/etc/init.qcom.thermal_conf.sh:system/etc/init.qcom.thermal_conf.sh \
     $(LOCAL_PATH)/rootdir/system/etc/init.qcom.wifi.sh:system/etc/init.qcom.wifi.sh
 
+# GPS HAL
+PRODUCT_PACKAGES += \
+    gps.msm8960
+
+# GPS config
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/system/etc/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
-    $(LOCAL_PATH)/rootdir/system/etc/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
-
-# Config files for hostapd
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/system/etc/hostapd/hostapd_default.conf:system/etc/hostapd/hostapd_default.conf \
-    $(LOCAL_PATH)/rootdir/system/etc/hostapd/hostapd.accept:system/etc/hostapd/hostapd.accept \
-    $(LOCAL_PATH)/rootdir/system/etc/hostapd/hostapd.deny:system/etc/hostapd/hostapd.deny
-
-# SoftAP
-PRODUCT_PACKAGES += \
-    libQWiFiSoftApCfg \
-    libqsap_sdk
-
-# CRDA
-PRODUCT_PACKAGES += \
-    crda \
-    regdbdump \
-    regulatory.bin \
-    linville.key.pub.pem
-
-# GPS
-PRODUCT_PACKAGES += \
-    gps.msm8960 \
-    gps.conf
+    $(LOCAL_PATH)/configs/gps.conf:system/etc/gps.conf \
+    $(LOCAL_PATH)/configs/sap.conf:system/etc/sap.conf
 
 # FM radio
 PRODUCT_PACKAGES += \
@@ -127,6 +112,10 @@ PRODUCT_PACKAGES += consumerir.msm8960
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.consumerir.xml:system/etc/permissions/android.hardware.consumerir.xml
 
+# GPS/location security configuration file
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
+
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
@@ -135,15 +124,20 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.extension_library=/system/lib/libqc-opt.so
 
-#common build.props
+# Common build props
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.product_ship=true \
     wifi.interface=wlan0 \
     ro.chipname=MSM8930AB \
+    ro.config.ehrpd=true \
     ro.ril.hsxpa=1 \
     ro.ril.gprsclass=10 \
     persist.radio.add_power_save=1 \
     persist.radio.apm_sim_not_pwdn=1 \
+    persist.radio.use_se_table_only=1 \
+    persist.radio.fill_eons=1 \
+    persist.radio.prefer_spn=0 \
+    persist.data.netmgrd.qos.enable=false \
     ro.sf.lcd_density=240 \
     ro.ril.transmitpower=true \
     ro.warmboot.capability=1 \
@@ -154,7 +148,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.mode=endfire \
     persist.audio.vr.enable=false \
     persist.audio.handset.mic=digital \
-    ro.use_data_netmgrd=true \
     lpa.decode=true \
     persist.rild.nitz_plmn="" \
     persist.rild.nitz_long_ons_0="" \
@@ -167,7 +160,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.rild.nitz_short_ons_3="" \
     ril.subscription.types=NV,RUIM \
     persist.gps.qmienabled=true \
-    persist.gps.qc_nlp_in_use=0 \
+    persist.gps.qc_nlp_in_use=1 \
+    ro.qc.sdk.izat.premium_enabled=0 \
+    ro.qc.sdk.izat.service_mask=0x0 \
+    ro.gps.agps_provider=1 \
     persist.fuse_sdcard=true \
     ro.vold.umsdirtyratio=50 \
     ro.cwm.enable_key_repeat=true \
