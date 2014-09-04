@@ -174,9 +174,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     audio.gapless.playback.disable=true \
     qcom.hw.aac.encoder=true
 
-# Enable Samsung EMS dial path
+# RIL
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.telephony.ril.v3=samsungEMSReq
+    ro.telephony.ril_class=SamsungMSM8930RIL
 
 # call common msm8930
 $(call inherit-product, device/samsung/msm8930-common/msm8930.mk)
