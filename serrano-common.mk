@@ -174,6 +174,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     audio.gapless.playback.disable=true \
     qcom.hw.aac.encoder=true
 
+# RIL
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.telephony.ril_class=SamsungQualcommRIL
+
 # Enable Samsung EMS dial path
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.ril.v3=samsungEMSReq
