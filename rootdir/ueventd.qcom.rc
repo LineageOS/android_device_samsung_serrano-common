@@ -156,3 +156,19 @@
 # wlan
 /dev/wcnss_wlan           0660   system     system
 /dev/wcnss_ctrl           0660   system     system
+
+# for sensor
+/dev/mpu                  0660   system     system
+/dev/mpuirq               0660   system     system
+/dev/timerirq             0660   system     system
+/dev/alps_io              0660   system     system
+
+# sensorhub
+/dev/ssp_sensorhub        0660   system     system
+
+# for usb printer
+/dev/bus/usb/*            0660   system     usb
+/dev/usb/lp*              0660   system     usb
+
+# permission for dun
+/dev/dun                  0660   system     system
