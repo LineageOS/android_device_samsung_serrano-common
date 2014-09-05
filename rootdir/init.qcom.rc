@@ -462,3 +462,9 @@ on charger
 service charger /charger
     class charger
     critical
+
+# Start multiple rilds based on multisim property
+on property:persist.radio.multisim.config=dsds
+    stop ril-daemon
+    start ril-daemon
+    start ril-daemon1
