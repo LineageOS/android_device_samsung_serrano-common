@@ -329,8 +329,27 @@ public class SamsungMSM8930RIL extends RIL implements CommandsInterface {
                 handleNitzTimeReceived(p);
                 break;
             // SAMSUNG STATES
+            case SamsungExynos4RIL.RIL_UNSOL_AM:
+                ret = responseString(p);
+                String amString = (String) ret;
+                Rlog.d(RILJ_LOG_TAG, "Executing AM: " + amString);
+
+                try {
+                    Runtime.getRuntime().exec("am " + amString);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Rlog.e(RILJ_LOG_TAG, "am " + amString + " could not be executed.");
+                }
+                break;
+            case SamsungExynos4RIL.RIL_UNSOL_RESPONSE_HANDOVER:
+                ret = responseVoid(p);
+                break;
             case 1036:
                 ret = responseVoid(p);
+                break;
+            case SamsungExynos4RIL.RIL_UNSOL_WB_AMR_STATE:
+                ret = responseInts(p);
+                setWbAmr(((int[])ret)[0]);
                 break;
             default:
                 // Rewind the Parcel
