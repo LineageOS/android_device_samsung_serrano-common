@@ -73,7 +73,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/system/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
     $(LOCAL_PATH)/rootdir/system/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh \
     $(LOCAL_PATH)/rootdir/system/etc/init.qcom.modem_links.sh:system/etc/init.qcom.modem_links.sh \
-    $(LOCAL_PATH)/rootdir/system/etc/init.qcom.post_boot.sh:system/etc/init.qcom.post_boot.sh \
     $(LOCAL_PATH)/rootdir/system/etc/init.qcom.thermal_conf.sh:system/etc/init.qcom.thermal_conf.sh \
     $(LOCAL_PATH)/rootdir/system/etc/init.qcom.wifi.sh:system/etc/init.qcom.wifi.sh
 
@@ -134,7 +133,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.gprsclass=10 \
     persist.radio.add_power_save=1 \
     persist.radio.apm_sim_not_pwdn=1 \
-    persist.radio.use_se_table_only=1 \
+    persist.eons.enabled=true \
     persist.radio.fill_eons=1 \
     persist.radio.prefer_spn=0 \
     persist.data.netmgrd.qos.enable=false \
@@ -172,11 +171,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.timed.enable=true \
     persist.audio.lowlatency.rec=false \
     audio.gapless.playback.disable=true \
-    qcom.hw.aac.encoder=true
+    qcom.hw.aac.encoder=true \
+    ro.config.max_starting_bg=8
 
-# Enable Samsung EMS dial path
+# RIL
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.telephony.ril.v3=samsungEMSReq
+    ro.telephony.ril_class=SamsungMSM8930RIL
 
 # call common msm8930
 $(call inherit-product, device/samsung/msm8930-common/msm8930.mk)
