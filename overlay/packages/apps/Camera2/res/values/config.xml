@@ -18,6 +18,10 @@
 -->
 
 <resources>
+    <!-- Zero shutter lag mode -->
+    <bool name="enableZSL">true</bool>
+    <!-- Allow HDR and ZSL together -->
+    <bool name="enableHDRWithZSL">true</bool>
     <!-- Enable histogram support -->
     <bool name="enableHistogram">true</bool>
 </resources>
