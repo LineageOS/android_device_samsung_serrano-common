@@ -271,5 +271,9 @@
             Right    Display Width - 100
     -->
     <integer-array name="config_smartCoverWindowCoords">
+        <item>40</item>
+        <item>100</item>
+        <item>440</item>
+        <item>440</item>
     </integer-array>
 </resources>
