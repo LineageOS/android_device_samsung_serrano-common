@@ -272,8 +272,8 @@
     -->
     <integer-array name="config_smartCoverWindowCoords">
         <item>40</item>
-        <item>100</item>
+        <item>60</item>
         <item>440</item>
-        <item>440</item>
+        <item>480</item>
     </integer-array>
 </resources>
