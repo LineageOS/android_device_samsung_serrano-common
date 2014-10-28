@@ -75,8 +75,10 @@ vendor/lib/libqmiservices.so
 vendor/lib/libril-qcril-hook-oem.so
 
 # Time services
+-app/TimeService.apk
 bin/time_daemon
-lib/libtime_genoff.so
+-lib/libtime_genoff.so
+-lib/libTimeService.so
 
 # GPS
 bin/irsc_util
