@@ -11,4 +11,4 @@
 
 # vold managed volumes
 /devices/platform/msm_sdcc.3/mmc_host              auto               auto      defaults         wait,voldmanaged=sdcard1:auto
-/devices/platform/msm_hsusb_host/usb1              auto               auto      defaults         wait,voldmanaged=sda:auto
+/devices/platform/msm_hsusb_host/usb1              auto               auto      defaults         wait,voldmanaged=usbdisk:auto
