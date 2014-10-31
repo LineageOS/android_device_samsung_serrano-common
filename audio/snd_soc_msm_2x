@@ -3528,7 +3528,7 @@ SectionDevice
 		'AIF1_CAP Mixer SLIM TX1':1:1
 		'SLIM TX1 MUX':0:DEC4
 		'DEC4 MUX':0:ADC3
-		'ADC3 Volume':1:100%
+		'ADC3 Volume':1:63.2%
 		'DEC4 Volume':2:67.7%
 	EndSequence
 
