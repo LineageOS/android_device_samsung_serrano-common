@@ -160,9 +160,6 @@ on boot
     # Don't disable dmesg access for apps
     write /proc/sys/kernel/dmesg_restrict 0
 
-    # Increase read_ahead
-    write /sys/block/mmcblk0/bdi/read_ahead_kb 256
-
     # Set SSR level
     setprop persist.sys.ssr.restart_level 3
 

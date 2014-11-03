@@ -35,6 +35,10 @@ on early-init
     mkdir /efs 0771 system radio
     chmod 644 /proc/cmdline
 
+    # Increase read_ahead
+    write /sys/block/mmcblk0/bdi/read_ahead_kb 256
+    write /sys/block/mmcblk1/bdi/read_ahead_kb 256
+
 on fs
     mount_all fstab.qcom
 
