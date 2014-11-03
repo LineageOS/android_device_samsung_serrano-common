@@ -118,9 +118,24 @@ on post-fs-data
     chmod 0660 /data/.psm.info
 
     # Sensors
-    write /sys/class/input/input5/distortion "400 50 15"
-    write /sys/class/input/input6/distortion "400 50 15"
-    write /sys/class/input/input7/distortion "400 50 15"
+    write /sys/class/input/input4/distortion "400 50 15"
+
+    # mpu6500_input
+    chown system input /sys/class/input/input2/acc_enable
+    chown system input /sys/class/input/input2/acc_delay
+    chown system input /sys/class/input/input2/gyro_enable
+    chown system input /sys/class/input/input2/gyro_delay
+    chown system input /sys/class/input/input2/self_test
+
+    # geomagnetic
+    chown system input /sys/class/input/input3/enable
+    chown system input /sys/class/input/input3/delay
+    chown system input /sys/class/input/input3/filter_enable
+    chown system input /sys/class/input/input3/filter_len
+    chown system input /sys/class/input/input3/data
+    chown system input /sys/class/input/input3/status
+    chown system input /sys/class/input/input3/wake
+    chown system input /sys/class/input/input3/position
 
     # geomagnetic_raw
     chown compass input /sys/class/input/input4/offsets
@@ -128,11 +143,14 @@ on post-fs-data
     chown system input /sys/class/input/input4/threshold
     chown system input /sys/class/input/input4/distortion
     chown system input /sys/class/input/input4/shape
-    chown compass input /sys/class/input/input5/offsets
-    chown compass input /sys/class/input/input5/dynamic_matrix
-    chown system input /sys/class/input/input5/threshold
-    chown system input /sys/class/input/input5/distortion
-    chown system input /sys/class/input/input5/shape
+    chown system input /sys/class/input/input4/self_test
+
+    # proximity_sensor
+    chown system input /sys/class/input/input5/enable
+
+    # light_sensor
+    chown system input /sys/class/input/input6/enable
+    chown system input /sys/class/input/input6/poll_delay
 
     # Accelerometer_sensor
     chown system radio /sys/class/sensors/accelerometer_sensor/raw_data
