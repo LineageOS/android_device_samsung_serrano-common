@@ -33,8 +33,8 @@ vendor/lib/egl/libGLESv2S3D_adreno.so
 vendor/lib/egl/libq3dtools_adreno.so
 vendor/lib/libadreno_utils.so
 vendor/lib/libC2D2.so
-vendor/lib/libc2d2_a3xx.so
 vendor/lib/libCB.so
+vendor/lib/libc2d2_a3xx.so
 vendor/lib/libgsl.so
 vendor/lib/libllvm-a3xx.so
 vendor/lib/libOpenCL.so
@@ -50,6 +50,7 @@ bin/ds_fmc_appd
 bin/qmuxd
 bin/rild
 bin/rmt_storage
+etc/plmn_se13.bin
 lib/libcordon.so
 lib/libfactoryutil.so
 lib/libomission_avoidance.so
@@ -74,8 +75,10 @@ vendor/lib/libqmiservices.so
 vendor/lib/libril-qcril-hook-oem.so
 
 # Time services
+-app/TimeService.apk
 bin/time_daemon
-lib/libtime_genoff.so
+-lib/libtime_genoff.so
+-lib/libTimeService.so
 
 # GPS
 bin/irsc_util

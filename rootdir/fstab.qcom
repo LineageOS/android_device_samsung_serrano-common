@@ -10,5 +10,5 @@
 /dev/block/platform/msm_sdcc.1/by-name/recovery    /recovery          emmc      defaults    defaults
 
 # vold managed volumes
-/devices/platform/msm_sdcc.3/mmc_host              auto               auto      defaults         wait,voldmanaged=sdcard1:auto
-/devices/platform/msm_hsusb_host/usb1              auto               auto      defaults         wait,voldmanaged=sda:auto
+/devices/platform/msm_sdcc.3/mmc_host              auto               auto      defaults         voldmanaged=sdcard1:auto,noemulatedsd
+/devices/platform/msm_hsusb_host/usb1              auto               auto      defaults         voldmanaged=usbdisk:auto

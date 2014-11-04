@@ -1,0 +1,3 @@
+<resources>
+    <string name="pref_camera_denoise_default" translatable="false">denoise-on</string>
+</resources>

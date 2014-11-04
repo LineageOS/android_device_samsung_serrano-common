@@ -247,11 +247,6 @@ typedef uint16_t AGpsStatusValue;
 #define AGPS_RIL_INTERFACE      "agps_ril"
 
 /**
-+ * The GPS chipset can use Psc for AGPS
-+ */
-#define AGPS_USE_PSC
-
-/**
  * Name for the GPS_Geofencing interface.
  */
 #define GPS_GEOFENCING_INTERFACE   "gps_geofencing"
@@ -344,9 +339,6 @@ typedef struct {
     uint16_t mcc;
     uint16_t mnc;
     uint16_t lac;
-#ifdef AGPS_USE_PSC
-    uint16_t psc;
-#endif
     uint32_t cid;
 } AGpsRefLocationCellID;
 
