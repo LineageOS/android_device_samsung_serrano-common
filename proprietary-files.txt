@@ -74,6 +74,9 @@ vendor/lib/libqmi_encdec.so
 vendor/lib/libqmiservices.so
 vendor/lib/libril-qcril-hook-oem.so
 
+# Network
+bin/radish
+
 # Time services
 -app/TimeService.apk
 bin/time_daemon

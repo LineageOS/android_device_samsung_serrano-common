@@ -108,6 +108,11 @@ PRODUCT_PACKAGES += qcmediaplayer
 # IR package
 PRODUCT_PACKAGES += consumerir.msm8960
 
+# IPv6 tethering
+PRODUCT_PACKAGES += \
+    ebtables \
+    ethertypes
+
 # IR feature permission
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.consumerir.xml:system/etc/permissions/android.hardware.consumerir.xml
