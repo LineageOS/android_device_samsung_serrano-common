@@ -19,7 +19,7 @@
 #define _BDROID_BUILDCFG_H
 
 #define BTA_DISABLE_DELAY 1000 /* in milliseconds */
-#define BLUETOOTH_QCOM_SW TRUE
+#define BLUETOOTH_QTI_SW TRUE
 #define BTA_HOST_INTERLEAVE_SEARCH TRUE
 // skips conn update at conn completion
 #define BTA_BLE_SKIP_CONN_UPD TRUE

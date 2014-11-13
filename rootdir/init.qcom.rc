@@ -27,6 +27,7 @@
 
 import init.qcom.usb.rc
 import init.qcom.power.rc
+import init.target.rc
 
 on init
     # Set permissions for persist partition
@@ -86,6 +87,12 @@ on boot
     chmod 2770 /dev/socket/qmux_bluetooth
     mkdir /dev/socket/qmux_gps 0770 gps gps
     chmod 2770 /dev/socket/qmux_gps
+
+    # Create PERFD deamon related dirs
+    mkdir /data/misc/perfd 0770 root system
+    chmod 2770 /data/misc/perfd
+    mkdir /data/system/perfd 0770 root system
+    chmod 2770 /data/system/perfd
 
     # Remove SUID bit for iproute2 ip tool
     chmod 0755 /system/bin/ip
