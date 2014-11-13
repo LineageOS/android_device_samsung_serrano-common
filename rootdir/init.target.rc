@@ -119,6 +119,7 @@ on post-fs-data
 
     # Sensors
     write /sys/class/input/input4/distortion "400 50 15"
+    write /sys/class/input/input5/distortion "400 50 15"
 
     # mpu6500_input
     chown system input /sys/class/input/input2/acc_enable
@@ -126,6 +127,11 @@ on post-fs-data
     chown system input /sys/class/input/input2/gyro_enable
     chown system input /sys/class/input/input2/gyro_delay
     chown system input /sys/class/input/input2/self_test
+    chown system input /sys/class/input/input3/acc_enable
+    chown system input /sys/class/input/input3/acc_delay
+    chown system input /sys/class/input/input3/gyro_enable
+    chown system input /sys/class/input/input3/gyro_delay
+    chown system input /sys/class/input/input3/self_test
 
     # geomagnetic
     chown system input /sys/class/input/input3/enable
@@ -136,6 +142,14 @@ on post-fs-data
     chown system input /sys/class/input/input3/status
     chown system input /sys/class/input/input3/wake
     chown system input /sys/class/input/input3/position
+    chown system input /sys/class/input/input4/enable
+    chown system input /sys/class/input/input4/delay
+    chown system input /sys/class/input/input4/filter_enable
+    chown system input /sys/class/input/input4/filter_len
+    chown system input /sys/class/input/input4/data
+    chown system input /sys/class/input/input4/status
+    chown system input /sys/class/input/input4/wake
+    chown system input /sys/class/input/input4/position
 
     # geomagnetic_raw
     chown compass input /sys/class/input/input4/offsets
@@ -147,10 +161,13 @@ on post-fs-data
 
     # proximity_sensor
     chown system input /sys/class/input/input5/enable
+    chown system input /sys/class/input/input6/enable
 
     # light_sensor
     chown system input /sys/class/input/input6/enable
     chown system input /sys/class/input/input6/poll_delay
+    chown system input /sys/class/input/input7/enable
+    chown system input /sys/class/input/input7/poll_delay
 
     # Accelerometer_sensor
     chown system radio /sys/class/sensors/accelerometer_sensor/raw_data
