@@ -2,13 +2,14 @@
 # The filesystem that contains the filesystem checker binary (typically /system) cannot
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
 
-#<src>                                             <mnt_point>        <type>    <mnt_flags and options>                     <fs_mgr_flags>
-/dev/block/platform/msm_sdcc.1/by-name/system      /system            ext4      ro,errors=panic                             wait
-/dev/block/platform/msm_sdcc.1/by-name/cache       /cache             ext4      noatime,nosuid,nodev                        wait,check
-/dev/block/platform/msm_sdcc.1/by-name/userdata    /data              ext4      noatime,nosuid,nodev,noauto_da_alloc,journal_async_commit,errors=panic    wait,check,encryptable=footer
+#<src>                                             <mnt_point>        <type>    <mnt_flags and options>                                                                         <fs_mgr_flags>
+/dev/block/platform/msm_sdcc.1/by-name/system      /system            ext4      ro,errors=panic                                                                                 wait
+/dev/block/platform/msm_sdcc.1/by-name/cache       /cache             ext4      noatime,nosuid,nodev                                                                            wait,check
+/dev/block/platform/msm_sdcc.1/by-name/userdata    /data              ext4      noatime,nosuid,nodev,noauto_da_alloc,journal_async_commit,errors=panic                          wait,check,encryptable=footer
 /dev/block/platform/msm_sdcc.1/by-name/boot        /boot              emmc      defaults    defaults
 /dev/block/platform/msm_sdcc.1/by-name/recovery    /recovery          emmc      defaults    defaults
+/dev/block/platform/msm_sdcc.1/by-name/modem       /firmware          vfat      ro,shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337,context=u:object_r:firmware_file:s0    wait
 
 # vold managed volumes
-/devices/platform/msm_sdcc.3/mmc_host              auto               auto      defaults         voldmanaged=sdcard1:auto,noemulatedsd
+/devices/platform/msm_sdcc.3/mmc_host*             auto               auto      defaults         voldmanaged=sdcard1:auto,noemulatedsd
 /devices/platform/msm_hsusb_host/usb1              auto               auto      defaults         voldmanaged=usbdisk:auto
