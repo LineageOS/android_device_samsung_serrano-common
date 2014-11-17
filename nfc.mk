@@ -21,6 +21,6 @@ PRODUCT_COPY_FILES += \
 
 # NFC packages
 PRODUCT_PACKAGES += \
-    nfc_nci.msm8960 \
+    nfc_nci.bcm2079x.default \
     NfcNci \
     Tag
