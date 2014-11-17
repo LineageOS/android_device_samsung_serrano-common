@@ -223,48 +223,8 @@
     -->
     <bool name="config_wifiDisplaySupportsProtectedBuffers">true</bool>
 
-    <!-- Hardware 'face' keys present on the device, stored as a bit field.
-         This integer should equal the sum of the corresponding value for each
-         of the following keys present:
-             1 - Home
-             2 - Back
-             4 - Menu
-             8 - Assistant (search)
-            16 - App switch
-         For example, a device with Home, Back and Menu keys would set this
-         config to 7. -->
-    <integer name="config_deviceHardwareKeys">7</integer>
-
-    <!-- Integer to configure panel auto brightness mode when changed -->
-    <integer name="config_panelAutoBrightnessValue">1</integer>
-
-    <!-- Device supports LED flashlight -->
-    <bool name="config_enableTorch">true</bool>
-
-    <!-- Flag indicating whether the RIL_REQUEST_SEND_SMS_EXPECT_MORE
-         API should be used or not. The usage of the API is added
-         by CodeAurora and may not be supported by certain RIL.
-
-         The default value is false which represents AOSP behavior. -->
-    <bool name="config_smsUseExpectMore">true</bool>
-
     <!-- Indicate whether closing the lid causes the device to go to sleep and opening
          it causes the device to wake up.
          The default is false. -->
     <bool name="config_lidControlsSleep">true</bool>
-
-    <!-- Indicate the device's Smart Cover coordinates.
-         If none are provided, then the feature will be disabled.
-         The array should contain 4 values, in pixels, (sample values provided):
-            Top      0
-            Left     100
-            Bottom   Top + 400
-            Right    Display Width - 100
-    -->
-    <integer-array name="config_smartCoverWindowCoords">
-        <item>40</item>
-        <item>60</item>
-        <item>440</item>
-        <item>480</item>
-    </integer-array>
 </resources>
