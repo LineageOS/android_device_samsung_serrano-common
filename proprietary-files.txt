@@ -78,7 +78,7 @@ vendor/lib/libril-qcril-hook-oem.so
 bin/radish
 
 # Time services
--app/TimeService.apk
+-app/TimeService/TimeService.apk
 bin/time_daemon
 -lib/libtime_genoff.so
 -lib/libTimeService.so
