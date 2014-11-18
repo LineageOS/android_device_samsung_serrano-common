@@ -144,7 +144,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.qualcomm.cabl=0 \
     debug.composition.type=c2d \
     ro.opengles.version=196608 \
-    af.resampler.quality=4 \
     mm.enable.qcom_parser=3314291 \
     persist.audio.fluence.mode=endfire \
     persist.audio.vr.enable=false \
