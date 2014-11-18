@@ -248,12 +248,6 @@
          The default value is false which represents AOSP behavior. -->
     <bool name="config_smsUseExpectMore">true</bool>
 
-    <!-- Enable the option to check proximity sensor when deciding whether to
-         turn the screen on
-         NOTE ! - Enable for devices that have a fast response proximity sensor
-    -->
-    <bool name="config_proximityCheckOnWake">true</bool>
-
     <!-- Indicate whether closing the lid causes the device to go to sleep and opening
          it causes the device to wake up.
          The default is false. -->
