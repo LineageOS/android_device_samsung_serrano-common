@@ -27,6 +27,8 @@
 
 import init.qcom.usb.rc
 import init.qcom.power.rc
+import init.target.rc
+import init.carrier.rc
 
 on init
     # Set permissions for persist partition
