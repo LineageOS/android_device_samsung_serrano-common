@@ -1,10 +1,10 @@
-key 1     ENTER             WAKE_DROPPED
-key 2     DPAD_UP           WAKE_DROPPED
-key 3     DPAD_DOWN         WAKE_DROPPED
-key 4     DPAD_LEFT         WAKE_DROPPED
-key 5     DPAD_RIGHT        WAKE_DROPPED
-key 10    MENU              WAKE_DROPPED
-key 14    BACK              WAKE_DROPPED
+key 1     ENTER
+key 2     DPAD_UP
+key 3     DPAD_DOWN
+key 4     DPAD_LEFT
+key 5     DPAD_RIGHT
+key 10    MENU
+key 14    BACK
 
 key 33    0
 key 34    1
