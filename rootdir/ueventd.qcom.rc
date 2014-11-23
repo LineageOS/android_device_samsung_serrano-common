@@ -1,4 +1,4 @@
-# Copyright (c) 2012, The Linux Foundation. All rights reserved.
+# Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -38,10 +38,10 @@
 /dev/smd0                 0660   system     system
 /dev/smd4                 0660   system     system
 /dev/smd_cxm_qmi          0640   radio      radio
-/dev/smd7                 0660   bluetooth  net_bt_stack
+/dev/smd7                 0660   bluetooth  bluetooth
 /dev/smd11                0660   system     radio
 /dev/radio0               0640   system     system
-/dev/rfcomm0              0660   bluetooth  net_bt_stack
+/dev/rfcomm0              0660   bluetooth  bluetooth
 /dev/gss                  0660   gps        gps
 /dev/smdcntl0             0640   radio      radio
 /dev/smdcntl1             0640   radio      radio
@@ -129,7 +129,6 @@
 /dev/audience_a2220       0660   system     audio
 /dev/smd3                 0660   bluetooth  net_bt_stack
 /dev/smd2                 0660   bluetooth  net_bt_stack
-/dev/ttyHSL0              0660   radio      system
 /dev/ttyHSL1              0660   system     system
 /dev/mdm                  0660   system     radio
 /sys/devices/virtual/smdpkt/smdcntl*        open_timeout   0664 radio radio
