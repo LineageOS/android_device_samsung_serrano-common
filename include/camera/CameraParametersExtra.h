@@ -121,7 +121,7 @@ void CameraParameters::setPreviewFrameRateMode(const char *mode) { set(KEY_PREVI
 void CameraParameters::getMeteringAreaCenter(int *x, int *y) const { }; \
 void CameraParameters::setTouchIndexAec(int x, int y) { }; \
 void CameraParameters::setTouchIndexAf(int x, int y) { }; \
-void CameraParameters::setPreviewFpsRange(int minFPS, int maxFPS) { }
+void CameraParameters::setPreviewFpsRange(int minFPS, int maxFPS) { };
 
 #define CAMERA_PARAMETERS_EXTRA_H \
     static const char KEY_SUPPORTED_ISO_MODES[]; \
