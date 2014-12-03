@@ -35,6 +35,7 @@ on charger
 service charger /charger
     class charger
     critical
+    seclabel u:r:healthd:s0
 
 on boot
     # Switch one core to interactive to set permissions, for power hal and system server
