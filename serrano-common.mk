@@ -175,7 +175,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.gps.agps_provider=1 \
     persist.fuse_sdcard=true \
     ro.vold.umsdirtyratio=50 \
-    ro.cwm.enable_key_repeat=true \
     persist.debug.wfd.enable=1 \
     persist.sys.wfd.virtual=0 \
     persist.timed.enable=true \
