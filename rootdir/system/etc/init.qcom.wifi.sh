@@ -35,6 +35,3 @@ MACSOURCE="/efs/wifi/.mac.info"
 MACADDR="/sys/devices/platform/wcnss_wlan.0/wcnss_mac_addr"
 
 cat $MACSOURCE > $MACADDR
-
-# Run audio init script
-/system/bin/sh /system/etc/init.qcom.audio.sh
