@@ -10,9 +10,6 @@ bin/fm_qsoc_patches
 bin/mpdecision
 bin/thermald
 
-# SSWAP
-bin/sswap
-
 # Audio
 lib/libacdbloader.so
 lib/libaudcal.so

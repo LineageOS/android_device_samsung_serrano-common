@@ -92,9 +92,6 @@ on boot
     write /sys/devices/i2c-3/3-005b/update_fw 1
     start qcamerasvr
 
-    # SSWAP
-    write /proc/sys/vm/swappiness 130
-
 on post-fs-data
     mkdir /data/tombstones 0771 system system
     mkdir /tombstones/modem 0771 system system
@@ -468,13 +465,6 @@ service insthk /system/bin/insthk
     class main
     user root
     disabled
-    oneshot
-
-# SSWAP
-service swapon /system/bin/sswap -s
-    class core
-    user root
-    group root
     oneshot
 
 on property:sys.qseecomd.enable=true
