@@ -36,6 +36,11 @@ mkdir /system/etc/firmware/wcd9310
 ln -s /data/misc/audio/wcd9310_anc.bin /etc/firmware/wcd9310/wcd9310_anc.bin 2>/dev/null
 ln -s /data/misc/audio/mbhc.bin /etc/firmware/wcd9310/wcd9310_mbhc.bin 2>/dev/null
 
+# fastrpc permission setting
+insmod /system/lib/modules/adsprpc.ko
+chown -h system.system /dev/adsprpc-smd
+chmod -h 664 /dev/adsprpc-smd
+
 setprop qcom.audio.init complete
 
 exit 0
