@@ -31,11 +31,6 @@
 PATH=/sbin:/system/sbin:/system/bin:/system/xbin
 export PATH
 
-mkdir /system/etc/firmware/wcd9310
-
-ln -s /data/misc/audio/wcd9310_anc.bin /etc/firmware/wcd9310/wcd9310_anc.bin 2>/dev/null
-ln -s /data/misc/audio/mbhc.bin /etc/firmware/wcd9310/wcd9310_mbhc.bin 2>/dev/null
-
 # fastrpc permission setting
 insmod /system/lib/modules/adsprpc.ko
 chown -h system.system /dev/adsprpc-smd
