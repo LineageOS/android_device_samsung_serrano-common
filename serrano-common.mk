@@ -125,78 +125,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
 
-# Set composition for USB
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=mtp
-
-# Set read only default composition for USB
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sys.usb.default.config=mtp
-
-# QC Perf
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.extension_library=/system/lib/libqc-opt.so
-
-# Common build props
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.product_ship=true \
-    wifi.interface=wlan0 \
-    ro.chipname=MSM8930AB \
-    ro.config.ehrpd=true \
-    ro.ril.hsxpa=1 \
-    ro.ril.gprsclass=10 \
-    persist.radio.add_power_save=1 \
-    persist.radio.apm_sim_not_pwdn=1 \
-    persist.eons.enabled=true \
-    persist.radio.fill_eons=1 \
-    persist.radio.prefer_spn=0 \
-    persist.data.netmgrd.qos.enable=false \
-    ro.sf.lcd_density=240 \
-    ro.ril.transmitpower=true \
-    ro.warmboot.capability=1 \
-    ro.qualcomm.cabl=0 \
-    debug.composition.type=c2d \
-    ro.opengles.version=196608 \
-    mm.enable.qcom_parser=3407871 \
-    persist.audio.fluence.mode=endfire \
-    persist.audio.vr.enable=false \
-    persist.audio.handset.mic=digital \
-    lpa.decode=true \
-    persist.rild.nitz_plmn="" \
-    persist.rild.nitz_long_ons_0="" \
-    persist.rild.nitz_long_ons_1="" \
-    persist.rild.nitz_long_ons_2="" \
-    persist.rild.nitz_long_ons_3="" \
-    persist.rild.nitz_short_ons_0="" \
-    persist.rild.nitz_short_ons_1="" \
-    persist.rild.nitz_short_ons_2="" \
-    persist.rild.nitz_short_ons_3="" \
-    ril.subscription.types=NV,RUIM \
-    persist.gps.qmienabled=true \
-    persist.gps.qc_nlp_in_use=1 \
-    ro.qc.sdk.izat.premium_enabled=0 \
-    ro.qc.sdk.izat.service_mask=0x0 \
-    ro.gps.agps_provider=1 \
-    persist.fuse_sdcard=true \
-    ro.vold.umsdirtyratio=50 \
-    persist.debug.wfd.enable=1 \
-    persist.sys.wfd.virtual=0 \
-    persist.timed.enable=true \
-    persist.audio.lowlatency.rec=false \
-    audio.gapless.playback.disable=true \
-    qcom.hw.aac.encoder=true \
-    media.stagefright.use-awesome=true \
-    ro.config.max_starting_bg=8 \
-    camera2.portability.force_api=1 \
-    mm.enable.smoothstreaming=true
-
-# RIL
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.telephony.ril_class=SerranoRIL
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.product.locale.language=en \
-    ro.product.locale.region=GB
+# call common serrano system props
+$(call inherit-product, device/samsung/serrano-common/system_prop.mk)
 
 # call common msm8930
 $(call inherit-product, device/samsung/msm8930-common/msm8930.mk)
