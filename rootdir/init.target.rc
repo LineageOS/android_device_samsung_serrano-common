@@ -43,7 +43,6 @@ on fs
     mount_all fstab.qcom
 
     restorecon_recursive /persist
-    mkdir /persist/data 0700 system system
 
     chown system radio /efs
     chmod 0771 /efs

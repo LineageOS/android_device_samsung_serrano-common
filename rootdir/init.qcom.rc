@@ -67,8 +67,6 @@ on early-boot
     # Set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
 
-    exec /system/bin/sh /init.qcom.syspart_fixup.sh ${ro.board.platform} ${ro.serialno}
-
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
     chown bluetooth bluetooth /sys/module/hci_smd/parameters/hcismd_set
@@ -177,10 +175,6 @@ on post-fs-data
     # Create directory used by radio subsystem
     mkdir /data/radio 0770 radio radio
 
-    # Mounting of persist is moved to 'on emmc-fs' and 'on fs' sections
-    # We chown/chmod /persist again so because mount is run as root + defaults
-    chown system system /persist
-    chmod 0771 /persist
     chmod 0664 /sys/devices/platform/msm_sdcc.1/polling
     chmod 0664 /sys/devices/platform/msm_sdcc.2/polling
     chmod 0664 /sys/devices/platform/msm_sdcc.3/polling
@@ -353,6 +347,12 @@ service qcom-audio /system/bin/sh /system/etc/init.qcom.audio.sh
    disabled
    oneshot
 
+service qcom-wifi /system/bin/sh /system/etc/init.qcom.wifi.sh
+   class late_start
+   user root
+   disabled
+   oneshot
+
 service hostapd /system/bin/hostapd -dd /data/misc/wifi/hostapd.conf
     class late_start
     user root
@@ -404,3 +404,4 @@ on property:persist.sys.ssr.restart_level=3
 
 on property:sys.boot_completed=1
     start qcom-audio
+    start qcom-wifi
