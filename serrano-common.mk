@@ -174,7 +174,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.timed.enable=true \
     persist.audio.lowlatency.rec=false \
     audio.gapless.playback.disable=true \
-    qcom.hw.aac.encoder=true \
+    qcom.hw.aac.encoder=false \
     ro.config.max_starting_bg=8
 
 # RIL
