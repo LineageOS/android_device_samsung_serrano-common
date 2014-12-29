@@ -19,16 +19,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.rild.nitz_short_ons_3="" \
     ril.subscription.types=NV,RUIM \
     ro.telephony.ril_class=SerranoRIL \
-    ro.config.ehrpd=true \
-    ro.ril.hsxpa=1 \
-    ro.ril.gprsclass=10 \
-    ro.ril.transmitpower=true \
-    persist.radio.add_power_save=1 \
-    persist.radio.apm_sim_not_pwdn=1 \
-    persist.eons.enabled=true \
-    persist.radio.fill_eons=1 \
-    persist.radio.prefer_spn=0 \
-    persist.data.netmgrd.qos.enable=false
+    persist.radio.add_power_save=1
 
 # GPS
 PRODUCT_PROPERTY_OVERRIDES += \
