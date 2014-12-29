@@ -32,7 +32,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
     audio.gapless.playback.disable=true \
-    lpa.decode=true \
+    lpa.decode=false \
     media.stagefright.use-awesome=true \
     mm.enable.qcom_parser=3407871 \
     mm.enable.smoothstreaming=true \
