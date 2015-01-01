@@ -155,7 +155,8 @@ public class SerranoRIL extends RIL {
             int np = p.readInt();
             dc.numberPresentation = DriverCall.presentationFromCLIP(np);
             dc.name = p.readString();
-            dc.namePresentation = p.readInt();
+            // according to ril.h, namePresentation should be handled as numberPresentation;
+            dc.namePresentation = DriverCall.presentationFromCLIP(p.readInt());
             int uusInfoPresent = p.readInt();
             if (uusInfoPresent == 1) {
                 dc.uusInfo = new UUSInfo();
