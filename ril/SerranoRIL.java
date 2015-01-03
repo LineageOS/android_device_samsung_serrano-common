@@ -312,4 +312,32 @@ public class SerranoRIL extends RIL {
 
         send(rr);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void getCellInfoList(Message result) {
+        riljLog("getCellInfoList: not supported");
+        if (result != null) {
+            CommandException ex = new CommandException(
+                CommandException.Error.REQUEST_NOT_SUPPORTED);
+            AsyncResult.forMessage(result, null, ex);
+            result.sendToTarget();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setCellInfoListRate(int rateInMillis, Message response) {
+        riljLog("setCellInfoListRate: not supported");
+        if (response != null) {
+            CommandException ex = new CommandException(
+                CommandException.Error.REQUEST_NOT_SUPPORTED);
+            AsyncResult.forMessage(response, null, ex);
+            response.sendToTarget();
+        }
+    }
 }
