@@ -20,6 +20,7 @@ import static com.android.internal.telephony.RILConstants.*;
 
 import android.content.Context;
 import android.telephony.Rlog;
+import android.os.AsyncResult;
 import android.os.Message;
 import android.os.Parcel;
 import android.telephony.PhoneNumberUtils;
@@ -299,7 +300,13 @@ public class SerranoRIL extends RIL {
      */
     @Override
     public void getCellInfoList(Message result) {
-        if (RILJ_LOGD) riljLog("[STUB] > getCellInfoList");
+        riljLog("getCellInfoList: not supported");
+        if (result != null) {
+            CommandException ex = new CommandException(
+                CommandException.Error.REQUEST_NOT_SUPPORTED);
+            AsyncResult.forMessage(result, null, ex);
+            result.sendToTarget();
+        }
     }
 
     /**
@@ -307,6 +314,12 @@ public class SerranoRIL extends RIL {
      */
     @Override
     public void setCellInfoListRate(int rateInMillis, Message response) {
-        if (RILJ_LOGD) riljLog("[STUB] > setCellInfoListRate");
+        riljLog("setCellInfoListRate: not supported");
+        if (response != null) {
+            CommandException ex = new CommandException(
+                CommandException.Error.REQUEST_NOT_SUPPORTED);
+            AsyncResult.forMessage(response, null, ex);
+            response.sendToTarget();
+        }
     }
 }
