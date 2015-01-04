@@ -299,7 +299,21 @@ public class SerranoRIL extends RIL {
      */
     @Override
     public void getCellInfoList(Message result) {
-        if (RILJ_LOGD) riljLog("[STUB] > getCellInfoList");
+        if(mRilVersion < 8) {
+            if (result != null) {
+                CommandException ex = new CommandException(
+                    CommandException.Error.REQUEST_NOT_SUPPORTED);
+                AsyncResult.forMessage(result, null, ex);
+                result.sendToTarget();
+            }
+            return;
+        }
+
+        RILRequest rr = RILRequest.obtain(RIL_REQUEST_GET_CELL_INFO_LIST, result);
+
+        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
+
+        send(rr);
     }
 
     /**
@@ -307,6 +321,24 @@ public class SerranoRIL extends RIL {
      */
     @Override
     public void setCellInfoListRate(int rateInMillis, Message response) {
-        if (RILJ_LOGD) riljLog("[STUB] > setCellInfoListRate");
+        if(mRilVersion < 8) {
+            if (response != null) {
+                CommandException ex = new CommandException(
+                    CommandException.Error.REQUEST_NOT_SUPPORTED);
+                AsyncResult.forMessage(response, null, ex);
+                response.sendToTarget();
+            }
+            return;
+        }
+
+        if (RILJ_LOGD) riljLog("setCellInfoListRate: " + rateInMillis);
+        RILRequest rr = RILRequest.obtain(RIL_REQUEST_SET_UNSOL_CELL_INFO_LIST_RATE, response);
+
+        rr.mParcel.writeInt(1);
+        rr.mParcel.writeInt(rateInMillis);
+
+        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
+
+        send(rr);
     }
 }
