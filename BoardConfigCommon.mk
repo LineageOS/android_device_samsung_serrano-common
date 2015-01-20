@@ -54,22 +54,24 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/serrano-common/bluetooth
 
-# Use seperate speakerphone device
-BOARD_USES_SEPERATED_VOICE_SPEAKER := true
-
-# Use seperate devices for VOIP
-BOARD_USES_SEPERATED_VOIP := true
-
-# Use USB Dock Audio
+# Audio
+BOARD_HAVE_SAMSUNG_AUDIO := true
 BOARD_HAVE_DOCK_USBAUDIO := true
-
-# Allow suspend in charge mode
-BOARD_CHARGER_ENABLE_SUSPEND := true
+QCOM_CSDCLIENT_ENABLED := false
+BOARD_USES_LEGACY_ALSA_AUDIO := true
+BOARD_USES_FLUENCE_INCALL := true
+BOARD_USES_FLUENCE_FOR_VOIP := true
+BOARD_USES_SEPERATED_AUDIO_INPUT := true
+BOARD_USES_SEPERATED_VOICE_SPEAKER := true
+BOARD_USES_SEPERATED_VOIP := true
 
 # Enable QCOM FM feature
 AUDIO_FEATURE_ENABLED_FM := true
 QCOM_FM_ENABLED := true
 BOARD_USES_SEPERATED_FM := true
+
+# Allow suspend in charge mode
+BOARD_CHARGER_ENABLE_SUSPEND := true
 
 # Camera
 TARGET_NEED_CAMERA_ZSL := true
