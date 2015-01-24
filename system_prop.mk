@@ -66,11 +66,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.timed.enable=true \
     wifi.interface=wlan0
 
-# Locale
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.product.locale.language=en \
-    ro.product.locale.region=GB
-
 # QC Perf
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.extension_library=/system/lib/libqc-opt.so
