@@ -31,16 +31,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
-    audio.gapless.playback.disable=true \
     audio.offload.disable=1 \
-    lpa.decode=false \
-    persist.sys.media.use-awesome=true \
     mm.enable.qcom_parser=3407871 \
     mm.enable.smoothstreaming=true \
-    persist.audio.fluence.mode=endfire \
-    persist.audio.vr.enable=false \
-    persist.audio.handset.mic=digital \
-    persist.audio.lowlatency.rec=false \
+    ro.qc.sdk.audio.fluencetype=none \
+    persist.audio.fluence.voicecall=true \
+    persist.audio.fluence.voicerec=false \
+    persist.audio.fluence.speaker=true \
     qcom.hw.aac.encoder=false
 
 # Graphics
