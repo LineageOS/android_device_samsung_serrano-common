@@ -31,14 +31,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
-    audio.gapless.playback.disable=true \
     audio.offload.disable=1 \
     mm.enable.qcom_parser=3407871 \
     mm.enable.smoothstreaming=true \
-    persist.audio.fluence.mode=endfire \
-    persist.audio.vr.enable=false \
-    persist.audio.handset.mic=digital \
-    persist.audio.lowlatency.rec=false \
+    ro.qc.sdk.audio.fluencetype=fluence \
+    persist.audio.fluence.voicecall=true \
+    persist.audio.fluence.voicerec=false \
+    persist.audio.fluence.speaker=true \
+    use.dedicated.device.for.voip=true \
     qcom.hw.aac.encoder=true
 
 # Graphics
