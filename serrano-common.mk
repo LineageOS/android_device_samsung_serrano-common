@@ -20,10 +20,6 @@ $(call inherit-product-if-exists, vendor/samsung/serrano-common/serrano-common-v
 # Common overlay
 DEVICE_PACKAGE_OVERLAYS += device/samsung/serrano-common/overlay
 
-# Device uses high-density artwork where available
-PRODUCT_AAPT_CONFIG := normal hdpi
-PRODUCT_AAPT_PREF_CONFIG := hdpi
-
 # Boot animation
 TARGET_SCREEN_HEIGHT := 960
 TARGET_SCREEN_WIDTH := 540
