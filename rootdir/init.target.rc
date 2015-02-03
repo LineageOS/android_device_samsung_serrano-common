@@ -77,6 +77,10 @@ on post-fs-data
     chown system system /efs/wifi/.mac.info
     chmod 0664 /efs/wifi/.mac.info
 
+    # efs
+    mkdir /efs/drm 0700 system system
+    mkdir /efs/imei 0775 radio radio
+
     # For TRP/TIS
     write /data/.psm.info 1
     chown system root /data/.psm.info
@@ -85,6 +89,14 @@ on post-fs-data
     # Sensors
     write /sys/class/input/input4/distortion "400 50 15"
     write /sys/class/input/input5/distortion "400 50 15"
+
+    # Sensor - soft iron
+    write /sys/class/input/input4/static_matrix "9665 -302 -5 -268 10196 146 83 645 10159"
+    write /sys/class/input/input5/static_matrix "9665 -302 -5 -268 10196 146 83 645 10159"
+
+    # Enable ellipsoid for dynamic compensation
+    write /sys/class/input/input4/ellipsoid_mode 1
+    write /sys/class/input/input5/ellipsoid_mode 1
 
     # mpu6500_input
     chown system input /sys/class/input/input2/acc_enable
@@ -374,6 +386,12 @@ on post-fs-data
     # Panel color temperature
     chmod 0660 /sys/class/lcd/panel/panel_colors
     chown system system /sys/class/lcd/panel/panel_colors
+
+    # Backlight notification
+    chown system system /sys/class/misc/backlightnotification/enabled
+    chown system system /sys/class/misc/backlightnotification/blink_control
+    chown system system /sys/class/misc/backlightnotification/notification_led
+    restorecon /sys/class/misc/backlightnotification/enabled
 
 # Start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
