@@ -64,7 +64,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vold.umsdirtyratio=50 \
     ro.config.max_starting_bg=8 \
     persist.timed.enable=true \
-    wifi.interface=wlan0
+    wifi.interface=wlan0 \
+    ro.qualcomm.bt.hci_transport=smd
 
 # QC Perf
 PRODUCT_PROPERTY_OVERRIDES += \

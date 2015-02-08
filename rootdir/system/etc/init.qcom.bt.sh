@@ -19,8 +19,6 @@ failed ()
   exit $2
 }
 
-setprop ro.qualcomm.bt.hci_transport smd
-
 # Note that "hci_qcomm_init -e" prints expressions to set the shell variables
 # BTS_DEVICE, BTS_TYPE, BTS_BAUD, and BTS_ADDRESS.
 
