@@ -3184,6 +3184,32 @@ SectionDevice
 EndSection
 
 SectionDevice
+		Name "Voice Headset"
+		Comment "Headset Tx device for Voice call"
+
+	EnableSequence
+		'PRI_TX Channels':0:One
+		'AIF1_CAP Mixer SLIM TX1':1:1
+		'SLIM TX1 MUX':0:DEC4
+		'DEC4 MUX':0:ADC2
+		'ADC2 Volume':1:63.2%
+		'DEC4 Volume':2:67.7%
+	EndSequence
+
+	DisableSequence
+		'AIF1_CAP Mixer SLIM TX1':0:ZERO
+		'SLIM TX1 MUX':0:ZERO
+		'DEC4 MUX':0:ZERO
+		'ADC2 Volume':1:0
+		'DEC4 Volume':1:0
+	EndSequence
+
+	ACDBID	8:2
+	EffectsMixerCTL "SRS TruMedia"
+
+EndSection
+
+SectionDevice
 	Name "Handset"
 	Comment "Handset Tx device"
 
@@ -3380,8 +3406,8 @@ SectionDevice
 		'PRI_TX Channels':0:One
 		'AIF1_CAP Mixer SLIM TX1':1:1
 		'SLIM TX1 MUX':0:DEC4
-		'DEC4 MUX':0:ADC3
-		'ADC3 Volume':1:63.2%
+		'DEC4 MUX':0:ADC1
+		'ADC1 Volume':1:57.9%
 		'DEC4 Volume':2:67.7%
 	EndSequence
 
@@ -3389,11 +3415,11 @@ SectionDevice
 		'AIF1_CAP Mixer SLIM TX1':0:ZERO
 		'SLIM TX1 MUX':0:ZERO
 		'DEC4 MUX':0:ZERO
-		'ADC3 Volume':1:0
+		'ADC1 Volume':1:0
 		'DEC4 Volume':1:0
 	EndSequence
 
-	ACDBID 58:2
+	ACDBID 57:2
 
 EndSection
 
@@ -3791,7 +3817,7 @@ SectionDevice
 	DisableSequence
 	EndSequence
 
-	ACDBID	46:1
+	ACDBID	39:1
 	EffectsMixerCTL "SRS TruMedia"
 
 EndSection
@@ -3806,7 +3832,7 @@ SectionDevice
 	DisableSequence
 	EndSequence
 
-	ACDBID	47:2
+	ACDBID	38:2
 	EffectsMixerCTL "SRS TruMedia"
 
 EndSection
