@@ -71,6 +71,9 @@ BOARD_USES_SEPERATED_VOICE_SPEAKER := true
 # Use seperate devices for VOIP
 BOARD_USES_SEPERATED_VOIP := true
 
+# Use seperate headset mic
+BOARD_USES_SEPERATED_HEADSET_MIC := true
+
 # Use USB Dock Audio
 BOARD_HAVE_DOCK_USBAUDIO := true
 
