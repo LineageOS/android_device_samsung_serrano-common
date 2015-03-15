@@ -292,4 +292,20 @@ public class SerranoRIL extends RIL {
 
         send(rr);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void getCellInfoList(Message result) {
+        if (RILJ_LOGD) riljLog("[STUB] > getCellInfoList");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setCellInfoListRate(int rateInMillis, Message response) {
+        if (RILJ_LOGD) riljLog("[STUB] > setCellInfoListRate");
+    }
 }
