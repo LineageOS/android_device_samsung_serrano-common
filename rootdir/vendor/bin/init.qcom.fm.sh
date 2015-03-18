@@ -1,5 +1,5 @@
 #!/vendor/bin/sh
-# Copyright (c) 2009-2011, The Linux Foundation. All rights reserved.
+# Copyright (c) 2009-2011, 2015, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -29,11 +29,7 @@
 setprop vendor.hw.fm.init 0
 
 mode=`getprop vendor.hw.fm.mode`
-version=`getprop vendor.hw.fm.version`
-isAnalog=`getprop vendor.hw.fm.isAnalog`
-
-#find the transport type
-TRANSPORT=`getprop ro.qualcomm.bt.hci_transport`
+version=197745
 
 LOG_TAG="qcom-fm"
 LOG_NAME="${0}:"
@@ -56,33 +52,21 @@ failed ()
 
 logi "In FM shell Script"
 logi "mode: $mode"
-logi "isAnalog: $isAnalog"
-logi "Transport : $TRANSPORT"
 logi "Version : $version"
 
 #$fm_qsoc_patches <fm_chipVersion> <enable/disable WCM>
 #
 case $mode in
   "normal")
-    case $TRANSPORT in
-    "smd")
         logi "inserting the radio transport module"
-        /vendor/bin/insmod /vendor/lib/modules/radio-iris-transport.ko
-     ;;
-     *)
-        logi "default transport case "
-     ;;
-    esac
-      /vendor/bin/fm_qsoc_patches $version 0
+        echo 1 > /sys/module/radio_iris_transport/parameters/fmsmd_set
+        /vendor/bin/fm_qsoc_patches $version 0
      ;;
   "wa_enable")
    /vendor/bin/fm_qsoc_patches $version 1
      ;;
   "wa_disable")
    /vendor/bin/fm_qsoc_patches $version 2
-     ;;
-  "config_dac")
-   /vendor/bin/fm_qsoc_patches $version 3 $isAnalog
      ;;
    *)
     logi "Shell: Default case"
