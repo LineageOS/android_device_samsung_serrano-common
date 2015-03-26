@@ -74,6 +74,7 @@ BOARD_USES_SEPERATED_FM := true
 
 # Allow suspend in charge mode
 BOARD_CHARGER_ENABLE_SUSPEND := true
+BOARD_CHARGER_SHOW_PERCENTAGE := true
 
 # Camera
 TARGET_NEED_CAMERA_ZSL := true
