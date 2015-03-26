@@ -64,7 +64,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.timed.enable=true \
     wifi.interface=wlan0 \
     ro.qualcomm.bt.hci_transport=smd \
-    persist.sys.isUsbOtgEnabled=true
+    persist.sys.isUsbOtgEnabled=true \
+    ro.enable_boot_charger_mode=1
 
 # QC Perf
 PRODUCT_PROPERTY_OVERRIDES += \
