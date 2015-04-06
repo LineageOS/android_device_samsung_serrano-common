@@ -107,12 +107,12 @@ static int get_scaling_governor() {
 
 static void cm_power_set_interactive(__attribute__((unused)) struct power_module *module, int on)
 {
-    sysfs_write(NOTIFY_ON_MIGRATE, on ? "1" : "0");
+    //sysfs_write(NOTIFY_ON_MIGRATE, on ? "1" : "0");
 }
 
 static void configure_governor()
 {
-    cm_power_set_interactive(NULL, 1);
+    //cm_power_set_interactive(NULL, 1);
 
     if (strncmp(governor, "ondemand", 8) == 0) {
         sysfs_write("/sys/devices/system/cpu/cpufreq/ondemand/up_threshold", "90");
