@@ -53,6 +53,9 @@ on fs
 
     setprop ro.crypto.fuse_sdcard true
 
+    # Symlink hack to fix RIL crashes
+    symlink /data/data/com.android.providers.telephony/shared_prefs/preferred-apn1.xml /data/data/com.android.providers.telephony/shared_prefs/preferred-apn.xml
+
 on boot
     write /sys/devices/i2c-3/3-0024/cyttsp_update_fw 1
     write /sys/devices/i2c-3/3-005b/update_fw 1
