@@ -75,6 +75,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/system/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
     $(LOCAL_PATH)/rootdir/system/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh
 
+# Doze
+PRODUCT_PACKAGES += \
+    SamsungDoze
+
 # GPS HAL
 PRODUCT_PACKAGES += \
     gps.msm8960
