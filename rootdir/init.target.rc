@@ -433,14 +433,6 @@ service wcnss-service /system/bin/wcnss_service
     group system wifi
     oneshot
 
-# bugreport is triggered by holding down volume down, volume up and power
-service bugreport /system/bin/dumpstate -d -p -B \
-        -o /data/data/com.android.shell/files/bugreports/bugreport
-    class main
-    disabled
-    oneshot
-    keycodes 114 115 116
-
 # insthk
 service insthk /system/bin/insthk
     class main
