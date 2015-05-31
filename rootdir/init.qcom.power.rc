@@ -1,6 +1,4 @@
 on charger
-    mount_all fstab.qcom
-    class_start charger
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
     write /sys/devices/system/cpu/cpu3/online 1
@@ -66,7 +64,6 @@ on property:dev.bootcomplete=1
     write /sys/devices/system/cpu/cpufreq/interactive/io_is_busy 1
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 384000
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 384000
-    write /dev/cpuctl/cpu.notify_on_migrate 0
     write /sys/module/msm_thermal/core_control/enabled 1
     chown system system /sys/devices/system/cpu/cpu1/online
     chmod 664 /sys/devices/system/cpu/cpu1/online
