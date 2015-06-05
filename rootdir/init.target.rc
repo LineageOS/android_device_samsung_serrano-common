@@ -138,6 +138,12 @@ on post-fs-data
     chown system input /sys/class/input/input4/distortion
     chown system input /sys/class/input/input4/shape
     chown system input /sys/class/input/input4/self_test
+    chown compass input /sys/class/input/input5/offsets
+    chown compass input /sys/class/input/input5/dynamic_matrix
+    chown system input /sys/class/input/input5/threshold
+    chown system input /sys/class/input/input5/distortion
+    chown system input /sys/class/input/input5/shape
+    chown system input /sys/class/input/input5/self_test
 
     # proximity_sensor
     chown system input /sys/class/input/input5/enable
