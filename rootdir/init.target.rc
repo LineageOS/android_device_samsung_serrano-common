@@ -139,6 +139,34 @@ on post-fs-data
     chown system input /sys/class/input/input4/shape
     chown system input /sys/class/input/input4/self_test
 
+    chown compass input /sys/class/input/input5/offsets
+    chown compass input /sys/class/input/input5/dynamic_matrix
+    chown system input /sys/class/input/input5/threshold
+    chown system input /sys/class/input/input5/distortion
+    chown system input /sys/class/input/input5/shape
+    chown system input /sys/class/input/input5/self_test
+
+    chown compass input /sys/class/input/input6/offsets
+    chown compass input /sys/class/input/input6/dynamic_matrix
+    chown system input /sys/class/input/input6/threshold
+    chown system input /sys/class/input/input6/distortion
+    chown system input /sys/class/input/input6/shape
+    chown system input /sys/class/input/input6/self_test
+
+    chown compass input /sys/class/input/input7/offsets
+    chown compass input /sys/class/input/input7/dynamic_matrix
+    chown system input /sys/class/input/input7/threshold
+    chown system input /sys/class/input/input7/distortion
+    chown system input /sys/class/input/input7/shape
+    chown system input /sys/class/input/input7/self_test
+
+    chown compass input /sys/class/input/input8/offsets
+    chown compass input /sys/class/input/input8/dynamic_matrix
+    chown system input /sys/class/input/input8/threshold
+    chown system input /sys/class/input/input8/distortion
+    chown system input /sys/class/input/input8/shape
+    chown system input /sys/class/input/input8/self_test
+
     # proximity_sensor
     chown system input /sys/class/input/input5/enable
     chown system input /sys/class/input/input6/enable
