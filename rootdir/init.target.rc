@@ -393,10 +393,11 @@ on post-fs-data
     chown system system /sys/class/lcd/panel/panel_colors
 
     # Backlight notification
-    chown system system /sys/class/misc/backlightnotification/enabled
     chown system system /sys/class/misc/backlightnotification/blink_control
+    chown system system /sys/class/misc/backlightnotification/enabled
+    chown system system /sys/class/misc/backlightnotification/led_count
     chown system system /sys/class/misc/backlightnotification/notification_led
-    restorecon /sys/class/misc/backlightnotification/enabled
+    chown system system /sys/class/misc/backlightnotification/notification_led_mask
 
     # PCC
     chown system system /sys/devices/virtual/graphics/fb0/rgb
