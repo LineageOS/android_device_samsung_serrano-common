@@ -39,7 +39,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.vr.enable=false \
     persist.audio.handset.mic=digital \
     persist.audio.lowlatency.rec=false \
-    qcom.hw.aac.encoder=true
+    qcom.hw.aac.encoder=true \
+    media.aac_51_output_enabled=true
 
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
