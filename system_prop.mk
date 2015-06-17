@@ -49,7 +49,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.wfd.virtual=0 \
     ro.sf.lcd_density=240 \
     ro.opengles.version=196608 \
-    ro.qualcomm.cabl=0
+    ro.qualcomm.cabl=0 \
+    ro.hwui.text_large_cache_height=2048
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
