@@ -1693,11 +1693,11 @@ SectionVerb
 	Name "HiFi Tunnel"
 
 	EnableSequence
-		'SLIMBUS_0_RX Audio Mixer MultiMedia4':1:1
+		'PRI_RX Audio Mixer MultiMedia4':1:1
 	EndSequence
 
 	DisableSequence
-		'SLIMBUS_0_RX Audio Mixer MultiMedia4':1:0
+		'PRI_RX Audio Mixer MultiMedia4':1:0
 	EndSequence
 
 	# ALSA PCMs
