@@ -36,7 +36,6 @@ TARGET_KERNEL_CONFIG         := cyanogen_serrano_usa_defconfig
 else
 TARGET_KERNEL_CONFIG         := cyanogen_serrano_defconfig
 endif
-TARGET_KERNEL_SELINUX_CONFIG := selinux_defconfig
 
 TARGET_BOOTLOADER_BOARD_NAME := MSM8960
 
