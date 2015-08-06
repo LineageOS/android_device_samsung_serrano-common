@@ -128,12 +128,14 @@ static void configure_governor()
         sysfs_write("/sys/devices/system/cpu/cpufreq/ondemand/sampling_rate", "50000");
 
     } else if (strncmp(governor, "interactive", 11) == 0) {
-        sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/min_sample_time", "90000");
-        sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/hispeed_freq", "918000");
-        sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay", "30000");
+        sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay", "25000 1458000:50000");
         sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load", "90");
-        sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/timer_rate", "30000");
+        sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/hispeed_freq", "918000");
         sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/io_is_busy", "1");
+        sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/min_sample_time", "50000");
+        sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor", "50000");
+        sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/target_loads", "90 702000:85 918000:90 1458000:95");
+        sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/timer_rate", "30000");
     }
 }
 
