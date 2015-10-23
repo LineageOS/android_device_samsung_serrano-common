@@ -31,6 +31,8 @@ import init.target.rc
 import init.carrier.rc
 
 on init
+    export LD_PRELOAD "/system/lib/libsamsung_symbols.so"
+
     # Set permissions for persist partition
     mkdir /persist 0771 system system
 
