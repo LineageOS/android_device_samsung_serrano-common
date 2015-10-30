@@ -169,6 +169,10 @@ on boot
     # Set SSR level
     setprop persist.sys.ssr.restart_level 3
 
+    # Adaptive LMK
+    write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
+    write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 53059
+
 # MSM specific files that need to be created on /data
 on post-fs-data
     # We will remap this as /mnt/sdcard with the sdcard fuse tool
