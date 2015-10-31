@@ -72,7 +72,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.extension_library=/system/lib/libqc-opt.so
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.dex2oat-swap=false
+    dalvik.vm.dex2oat-swap=false \
+    ro.sys.fw.dex2oat_thread_count=4
 
 # For userdebug builds
 ADDITIONAL_DEFAULT_PROPERTIES += \
