@@ -59,4 +59,5 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Dalvik
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dex2oat-swap=false \
+    ro.am.reschedule_service=true \
     ro.sys.fw.dex2oat_thread_count=4
