@@ -178,6 +178,7 @@ static void cm_power_hint(struct power_module *module, power_hint_t hint,
     int duration = 1;
 
     switch (hint) {
+#if 0
 #ifndef NO_TOUCH_BOOST
     case POWER_HINT_INTERACTION:
 #endif
@@ -204,6 +205,7 @@ static void cm_power_hint(struct power_module *module, power_hint_t hint,
 
     case POWER_HINT_VSYNC:
         break;
+#endif
 
     default:
         break;
