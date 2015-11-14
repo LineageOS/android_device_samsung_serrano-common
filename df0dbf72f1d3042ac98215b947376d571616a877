@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f2f7f8d_fbe10900",
+        "filename": "rootdir/init.qcom.rc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-11-14T15:08:22Z",
+      "side": 1,
+      "message": "You can use Chris Palmer\u0027s bionic loader for shim libs if you don\u0027t want to introduce the symbols to all libraries.\n\nhttp://review.cyanogenmod.org/#/c/119520",
+      "revId": "df0dbf72f1d3042ac98215b947376d571616a877",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
