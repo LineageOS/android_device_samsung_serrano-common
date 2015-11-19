@@ -44,7 +44,7 @@
     <Include href="media_codecs_google_audio.xml" />
     <Include href="media_codecs_google_telephony.xml" />
     <Settings>
-        <Setting name="max-video-encoder-input-buffers" value="4" />
+        <Setting name="max-video-encoder-input-buffers" value="11" />
         <Setting name="supports-multiple-secure-codecs" value="false" />
         <Setting name="supports-secure-with-non-secure-codec" value="false" />
     </Settings>
@@ -135,7 +135,7 @@
             <Limit name="block-size" value="16x16" />
             <Limit name="blocks-per-second" min="1" max="244800" />
             <Limit name="bitrate" range="1-20000000" />
-            <Limit name="concurrent-instances" max="4" />
+            <Limit name="concurrent-instances" max="1" />
             <Feature name="adaptive-playback" />
             <Feature name="secure-playback" required="true" />
         </MediaCodec>
@@ -158,7 +158,7 @@
             <Limit name="block-size" value="16x16" />
             <Limit name="blocks-per-second" min="1" max="244800" />
             <Limit name="bitrate" range="1-20000000" />
-            <Limit name="concurrent-instances" max="4" />
+            <Limit name="concurrent-instances" max="3" />
             <Feature name="adaptive-playback" />
             <Feature name="secure-playback" required="true" />
         </MediaCodec>
