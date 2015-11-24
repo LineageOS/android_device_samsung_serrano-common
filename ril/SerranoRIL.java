@@ -37,7 +37,6 @@ import java.util.Collections;
  */
 public class SerranoRIL extends RIL {
 
-    private static final int RIL_REQUEST_DIAL_EMERGENCY = 10016;
     private static final int RIL_UNSOL_RESPONSE_IMS_NETWORK_STATE_CHANGED = 1037;
     private static final int RIL_UNSOL_DEVICE_READY_NOTI = 11008;
     private static final int RIL_UNSOL_AM = 11010;
@@ -55,10 +54,6 @@ public class SerranoRIL extends RIL {
     @Override
     public void
     dial(String address, int clirMode, UUSInfo uusInfo, Message result) {
-        if (PhoneNumberUtils.isEmergencyNumber(address)) {
-            dialEmergencyCall(address, clirMode, result);
-            return;
-        }
 
         RILRequest rr = RILRequest.obtain(RIL_REQUEST_DIAL, result);
 
@@ -264,23 +259,6 @@ public class SerranoRIL extends RIL {
             AsyncResult.forMessage(result, null, ex);
             result.sendToTarget();
         }
-    }
-
-    private void
-    dialEmergencyCall(String address, int clirMode, Message result) {
-        RILRequest rr;
-
-        rr = RILRequest.obtain(RIL_REQUEST_DIAL_EMERGENCY, result);
-        rr.mParcel.writeString(address);
-        rr.mParcel.writeInt(clirMode);
-        rr.mParcel.writeInt(0);        // CallDetails.call_type
-        rr.mParcel.writeInt(3);        // CallDetails.call_domain
-        rr.mParcel.writeString("");    // CallDetails.getCsvFromExtra
-        rr.mParcel.writeInt(0);        // Unknown
-
-        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
-
-        send(rr);
     }
 
     /**
