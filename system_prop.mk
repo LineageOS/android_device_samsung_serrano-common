@@ -33,7 +33,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     audio.gapless.playback.disable=true \
     audio.offload.disable=1 \
-    mm.enable.qcom_parser=3310129 \
     mm.enable.smoothstreaming=true \
     persist.audio.fluence.mode=endfire \
     persist.audio.vr.enable=false \

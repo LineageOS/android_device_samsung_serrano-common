@@ -14,13 +14,6 @@ bin/thermald
 lib/libacdbloader.so
 lib/libaudcal.so
 
-# mmparser extended
-lib/libDivxDrm.so
-lib/libExtendedExtractor.so
-lib/libSHIMDivxDrm.so
-lib/libmmparser.so
-lib/libmmosal.so
-
 # Adreno GPU
 etc/firmware/a300_pfp.fw
 etc/firmware/a300_pm4.fw
