@@ -289,4 +289,7 @@
     <!-- Whether the default speaker audio output path supports near-ultrasound frequencies
          (range of 18 - 21 kHz). -->
     <bool name="config_supportSpeakerNearUltrasound">false</bool>
+
+    <!-- Flag indicating if device supports EAP SIM, AKA, AKA' -->
+    <bool name="config_eap_sim_based_auth_supported">false</bool>
 </resources>
