@@ -95,11 +95,9 @@ PRODUCT_PACKAGES += \
     gps.msm8960
 
 # FM radio
-#PRODUCT_PACKAGES += \
-    qcom.fmradio \
-    libqcomfm_jni \
-    FM2 \
-    FMRecord
+PRODUCT_PACKAGES += \
+    FMRadio \
+    libfmjni
 
 # Lights
 PRODUCT_PACKAGES += \
