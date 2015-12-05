@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2012 The Android Open Source Project
- * Copyright (c) 2012 The CyanogenMod Project
+ * Copyright (C) 2015 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,52 +13,52 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <errno.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-
-#define LOG_TAG "CM PowerHAL"
-#include <utils/Log.h>
+#define LOG_TAG "PowerHAL"
 
 #include <hardware/hardware.h>
 #include <hardware/power.h>
 
-#define SCALING_GOVERNOR_PATH "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor"
-#define BOOSTPULSE_INTERACTIVE "/sys/devices/system/cpu/cpufreq/interactive/boostpulse"
-#define NOTIFY_ON_MIGRATE "/dev/cpuctl/cpu.notify_on_migrate"
+#include <stdbool.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <string.h>
 
-struct cm_power_module {
-    struct power_module base;
-    pthread_mutex_t lock;
-    int boostpulse_fd;
-    int boostpulse_warned;
-};
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
-static char governor[20];
+#include <utils/Log.h>
 
-static int sysfs_read(char *path, char *s, int num_bytes)
+#include "power.h"
+
+#define CPUFREQ_PATH "/sys/devices/system/cpu/cpu0/cpufreq/"
+#define INTERACTIVE_PATH "/sys/devices/system/cpu/cpufreq/interactive/"
+
+static pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+static int boostpulse_fd = -1;
+
+static int current_power_profile = -1;
+static int requested_power_profile = -1;
+
+static int sysfs_write_str(char *path, char *s)
 {
     char buf[80];
-    int count;
+    int len;
     int ret = 0;
-    int fd = open(path, O_RDONLY);
+    int fd;
 
+    fd = open(path, O_WRONLY);
     if (fd < 0) {
         strerror_r(errno, buf, sizeof(buf));
         ALOGE("Error opening %s: %s\n", path, buf);
-
-        return -1;
+        return -1 ;
     }
 
-    if ((count = read(fd, s, num_bytes - 1)) < 0) {
+    len = write(fd, s, strlen(s));
+    if (len < 0) {
         strerror_r(errno, buf, sizeof(buf));
         ALOGE("Error writing to %s: %s\n", path, buf);
-
         ret = -1;
-    } else {
-        s[count] = '\0';
     }
 
     close(fd);
@@ -67,179 +66,179 @@ static int sysfs_read(char *path, char *s, int num_bytes)
     return ret;
 }
 
-static void sysfs_write(char *path, char *s)
+static int sysfs_write_int(char *path, int value)
 {
     char buf[80];
-    int len;
-    int fd = open(path, O_WRONLY);
+    snprintf(buf, 80, "%d", value);
+    return sysfs_write_str(path, buf);
+}
 
-    if (fd < 0) {
-        strerror_r(errno, buf, sizeof(buf));
-        ALOGE("Error opening %s: %s\n", path, buf);
+static bool check_governor(void)
+{
+    struct stat s;
+    int err = stat(INTERACTIVE_PATH, &s);
+    if (err != 0) return false;
+    if (S_ISDIR(s.st_mode)) return true;
+    return false;
+}
+
+static int is_profile_valid(int profile)
+{
+    return profile >= 0 && profile < PROFILE_MAX;
+}
+
+static void power_init(__attribute__((unused)) struct power_module *module)
+{
+    ALOGI("%s", __func__);
+}
+
+static int boostpulse_open()
+{
+    pthread_mutex_lock(&lock);
+    if (boostpulse_fd < 0) {
+        boostpulse_fd = open(INTERACTIVE_PATH "boostpulse", O_WRONLY);
+    }
+    pthread_mutex_unlock(&lock);
+
+    return boostpulse_fd;
+}
+
+static void power_set_interactive(__attribute__((unused)) struct power_module *module, int on)
+{
+    if (!is_profile_valid(current_power_profile)) {
+        ALOGD("%s: no power profile selected yet", __func__);
         return;
     }
 
-    len = write(fd, s, strlen(s));
-    if (len < 0) {
-        strerror_r(errno, buf, sizeof(buf));
-        ALOGE("Error writing to %s: %s\n", path, buf);
-    }
+    // break out early if governor is not interactive
+    if (!check_governor()) return;
 
-    close(fd);
-}
-
-static int get_scaling_governor() {
-    if (sysfs_read(SCALING_GOVERNOR_PATH, governor,
-                sizeof(governor)) == -1) {
-        return -1;
+    if (on) {
+        sysfs_write_int(INTERACTIVE_PATH "hispeed_freq",
+                        profiles[current_power_profile].hispeed_freq);
+        sysfs_write_int(INTERACTIVE_PATH "go_hispeed_load",
+                        profiles[current_power_profile].go_hispeed_load);
+        sysfs_write_str(INTERACTIVE_PATH "target_loads",
+                        profiles[current_power_profile].target_loads);
     } else {
-        // Strip newline at the end.
-        int len = strlen(governor);
-
-        len--;
-
-        while (len >= 0 && (governor[len] == '\n' || governor[len] == '\r'))
-            governor[len--] = '\0';
-    }
-
-    return 0;
-}
-
-static void cm_power_set_interactive(__attribute__((unused)) struct power_module *module, int on)
-{
-    //sysfs_write(NOTIFY_ON_MIGRATE, on ? "1" : "0");
-}
-
-static void configure_governor()
-{
-    //cm_power_set_interactive(NULL, 1);
-
-    if (strncmp(governor, "ondemand", 8) == 0) {
-        sysfs_write("/sys/devices/system/cpu/cpufreq/ondemand/up_threshold", "90");
-        sysfs_write("/sys/devices/system/cpu/cpufreq/ondemand/io_is_busy", "1");
-        sysfs_write("/sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor", "4");
-        sysfs_write("/sys/devices/system/cpu/cpufreq/ondemand/down_differential", "10");
-        sysfs_write("/sys/devices/system/cpu/cpufreq/ondemand/up_threshold_multi_core", "70");
-        sysfs_write("/sys/devices/system/cpu/cpufreq/ondemand/down_differential_multi_core", "3");
-        sysfs_write("/sys/devices/system/cpu/cpufreq/ondemand/optimal_freq", "918000");
-        sysfs_write("/sys/devices/system/cpu/cpufreq/ondemand/sync_freq", "1026000");
-        sysfs_write("/sys/devices/system/cpu/cpufreq/ondemand/up_threshold_any_cpu_load", "80");
-        sysfs_write("/sys/devices/system/cpu/cpufreq/ondemand/input_boost", "1026000");
-        sysfs_write("/sys/devices/system/cpu/cpufreq/ondemand/sampling_rate", "50000");
-
-    } else if (strncmp(governor, "interactive", 11) == 0) {
-        sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay", "25000 1458000:50000");
-        sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load", "90");
-        sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/hispeed_freq", "918000");
-        sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/io_is_busy", "1");
-        sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/min_sample_time", "50000");
-        sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor", "50000");
-        sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/target_loads", "90 702000:85 918000:90 1458000:95");
-        sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/timer_rate", "30000");
+        sysfs_write_int(INTERACTIVE_PATH "hispeed_freq",
+                        profiles[current_power_profile].hispeed_freq_off);
+        sysfs_write_int(INTERACTIVE_PATH "go_hispeed_load",
+                        profiles[current_power_profile].go_hispeed_load_off);
+        sysfs_write_str(INTERACTIVE_PATH "target_loads",
+                        profiles[current_power_profile].target_loads_off);
     }
 }
 
-static int boostpulse_open(struct cm_power_module *cm)
+static void set_power_profile(int profile)
 {
-    char buf[80];
-
-    pthread_mutex_lock(&cm->lock);
-
-    if (cm->boostpulse_fd < 0) {
-        if (get_scaling_governor() < 0) {
-            ALOGE("Can't read scaling governor.");
-            cm->boostpulse_warned = 1;
-        } else {
-            if (strncmp(governor, "interactive", 11) == 0)
-                cm->boostpulse_fd = open(BOOSTPULSE_INTERACTIVE, O_WRONLY);
-
-            if (cm->boostpulse_fd < 0 && !cm->boostpulse_warned) {
-                strerror_r(errno, buf, sizeof(buf));
-                ALOGV("Error opening boostpulse: %s\n", buf);
-                cm->boostpulse_warned = 1;
-            } else if (cm->boostpulse_fd > 0) {
-                ALOGD("Opened %s boostpulse interface", governor);
-            }
-
-        configure_governor();
-        }
+    if (!is_profile_valid(profile)) {
+        ALOGE("%s: unknown profile: %d", __func__, profile);
+        return;
     }
 
-    pthread_mutex_unlock(&cm->lock);
-    return cm->boostpulse_fd;
+    // break out early if governor is not interactive
+    if (!check_governor()) return;
+
+    if (profile == current_power_profile)
+        return;
+
+    ALOGD("%s: setting profile %d", __func__, profile);
+
+    sysfs_write_int(INTERACTIVE_PATH "boost",
+                    profiles[profile].boost);
+    sysfs_write_int(INTERACTIVE_PATH "boostpulse_duration",
+                    profiles[profile].boostpulse_duration);
+    sysfs_write_int(INTERACTIVE_PATH "go_hispeed_load",
+                    profiles[profile].go_hispeed_load);
+    sysfs_write_int(INTERACTIVE_PATH "hispeed_freq",
+                    profiles[profile].hispeed_freq);
+    sysfs_write_int(INTERACTIVE_PATH "io_is_busy",
+                    profiles[profile].io_is_busy);
+    sysfs_write_int(INTERACTIVE_PATH "min_sample_time",
+                    profiles[profile].min_sample_time);
+    sysfs_write_int(INTERACTIVE_PATH "sampling_down_factor",
+                    profiles[profile].sampling_down_factor);
+    sysfs_write_str(INTERACTIVE_PATH "target_loads",
+                    profiles[profile].target_loads);
+    sysfs_write_int(CPUFREQ_PATH "scaling_max_freq",
+                    profiles[profile].scaling_max_freq);
+
+    current_power_profile = profile;
 }
 
-static void cm_power_hint(struct power_module *module, power_hint_t hint,
-                            void *data)
+static void power_hint(__attribute__((unused)) struct power_module *module,
+                       power_hint_t hint, void *data)
 {
-    struct cm_power_module *cm = (struct cm_power_module *) module;
     char buf[80];
     int len;
-    int duration = 1;
 
     switch (hint) {
-#if 0
-#ifndef NO_TOUCH_BOOST
     case POWER_HINT_INTERACTION:
-#endif
-    case POWER_HINT_CPU_BOOST:
-        if (boostpulse_open(cm) >= 0) {
-            if (data != NULL)
-                duration = (int) data;
+        if (!is_profile_valid(current_power_profile)) {
+            ALOGD("%s: no power profile selected yet", __func__);
+            return;
+        }
 
-            snprintf(buf, sizeof(buf), "%d", duration);
-            len = write(cm->boostpulse_fd, buf, strlen(buf));
+        if (!profiles[current_power_profile].boostpulse_duration)
+            return;
 
+        // break out early if governor is not interactive
+        if (!check_governor()) return;
+
+        if (boostpulse_open() >= 0) {
+            snprintf(buf, sizeof(buf), "%d", 1);
+            len = write(boostpulse_fd, &buf, sizeof(buf));
             if (len < 0) {
                 strerror_r(errno, buf, sizeof(buf));
                 ALOGE("Error writing to boostpulse: %s\n", buf);
 
-                pthread_mutex_lock(&cm->lock);
-                close(cm->boostpulse_fd);
-                cm->boostpulse_fd = -1;
-                cm->boostpulse_warned = 0;
-                pthread_mutex_unlock(&cm->lock);
+                pthread_mutex_lock(&lock);
+                close(boostpulse_fd);
+                boostpulse_fd = -1;
+                pthread_mutex_unlock(&lock);
             }
         }
         break;
-
-    case POWER_HINT_VSYNC:
+    case POWER_HINT_SET_PROFILE:
+        pthread_mutex_lock(&lock);
+        set_power_profile(*(int32_t *)data);
+        pthread_mutex_unlock(&lock);
         break;
-#endif
-
+    case POWER_HINT_LOW_POWER:
+        /* This hint is handled by the framework */
+        break;
     default:
         break;
     }
-}
-
-static void cm_power_init(__attribute__((unused)) struct power_module *module)
-{
-    get_scaling_governor();
-    configure_governor();
 }
 
 static struct hw_module_methods_t power_module_methods = {
     .open = NULL,
 };
 
-struct cm_power_module HAL_MODULE_INFO_SYM = {
-    .base = {
-        .common = {
-            .tag = HARDWARE_MODULE_TAG,
-            .module_api_version = POWER_MODULE_API_VERSION_0_2,
-            .hal_api_version = HARDWARE_HAL_API_VERSION,
-            .id = POWER_HARDWARE_MODULE_ID,
-            .name = "CM Power HAL",
-            .author = "The CyanogenMod Project",
-            .methods = &power_module_methods,
-        },
+static int get_feature(__attribute__((unused)) struct power_module *module,
+                       feature_t feature)
+{
+    if (feature == POWER_FEATURE_SUPPORTED_PROFILES) {
+        return PROFILE_MAX;
+    }
+    return -1;
+}
 
-       .init = cm_power_init,
-       .setInteractive = cm_power_set_interactive,
-       .powerHint = cm_power_hint,
+struct power_module HAL_MODULE_INFO_SYM = {
+    .common = {
+        .tag = HARDWARE_MODULE_TAG,
+        .module_api_version = POWER_MODULE_API_VERSION_0_2,
+        .hal_api_version = HARDWARE_HAL_API_VERSION,
+        .id = POWER_HARDWARE_MODULE_ID,
+        .name = "msm8960 Power HAL",
+        .author = "Gabriele M",
+        .methods = &power_module_methods,
     },
 
-    .lock = PTHREAD_MUTEX_INITIALIZER,
-    .boostpulse_fd = -1,
-    .boostpulse_warned = 0,
+    .init = power_init,
+    .setInteractive = power_set_interactive,
+    .powerHint = power_hint,
+    .getFeature = get_feature
 };
