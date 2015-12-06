@@ -89,7 +89,8 @@ TARGET_NEED_DISABLE_FACE_DETECTION_BOTH_CAMERAS := true
 # Build our own PowerHAL
 TARGET_POWERHAL_VARIANT :=
 
-# Custom RIL class
+# RIL
+COMMON_GLOBAL_CFLAGS += -DDISABLE_ASHMEM_TRACKING
 BOARD_RIL_CLASS := ../../../device/samsung/serrano-common/ril/
 
 # CMHW
