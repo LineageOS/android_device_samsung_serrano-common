@@ -417,6 +417,7 @@ service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
 service charger /charger
     class charger
     critical
+    group system
     seclabel u:r:healthd:s0
 
 service geomagneticd /system/bin/geomagneticd
