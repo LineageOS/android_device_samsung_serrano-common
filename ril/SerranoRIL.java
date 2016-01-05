@@ -37,6 +37,8 @@ import java.util.Collections;
  */
 public class SerranoRIL extends RIL {
 
+    private boolean setPreferredNetworkTypeSeen = false;
+
     private static final int RIL_REQUEST_DIAL_EMERGENCY = 10016;
     private static final int RIL_UNSOL_RESPONSE_IMS_NETWORK_STATE_CHANGED = 1036;
     private static final int RIL_UNSOL_DEVICE_READY_NOTI = 11008;
@@ -345,5 +347,18 @@ public class SerranoRIL extends RIL {
           failCause.vendorCause = p.readString();
         }
         return failCause;
+    }
+
+    @Override
+    public void setPreferredNetworkType(int networkType , Message response) {
+        riljLog("setPreferredNetworkType: " + networkType);
+
+        if (!setPreferredNetworkTypeSeen) {
+            riljLog("Need to reboot modem!");
+            setRadioPower(false, null);
+            setPreferredNetworkTypeSeen = true;
+        }
+
+        super.setPreferredNetworkType(networkType, response);
     }
 }
