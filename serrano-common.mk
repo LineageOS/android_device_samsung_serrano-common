@@ -81,6 +81,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/Eleven.apk:system/app/Eleven/Eleven.apk
 
+# TeleService
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/TeleService.apk:system/priv-app/TeleService/TeleService.apk
+
 # GPS/location security configuration file
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
