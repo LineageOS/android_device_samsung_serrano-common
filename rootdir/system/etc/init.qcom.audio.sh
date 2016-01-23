@@ -36,6 +36,4 @@ insmod /system/lib/modules/adsprpc.ko
 chown -h system.system /dev/adsprpc-smd
 chmod -h 664 /dev/adsprpc-smd
 
-setprop qcom.audio.init complete
-
 exit 0
