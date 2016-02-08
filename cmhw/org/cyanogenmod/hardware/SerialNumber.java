@@ -41,7 +41,13 @@ public class SerialNumber {
      * Returns the alternative serial number to be displayed.
      */
     public static String getSerialNumber() {
-        String Serial = FileUtils.readOneLine(FILE_PATH);
+        String Serial;
+        try {
+            Serial = FileUtils.readOneLine(FILE_PATH);
+        } catch (Exception e) {
+            Serial = "";
+        }
+
         if (Serial.length() != 11) {
             // Invalid serial, return ro.serialno instead
             return SystemProperties.get("ro.serialno", "LOLWTFBBQ");
