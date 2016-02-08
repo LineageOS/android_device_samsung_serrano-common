@@ -24,4 +24,8 @@
 #define BLUETOOTH_QTI_SW TRUE
 // Enables Interleave scan
 #define BTA_HOST_INTERLEAVE_SEARCH TRUE
+#define SC_MODE_INCLUDED FALSE
+#define HCI_RAW_CMD_INCLUDED FALSE
+#define SDP_DEBUG FALSE
+#define BTSNOOP_MEM FALSE
 #endif
