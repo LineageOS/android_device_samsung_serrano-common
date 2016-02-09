@@ -18,6 +18,7 @@ enum {
     PROFILE_POWER_SAVE = 0,
     PROFILE_BALANCED,
     PROFILE_HIGH_PERFORMANCE,
+    PROFILE_BIAS_POWER_SAVE,
     PROFILE_MAX
 };
 
@@ -29,12 +30,16 @@ typedef struct governor_settings {
     int go_hispeed_load_off;
     int hispeed_freq;
     int hispeed_freq_off;
+    int timer_rate;
+    int timer_rate_off;
+    int above_hispeed_delay;
     int io_is_busy;
     int min_sample_time;
-    int sampling_down_factor;
+    int max_freq_hysteresis;
     char *target_loads;
     char *target_loads_off;
-    int scaling_max_freq;
+    int limited_min_freq;
+    int limited_max_freq;
 } power_profile;
 
 static power_profile profiles[PROFILE_MAX] = {
@@ -42,42 +47,72 @@ static power_profile profiles[PROFILE_MAX] = {
         .boost = 0,
         .boostpulse_duration = 0,
         .go_hispeed_load = 90,
-        .go_hispeed_load_off = 90,
+        .go_hispeed_load_off = 110,
         .hispeed_freq = 702000,
         .hispeed_freq_off = 702000,
+        .timer_rate = 20000,
+        .timer_rate_off = 50000,
+        .above_hispeed_delay = 79000,
         .io_is_busy = 0,
         .min_sample_time = 60000,
-        .sampling_down_factor = 100000,
+        .max_freq_hysteresis = 100000,
         .target_loads = "95 1728000:99",
         .target_loads_off = "95 1728000:99",
-        .scaling_max_freq = 702000,
+        .limited_min_freq = 384000,
+        .limited_max_freq = 1026000,
     },
     [PROFILE_BALANCED] = {
         .boost = 0,
         .boostpulse_duration = 60000,
-        .go_hispeed_load = 80,
-        .go_hispeed_load_off = 90,
+        .go_hispeed_load = 90,
+        .go_hispeed_load_off = 110,
         .hispeed_freq = 918000,
-        .hispeed_freq_off = 702000,
+        .hispeed_freq_off = 918000,
+        .timer_rate = 20000,
+        .timer_rate_off = 50000,
+        .above_hispeed_delay = 79000,
         .io_is_busy = 1,
         .min_sample_time = 60000,
-        .sampling_down_factor = 100000,
-        .target_loads = "80 918000:90 1728000:99",
+        .max_freq_hysteresis = 100000,
+        .target_loads = "90 1728000:99",
         .target_loads_off = "95 1728000:99",
-        .scaling_max_freq = 1728000,
+        .limited_min_freq = 384000,
+        .limited_max_freq = 1728000,
     },
     [PROFILE_HIGH_PERFORMANCE] = {
         .boost = 1,
         .boostpulse_duration = 0, /* prevent unnecessary write */
         .go_hispeed_load = 50,
-        .go_hispeed_load_off = 50,
+        .go_hispeed_load_off = 110,
         .hispeed_freq = 918000,
         .hispeed_freq_off = 918000,
+        .timer_rate = 20000,
+        .timer_rate_off = 50000,
+        .above_hispeed_delay = 79000,
         .io_is_busy = 1,
         .min_sample_time = 60000,
-        .sampling_down_factor = 100000,
+        .max_freq_hysteresis = 100000,
         .target_loads = "80",
         .target_loads_off = "80",
-        .scaling_max_freq = 1728000,
+        .limited_min_freq = 384000,
+        .limited_max_freq = 1728000,
+    },
+    [PROFILE_BIAS_POWER_SAVE] = {
+        .boost = 0,
+        .boostpulse_duration = 0,
+        .go_hispeed_load = 90,
+        .go_hispeed_load_off = 110,
+        .hispeed_freq = 702000,
+        .hispeed_freq_off = 702000,
+        .timer_rate = 20000,
+        .timer_rate_off = 50000,
+        .above_hispeed_delay = 79000,
+        .io_is_busy = 0,
+        .min_sample_time = 60000,
+        .max_freq_hysteresis = 100000,
+        .target_loads = "95 1728000:99",
+        .target_loads_off = "95 1728000:99",
+        .limited_min_freq = 384000,
+        .limited_max_freq = 1728000,
     },
 };

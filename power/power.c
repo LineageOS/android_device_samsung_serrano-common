@@ -31,7 +31,7 @@
 
 #include "power.h"
 
-#define CPUFREQ_PATH "/sys/devices/system/cpu/cpu0/cpufreq/"
+#define CPUFREQ_LIMIT_PATH "/sys/kernel/cpufreq_limit/"
 #define INTERACTIVE_PATH "/sys/devices/system/cpu/cpufreq/interactive/"
 
 static pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
@@ -118,11 +118,15 @@ static void power_set_interactive(__attribute__((unused)) struct power_module *m
                         profiles[current_power_profile].hispeed_freq);
         sysfs_write_int(INTERACTIVE_PATH "go_hispeed_load",
                         profiles[current_power_profile].go_hispeed_load);
+        sysfs_write_int(INTERACTIVE_PATH "timer_rate",
+                        profiles[current_power_profile].timer_rate);
         sysfs_write_str(INTERACTIVE_PATH "target_loads",
                         profiles[current_power_profile].target_loads);
     } else {
         sysfs_write_int(INTERACTIVE_PATH "hispeed_freq",
                         profiles[current_power_profile].hispeed_freq_off);
+        sysfs_write_int(INTERACTIVE_PATH "timer_rate",
+                        profiles[current_power_profile].timer_rate_off);
         sysfs_write_int(INTERACTIVE_PATH "go_hispeed_load",
                         profiles[current_power_profile].go_hispeed_load_off);
         sysfs_write_str(INTERACTIVE_PATH "target_loads",
@@ -153,16 +157,22 @@ static void set_power_profile(int profile)
                     profiles[profile].go_hispeed_load);
     sysfs_write_int(INTERACTIVE_PATH "hispeed_freq",
                     profiles[profile].hispeed_freq);
+    sysfs_write_int(INTERACTIVE_PATH "above_hispeed_delay",
+                    profiles[profile].above_hispeed_delay);
+    sysfs_write_int(INTERACTIVE_PATH "timer_rate",
+                    profiles[profile].timer_rate);
     sysfs_write_int(INTERACTIVE_PATH "io_is_busy",
                     profiles[profile].io_is_busy);
     sysfs_write_int(INTERACTIVE_PATH "min_sample_time",
                     profiles[profile].min_sample_time);
-    sysfs_write_int(INTERACTIVE_PATH "sampling_down_factor",
-                    profiles[profile].sampling_down_factor);
+    sysfs_write_int(INTERACTIVE_PATH "max_freq_hysteresis",
+                    profiles[profile].max_freq_hysteresis);
     sysfs_write_str(INTERACTIVE_PATH "target_loads",
                     profiles[profile].target_loads);
-    sysfs_write_int(CPUFREQ_PATH "scaling_max_freq",
-                    profiles[profile].scaling_max_freq);
+    sysfs_write_int(CPUFREQ_LIMIT_PATH "limited_min_freq",
+                    profiles[profile].limited_min_freq);
+    sysfs_write_int(CPUFREQ_LIMIT_PATH "limited_max_freq",
+                    profiles[profile].limited_max_freq);
 
     current_power_profile = profile;
 }
@@ -174,7 +184,8 @@ static void power_hint(__attribute__((unused)) struct power_module *module,
     int len;
 
     switch (hint) {
-    case POWER_HINT_INTERACTION:
+    case POWER_HINT_LAUNCH_BOOST:
+    case POWER_HINT_CPU_BOOST:
         if (!is_profile_valid(current_power_profile)) {
             ALOGD("%s: no power profile selected yet", __func__);
             return;
