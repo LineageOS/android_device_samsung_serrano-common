@@ -37,7 +37,10 @@ import java.util.Collections;
  */
 public class SerranoRIL extends RIL {
 
+    private boolean dataAllowed = false;
     private boolean setPreferredNetworkTypeSeen = false;
+    private String voiceRegState = "0";
+    private String voiceDataTech = "0";
 
     private static final int RIL_REQUEST_DIAL_EMERGENCY = 10016;
     private static final int RIL_UNSOL_RESPONSE_IMS_NETWORK_STATE_CHANGED = 1036;
@@ -231,6 +234,116 @@ public class SerranoRIL extends RIL {
     }
 
     @Override
+    public void setInitialAttachApn(String apn, String protocol, int authType, String username,
+            String password, Message result) {
+        riljLog("setInitialAttachApn");
+
+        dataAllowed = true; //If we should attach to an APN, we actually need to register data
+
+        riljLog("Faking VoiceNetworkState");
+        mVoiceNetworkStateRegistrants.notifyRegistrants(new AsyncResult(null, null, null));
+
+        if (result != null) {
+            AsyncResult.forMessage(result, null, null);
+            result.sendToTarget();
+        }
+    }
+
+    @Override
+    protected RILRequest
+    processSolicited (Parcel p) {
+        int serial, error, request;
+        RILRequest rr;
+        int dataPosition = p.dataPosition(); // save off position within the Parcel
+
+        serial = p.readInt();
+        error = p.readInt();
+
+        rr = mRequestList.get(serial);
+        if (rr == null || error != 0 || p.dataAvail() <= 0) {
+            p.setDataPosition(dataPosition);
+            return super.processSolicited(p);
+        }
+
+        try { switch (rr.mRequest) {
+           case RIL_REQUEST_VOICE_REGISTRATION_STATE:
+               String voiceRegStates[] = (String [])responseStrings(p);
+
+               riljLog("VoiceRegistrationState response");
+
+               if (voiceRegStates.length > 0 && voiceRegStates[0] != null) {
+                   voiceRegState = voiceRegStates[0];
+               }
+
+               if (voiceRegStates.length > 3 && voiceRegStates[3] != null) {
+                   voiceDataTech = voiceRegStates[3];
+               }
+
+               if (RILJ_LOGD) riljLog(rr.serialString() + "< " + requestToString(rr.mRequest)
+                               + " " + retToString(rr.mRequest, voiceRegStates));
+
+               if (rr.mResult != null) {
+                       AsyncResult.forMessage(rr.mResult, voiceRegStates, null);
+                       rr.mResult.sendToTarget();
+               }
+               mRequestList.remove(serial);
+               break;
+           case RIL_REQUEST_DATA_REGISTRATION_STATE:
+               String dataRegStates[] = (String [])responseStrings(p);
+
+               riljLog("DataRegistrationState response");
+
+               if (dataRegStates.length > 0) {
+                   if (dataRegStates[0] != null) {
+                       if (!dataAllowed) {
+                           if (Integer.parseInt(dataRegStates[0]) > 0) {
+                               riljLog("Modifying dataRegState to 0 from " + dataRegStates[0]);
+                               dataRegStates[0] = "0";
+                           }
+                       } else {
+                           if ((Integer.parseInt(dataRegStates[0]) != 1) && (Integer.parseInt(dataRegStates[0]) != 5) &&
+                               ((Integer.parseInt(voiceRegState) == 1) || (Integer.parseInt(voiceRegState) == 5))) {
+                               riljLog("Modifying dataRegState from " + dataRegStates[0] + " to " + voiceRegState);
+                               dataRegStates[0] = voiceRegState;
+                               if (dataRegStates.length > 3) {
+                                   riljLog("Modifying dataTech from " + dataRegStates[3] + " to " + voiceDataTech);
+                                   dataRegStates[3] = voiceDataTech;
+                               }
+                           }
+                       }
+                   }
+               }
+
+               if (RILJ_LOGD) riljLog(rr.serialString() + "< " + requestToString(rr.mRequest)
+                               + " " + retToString(rr.mRequest, dataRegStates));
+
+               if (rr.mResult != null) {
+                       AsyncResult.forMessage(rr.mResult, dataRegStates, null);
+                       rr.mResult.sendToTarget();
+               }
+               mRequestList.remove(serial);
+               break;
+           default:
+               p.setDataPosition(dataPosition);
+               return super.processSolicited(p);
+        }} catch (Throwable tr) {
+                // Exceptions here usually mean invalid RIL responses
+
+                Rlog.w(RILJ_LOG_TAG, rr.serialString() + "< "
+                                + requestToString(rr.mRequest)
+                                + " exception, possible invalid RIL response", tr);
+
+                if (rr.mResult != null) {
+                        AsyncResult.forMessage(rr.mResult, null, tr);
+                        rr.mResult.sendToTarget();
+                }
+                return rr;
+        }
+
+        return rr;
+    }
+
+    @Override
     protected void
     processUnsolicited (Parcel p) {
         Object ret;
@@ -252,6 +365,12 @@ public class SerranoRIL extends RIL {
                 break;
             case RIL_UNSOL_RESPONSE_HANDOVER:
                 ret = responseVoid(p);
+                break;
+            case RIL_UNSOL_RIL_CONNECTED:
+                if (!setPreferredNetworkTypeSeen) {
+                    riljLog("Connected, setting network type to " + mPreferredNetworkType);
+                    setPreferredNetworkType(mPreferredNetworkType, null);
+                }
                 break;
             default:
                 // Rewind the Parcel
@@ -354,8 +473,6 @@ public class SerranoRIL extends RIL {
         riljLog("setPreferredNetworkType: " + networkType);
 
         if (!setPreferredNetworkTypeSeen) {
-            riljLog("Need to reboot modem!");
-            setRadioPower(false, null);
             setPreferredNetworkTypeSeen = true;
         }
 
