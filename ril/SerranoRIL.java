@@ -39,8 +39,6 @@ public class SerranoRIL extends RIL {
 
     private boolean dataAllowed = false;
     private boolean setPreferredNetworkTypeSeen = false;
-    private String voiceRegState = "0";
-    private String voiceDataTech = "0";
 
     private static final int RIL_REQUEST_DIAL_EMERGENCY = 10016;
     private static final int RIL_UNSOL_RESPONSE_IMS_NETWORK_STATE_CHANGED = 1036;
@@ -234,19 +232,20 @@ public class SerranoRIL extends RIL {
     }
 
     @Override
-    public void setInitialAttachApn(String apn, String protocol, int authType, String username,
-            String password, Message result) {
-        riljLog("setInitialAttachApn");
+    public void setPreferredNetworkType(int networkType , Message response) {
+        riljLog("setPreferredNetworkType: " + networkType);
 
-        dataAllowed = true; //If we should attach to an APN, we actually need to register data
+        setPreferredNetworkTypeSeen = true;
 
-        riljLog("Faking VoiceNetworkState");
+        super.setPreferredNetworkType(networkType, response);
+    }
+
+    @Override
+    public void setDataAllowed(boolean allowed, Message result) {
+        dataAllowed = allowed;
         mVoiceNetworkStateRegistrants.notifyRegistrants(new AsyncResult(null, null, null));
 
-        if (result != null) {
-            AsyncResult.forMessage(result, null, null);
-            result.sendToTarget();
-        }
+        super.setDataAllowed(allowed, result);
     }
 
     @Override
@@ -266,28 +265,6 @@ public class SerranoRIL extends RIL {
         }
 
         try { switch (rr.mRequest) {
-           case RIL_REQUEST_VOICE_REGISTRATION_STATE:
-               String voiceRegStates[] = (String [])responseStrings(p);
-
-               riljLog("VoiceRegistrationState response");
-
-               if (voiceRegStates.length > 0 && voiceRegStates[0] != null) {
-                   voiceRegState = voiceRegStates[0];
-               }
-
-               if (voiceRegStates.length > 3 && voiceRegStates[3] != null) {
-                   voiceDataTech = voiceRegStates[3];
-               }
-
-               if (RILJ_LOGD) riljLog(rr.serialString() + "< " + requestToString(rr.mRequest)
-                               + " " + retToString(rr.mRequest, voiceRegStates));
-
-               if (rr.mResult != null) {
-                       AsyncResult.forMessage(rr.mResult, voiceRegStates, null);
-                       rr.mResult.sendToTarget();
-               }
-               mRequestList.remove(serial);
-               break;
            case RIL_REQUEST_DATA_REGISTRATION_STATE:
                String dataRegStates[] = (String [])responseStrings(p);
 
@@ -299,16 +276,6 @@ public class SerranoRIL extends RIL {
                            if (Integer.parseInt(dataRegStates[0]) > 0) {
                                riljLog("Modifying dataRegState to 0 from " + dataRegStates[0]);
                                dataRegStates[0] = "0";
-                           }
-                       } else {
-                           if ((Integer.parseInt(dataRegStates[0]) != 1) && (Integer.parseInt(dataRegStates[0]) != 5) &&
-                               ((Integer.parseInt(voiceRegState) == 1) || (Integer.parseInt(voiceRegState) == 5))) {
-                               riljLog("Modifying dataRegState from " + dataRegStates[0] + " to " + voiceRegState);
-                               dataRegStates[0] = voiceRegState;
-                               if (dataRegStates.length > 3) {
-                                   riljLog("Modifying dataTech from " + dataRegStates[3] + " to " + voiceDataTech);
-                                   dataRegStates[3] = voiceDataTech;
-                               }
                            }
                        }
                    }
@@ -466,16 +433,5 @@ public class SerranoRIL extends RIL {
           failCause.vendorCause = p.readString();
         }
         return failCause;
-    }
-
-    @Override
-    public void setPreferredNetworkType(int networkType , Message response) {
-        riljLog("setPreferredNetworkType: " + networkType);
-
-        if (!setPreferredNetworkTypeSeen) {
-            setPreferredNetworkTypeSeen = true;
-        }
-
-        super.setPreferredNetworkType(networkType, response);
     }
 }
