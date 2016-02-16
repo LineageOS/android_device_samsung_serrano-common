@@ -25,6 +25,9 @@
 
 TARGET_SPECIFIC_HEADER_PATH := device/samsung/serrano-common/include
 
+# Build with Clang by default
+USE_CLANG_PLATFORM_BUILD := true
+
 # Kernel
 BOARD_KERNEL_CMDLINE         := androidboot.hardware=qcom user_debug=23 androidboot.bootdevice=msm_sdcc.1
 BOARD_KERNEL_BASE            := 0x80200000
