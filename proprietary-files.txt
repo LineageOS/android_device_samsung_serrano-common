@@ -144,13 +144,13 @@ lib/libqc-opt.so
 # DRM
 bin/insthk
 bin/qseecomd
-lib/libdrmdecrypt.so
 lib/libdrmfs.so
 lib/libdrmtime.so
 lib/libhdcp2.so
 lib/libQSEEComAPI.so
 vendor/lib/drm/libdrmwvmplugin.so
 vendor/lib/mediadrm/libwvdrmengine.so
+vendor/lib/libdrmdecrypt.so
 vendor/lib/libwvm.so
 vendor/lib/libwvdrm_L1.so
 vendor/lib/libWVStreamControlAPI_L1.so
