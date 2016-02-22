@@ -16,6 +16,11 @@
 
 #define CAMERA_PARAMETERS_EXTRA_C \
 const char CameraParameters::KEY_SUPPORTED_ISO_MODES[] = "iso-values"; \
+const char CameraParameters::KEY_QC_FACE_RECOGNITION[] = "face-recognition"; \
+const char CameraParameters::KEY_QC_SUPPORTED_FACE_RECOGNITION[] = "face-recognition-values"; \
+const char CameraParameters::KEY_QC_SUPPORTED_FACE_RECOGNITION_MODES[] = "face-recognition-values"; \
+const char CameraParameters::KEY_QC_FACE_DETECTION[] = "face-detection"; \
+const char CameraParameters::KEY_QC_SUPPORTED_FACE_DETECTION[] = "face-detection-values"; \
 const char CameraParameters::KEY_FACE_DETECTION[] = "face-detection"; \
 const char CameraParameters::KEY_SUPPORTED_FACE_DETECTION[] = "face-detection-values"; \
 const char CameraParameters::FACE_DETECTION_OFF[] = "off"; \
@@ -125,6 +130,11 @@ void CameraParameters::setPreviewFpsRange(int minFPS, int maxFPS) { };
 
 #define CAMERA_PARAMETERS_EXTRA_H \
     static const char KEY_SUPPORTED_ISO_MODES[]; \
+    static const char KEY_QC_FACE_RECOGNITION[]; \
+    static const char KEY_QC_SUPPORTED_FACE_RECOGNITION[]; \
+    static const char KEY_QC_SUPPORTED_FACE_RECOGNITION_MODES[]; \
+    static const char KEY_QC_FACE_DETECTION[]; \
+    static const char KEY_QC_SUPPORTED_FACE_DETECTION[]; \
     static const char KEY_FACE_DETECTION[]; \
     static const char KEY_SUPPORTED_FACE_DETECTION[]; \
     static const char FACE_DETECTION_OFF[]; \
