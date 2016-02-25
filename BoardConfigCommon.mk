@@ -36,7 +36,6 @@ TARGET_KERNEL_CONFIG         := cyanogen_serrano_usa_defconfig
 else
 TARGET_KERNEL_CONFIG         := cyanogen_serrano_defconfig
 endif
-TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-androideabi-
 
 TARGET_BOOTLOADER_BOARD_NAME := MSM8960
 
