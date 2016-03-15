@@ -81,10 +81,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/Eleven.apk:system/app/Eleven/Eleven.apk
 
-# Stupid toybox
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/toybox:system/bin/toybox
-
 # GPS/location security configuration file
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
