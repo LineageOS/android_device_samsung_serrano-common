@@ -22,13 +22,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
-    audio.gapless.playback.disable=true \
     audio.offload.disable=1 \
     mm.enable.smoothstreaming=true \
-    persist.audio.fluence.mode=endfire \
-    persist.audio.vr.enable=false \
-    persist.audio.handset.mic=digital \
-    persist.audio.lowlatency.rec=false \
+    ro.qc.sdk.audio.fluencetype=none \
+    persist.audio.fluence.voicecall=true \
+    persist.audio.fluence.voicerec=false \
+    persist.audio.fluence.speaker=true \
+    use.dedicated.device.for.voip=true \
     qcom.hw.aac.encoder=true \
     media.aac_51_output_enabled=true
 
