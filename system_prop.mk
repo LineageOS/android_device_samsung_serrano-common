@@ -51,7 +51,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.chipname=MSM8930AB \
     ro.product_ship=true \
     ro.warmboot.capability=1 \
-    ro.vold.umsdirtyratio=50 \
     ro.config.max_starting_bg=8 \
     persist.timed.enable=true \
     wifi.interface=wlan0 \
