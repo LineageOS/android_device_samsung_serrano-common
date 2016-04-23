@@ -31,9 +31,6 @@ import init.target.rc
 import init.carrier.rc
 
 on init
-    # Set permissions for persist partition
-    mkdir /persist 0771 system system
-
     # Create USB host bus directory here so that libusbhost
     # can start monitoring.
     mkdir /dev/bus 0755 root root
