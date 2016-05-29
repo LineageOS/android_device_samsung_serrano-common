@@ -216,17 +216,10 @@
 
     <!-- These are actual sound device specific mixer settings -->
     <path name="adc1">
-        <ctl name="PRI_TX Channels" value="Two" />
+        <ctl name="PRI_TX Channels" value="One" />
         <ctl name="AIF1_CAP Mixer SLIM TX1" value="1" />
-        <ctl name="AIF1_CAP Mixer SLIM TX2" value="1" />
-        <ctl name="SLIM TX1 MUX" value="DEC1" />
-        <ctl name="SLIM TX2 MUX" value="DEC2" />
-        <ctl name="DEC1 MUX" value="ADC1" />
-        <ctl name="DEC2 MUX" value="ADC2" />
-        <ctl name="TX1 HPF Switch" value="1" />
-        <ctl name="TX2 HPF Switch" value="1" />
-        <ctl name="TX1 HPF cut off" value="MIN_3DB_150Hz" />
-        <ctl name="TX2 HPF cut off" value="MIN_3DB_150Hz" />
+        <ctl name="SLIM TX1 MUX" value="DEC4" />
+        <ctl name="DEC4 MUX" value="ADC1" />
     </path>
 
     <path name="adc2">
@@ -271,9 +264,21 @@
     </path>
 
     <path name="handset-mic">
-        <path name="adc1" />
+        <ctl name="PRI_TX Channels" value="Two" />
+        <ctl name="AIF1_CAP Mixer SLIM TX1" value="1" />
+        <ctl name="AIF1_CAP Mixer SLIM TX2" value="1" />
+        <ctl name="SLIM TX1 MUX" value="DEC1" />
+        <ctl name="SLIM TX2 MUX" value="DEC2" />
+        <ctl name="DEC1 MUX" value="ADC1" />
+        <ctl name="DEC2 MUX" value="ADC3" />
         <ctl name="ADC1 Volume" value="16" />
-        <ctl name="DEC4 Volume" value="84" />
+        <ctl name="ADC3 Volume" value="16" />
+        <ctl name="DEC1 Volume" value="84" />
+        <ctl name="DEC2 Volume" value="84" />
+        <ctl name="TX1 HPF Switch" value="1" />
+        <ctl name="TX2 HPF Switch" value="1" />
+        <ctl name="TX1 HPF cut off" value="MIN_3DB_150Hz" />
+        <ctl name="TX2 HPF cut off" value="MIN_3DB_150Hz" />
     </path>
 
     <path name="headphones">
@@ -316,9 +321,21 @@
     </path>
 
     <path name="voice-speaker-mic">
-        <path name="adc3" />
-        <ctl name="ADC3 Volume" value="14" />
-        <ctl name="DEC4 Volume" value="90" />
+        <ctl name="PRI_TX Channels" value="Two" />
+        <ctl name="AIF1_CAP Mixer SLIM TX1" value="1" />
+        <ctl name="AIF1_CAP Mixer SLIM TX2" value="1" />
+        <ctl name="SLIM TX1 MUX" value="DEC1" />
+        <ctl name="SLIM TX2 MUX" value="DEC2" />
+        <ctl name="DEC1 MUX" value="ADC1" />
+        <ctl name="DEC2 MUX" value="ADC3" />
+        <ctl name="ADC1 Volume" value="13" />
+        <ctl name="ADC3 Volume" value="13" />
+        <ctl name="DEC1 Volume" value="82" />
+        <ctl name="DEC2 Volume" value="82" />
+        <ctl name="TX1 HPF Switch" value="1" />
+        <ctl name="TX2 HPF Switch" value="1" />
+        <ctl name="TX1 HPF cut off" value="MIN_3DB_150Hz" />
+        <ctl name="TX2 HPF cut off" value="MIN_3DB_150Hz" />
     </path>
 
     <path name="voice-headphones">
