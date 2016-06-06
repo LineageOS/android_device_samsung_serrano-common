@@ -25,6 +25,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <malloc.h>
 #include <pthread.h>
 
 #include <sys/ioctl.h>
@@ -277,11 +278,16 @@ set_light_leds_attention(struct light_device_t *dev,
 
 #ifdef GENERIC_BLN
 static int
-set_light_leds_notifications(struct light_device_t* dev,
+set_light_leds_notifications(struct light_device_t *dev,
         struct light_state_t const* state)
 {
     int err = 0;
     int on = is_lit(state);
+
+    if(!dev) {
+        return -1;
+    }
+
     pthread_mutex_lock(&g_lock);
     err = write_int(NOTIFICATION_FILE, on?1:0);
     pthread_mutex_unlock(&g_lock);
@@ -290,11 +296,16 @@ set_light_leds_notifications(struct light_device_t* dev,
 #endif
 
 static int
-set_light_backlight(struct light_device_t* dev,
+set_light_backlight(struct light_device_t *dev,
         struct light_state_t const* state)
 {
     int err = 0;
     int brightness = rgb_to_brightness(state);
+
+    if(!dev) {
+        return -1;
+    }
+
     pthread_mutex_lock(&g_lock);
     err = write_int(LCD_FILE, brightness);
     pthread_mutex_unlock(&g_lock);
@@ -302,10 +313,15 @@ set_light_backlight(struct light_device_t* dev,
 }
 
 static int
-set_light_buttons(struct light_device_t* dev,
+set_light_buttons(struct light_device_t *dev,
         struct light_state_t const* state)
 {
     int err = 0;
+
+    if(!dev) {
+        return -1;
+    }
+
     pthread_mutex_lock(&g_lock);
     err = write_int(BUTTON_FILE, state->color & 0xFF);
     pthread_mutex_unlock(&g_lock);
@@ -332,7 +348,7 @@ close_lights(struct light_device_t *dev)
 static int open_lights(const struct hw_module_t* module, char const* name,
         struct hw_device_t** device)
 {
-    int (*set_light)(struct light_device_t* dev,
+    int (*set_light)(struct light_device_t *dev,
             struct light_state_t const* state);
 
     if (0 == strcmp(LIGHT_ID_BACKLIGHT, name))
