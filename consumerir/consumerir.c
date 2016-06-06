@@ -26,7 +26,7 @@
 #include <hardware/hardware.h>
 #include <hardware/consumerir.h>
 
-#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
+#define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
 
 static const consumerir_freq_range_t consumerir_freqs[] = {
     {.min = 30000, .max = 30000},
@@ -77,8 +77,8 @@ append_number(char **buffer, int *len, int *size, int number)
 }
 
 int fd = 0;
-static int consumerir_transmit(struct consumerir_device *dev,
-   int carrier_freq, int pattern[], int pattern_len)
+static int consumerir_transmit(struct consumerir_device *dev __unused,
+   int carrier_freq, const int pattern[], int pattern_len)
 {
     int buffer_len = 0;
     int buffer_size = 128;
@@ -117,12 +117,12 @@ error:
     return -ENOMEM;
 }
 
-static int consumerir_get_num_carrier_freqs(struct consumerir_device *dev)
+static int consumerir_get_num_carrier_freqs(struct consumerir_device *dev __unused)
 {
     return ARRAY_SIZE(consumerir_freqs);
 }
 
-static int consumerir_get_carrier_freqs(struct consumerir_device *dev,
+static int consumerir_get_carrier_freqs(struct consumerir_device *dev __unused,
     size_t len, consumerir_freq_range_t *ranges)
 {
     size_t to_copy = ARRAY_SIZE(consumerir_freqs);
