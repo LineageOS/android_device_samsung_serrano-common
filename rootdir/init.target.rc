@@ -392,6 +392,10 @@ on post-fs-data
     chown system system /sys/devices/virtual/graphics/fb0/rgb
     chmod 0660 /sys/devices/virtual/graphics/fb0/rgb
 
+    # Touchkey
+    chown system system /sys/class/sec/sec_touchkey/touchkey_enable
+    chmod 0660 /sys/class/sec/sec_touchkey/touchkey_enable
+
 # Start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
