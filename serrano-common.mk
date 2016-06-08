@@ -138,6 +138,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libqcomvoiceprocessing
 
+# Gello
+PRODUCT_PACKAGES += \
+    Gello
+
 # call common serrano system props
 $(call inherit-product, device/samsung/serrano-common/system_prop.mk)
 
