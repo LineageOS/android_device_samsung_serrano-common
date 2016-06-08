@@ -44,7 +44,6 @@ lib/libI420colorconvert.so
 lib/libmm-color-convertor.so
 
 # Radio
-bin/ds_fmc_appd
 bin/qmuxd
 bin/rild
 bin/rmt_storage
