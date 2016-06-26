@@ -60,6 +60,7 @@
     </pcm_ids>
 
     <device_names>
-        <!-- empty -->
+        <device name="SND_DEVICE_IN_VOICE_REC_DMIC_STEREO" alias="handset-mic" />
+        <device name="SND_DEVICE_IN_SPEAKER_STEREO_DMIC" alias="speaker-mic" />
     </device_names>
 </audio_platform_info>
