@@ -262,7 +262,7 @@
         <ctl name="SLIM RX1 MUX" value="AIF1_PB" />
         <ctl name="DAC1 Switch" value="1" />
         <ctl name="EAR PA Gain" value="POS_3_DB" />
-        <ctl name="RX1 Digital Volume" value="84" />
+        <ctl name="RX1 Digital Volume" value="78" />
     </path>
 
     <path name="handset-mic">
@@ -301,7 +301,7 @@
         <ctl name="SLIM RX1 MUX" value="AIF1_PB" />
         <ctl name="DAC1 Switch" value="1" />
         <ctl name="EAR PA Gain" value="POS_3_DB" />
-        <ctl name="RX1 Digital Volume" value="84" />
+        <ctl name="RX1 Digital Volume" value="78" />
     </path>
 
     <path name="voice-speaker">
@@ -363,7 +363,7 @@
         <ctl name="SLIM RX1 MUX" value="AIF1_PB" />
         <ctl name="DAC1 Switch" value="1" />
         <ctl name="EAR PA Gain" value="POS_3_DB" />
-        <ctl name="RX1 Digital Volume" value="84" />
+        <ctl name="RX1 Digital Volume" value="78" />
     </path>
 
     <path name="voip-speaker-comm">
