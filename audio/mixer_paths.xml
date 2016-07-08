@@ -104,8 +104,8 @@
     </path>
 
     <path name="low-latency-playback speaker-and-hdmi">
-        <ctl name="HDMI Mixer MultiMedia5" value="1" />
-        <ctl name="PRI_RX Audio Mixer MultiMedia5" value="1" />
+        <path name="low-latency-playback hdmi" />
+        <path name="low-latency-playback" />
     </path>
 
     <path name="low-latency-playback bt-sco">
@@ -186,8 +186,7 @@
     </path>
 
     <path name="voice-call usb-headphones">
-        <ctl name="AFE_PCM_RX_Voice Mixer CSVoice" value="1" />
-        <ctl name="Voice_Tx Mixer AFE_PCM_TX_Voice" value="1" />
+        <path name="voice-call afe-proxy" />
     </path>
 
     <path name="incall-rec-uplink">
@@ -456,10 +455,6 @@
     </path>
 
     <path name="usb-headset-mic">
-    </path>
-
-    <path name="echo-reference">
-        <ctl name="EC_REF_RX" value="I2S_RX" />
     </path>
 
     <!-- TTY devices -->
