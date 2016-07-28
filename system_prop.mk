@@ -25,7 +25,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     audio.offload.disable=1 \
     mm.enable.smoothstreaming=true \
     use.dedicated.device.for.voip=true \
-    qcom.hw.aac.encoder=true \
     media.aac_51_output_enabled=true
 
 # Graphics
