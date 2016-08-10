@@ -1,50 +1,20 @@
-on boot
-    # CPUFreq limit
-    chown system system /sys/kernel/cpufreq_limit/limited_max_freq
-    chown system system /sys/kernel/cpufreq_limit/limited_min_freq
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/max_freq_hysteresis
-    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/max_freq_hysteresis
-
 on charger
     wait /dev/block/platform/msm_sdcc.1/by-name/system
     mount ext4 /dev/block/platform/msm_sdcc.1/by-name/system /system ro barrier=1
     write /sys/devices/system/cpu/cpu1/online 1
-    write /sys/devices/system/cpu/cpu2/online 1
-    write /sys/devices/system/cpu/cpu3/online 1
     write /sys/module/rpm_resources/enable_low_power/L2_cache 1
     write /sys/module/rpm_resources/enable_low_power/pxo 1
     write /sys/module/rpm_resources/enable_low_power/vdd_dig 1
     write /sys/module/rpm_resources/enable_low_power/vdd_mem 1
+    write /sys/module/pm_8x60/modes/cpu0/retention/idle_enabled 1
     write /sys/module/pm_8x60/modes/cpu0/power_collapse/suspend_enabled 1
-    write /sys/module/pm_8x60/modes/cpu1/power_collapse/suspend_enabled 1
-    write /sys/module/pm_8x60/modes/cpu2/power_collapse/suspend_enabled 1
-    write /sys/module/pm_8x60/modes/cpu3/power_collapse/suspend_enabled 1
+    write /sys/module/pm_8x60/modes/cpu0/power_collapse/idle_enabled 1
     write /sys/module/pm_8x60/modes/cpu0/standalone_power_collapse/suspend_enabled 1
-    write /sys/module/pm_8x60/modes/cpu1/standalone_power_collapse/suspend_enabled 1
-    write /sys/module/pm_8x60/modes/cpu2/standalone_power_collapse/suspend_enabled 1
-    write /sys/module/pm_8x60/modes/cpu3/standalone_power_collapse/suspend_enabled 1
     write /sys/module/pm_8x60/modes/cpu0/standalone_power_collapse/idle_enabled 1
-    write /sys/module/pm_8x60/modes/cpu1/standalone_power_collapse/idle_enabled 1
-    write /sys/module/pm_8x60/modes/cpu2/standalone_power_collapse/idle_enabled 1
-    write /sys/module/pm_8x60/modes/cpu3/standalone_power_collapse/idle_enabled 1
-    write /sys/module/pm_8x60/modes/cpu0/power_collapse/idle_enabled 0
-    write /sys/module/pm_8x60/modes/cpu1/power_collapse/idle_enabled 0
-    write /sys/module/pm_8x60/modes/cpu2/power_collapse/idle_enabled 0
-    write /sys/module/pm_8x60/modes/cpu3/power_collapse/idle_enabled 0
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor powersave
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor powersave
-    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor powersave
     write /sys/devices/system/cpu/cpu1/online 0
-    write /sys/devices/system/cpu/cpu2/online 0
-    write /sys/devices/system/cpu/cpu3/online 0
 
-service charger /sbin/healthd -c
-    class charger
-    critical
-    seclabel u:r:healthd:s0
-
-on property:dev.bootcomplete=1
+on enable-low-power
     write /sys/module/rpm_resources/enable_low_power/L2_cache 1
     write /sys/module/rpm_resources/enable_low_power/pxo 1
     write /sys/module/rpm_resources/enable_low_power/vdd_dig 1
@@ -53,12 +23,30 @@ on property:dev.bootcomplete=1
     write /sys/module/pm_8x60/modes/cpu1/retention/idle_enabled 1
     write /sys/module/pm_8x60/modes/cpu0/power_collapse/suspend_enabled 1
     write /sys/module/pm_8x60/modes/cpu1/power_collapse/suspend_enabled 1
+    write /sys/module/pm_8x60/modes/cpu0/power_collapse/idle_enabled 1
     write /sys/module/pm_8x60/modes/cpu0/standalone_power_collapse/suspend_enabled 1
     write /sys/module/pm_8x60/modes/cpu1/standalone_power_collapse/suspend_enabled 1
     write /sys/module/pm_8x60/modes/cpu0/standalone_power_collapse/idle_enabled 1
     write /sys/module/pm_8x60/modes/cpu1/standalone_power_collapse/idle_enabled 1
-    write /sys/module/pm_8x60/modes/cpu0/power_collapse/idle_enabled 1
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 384000
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 384000
     write /sys/module/msm_thermal/core_control/enabled 1
     start mpdecision
+
+on boot
+    chown system system /sys/kernel/cpufreq_limit/limited_max_freq
+    chown system system /sys/kernel/cpufreq_limit/limited_min_freq
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/max_freq_hysteresis
+    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/max_freq_hysteresis
+    trigger enable-low-power
+
+on property:init.svc.recovery=running
+    trigger enable-low-power
+
+on property:recovery.perf.mode=1
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor performance
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor performance
+
+on property:recovery.perf.mode=0
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor interactive

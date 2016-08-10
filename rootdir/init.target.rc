@@ -417,6 +417,11 @@ service qseecomd /system/bin/qseecomd
     user system
     group system
 
+service charger /sbin/healthd -c
+    class charger
+    critical
+    seclabel u:r:healthd:s0
+
 service geomagneticd /system/bin/geomagneticd
     class late_start
     user compass
