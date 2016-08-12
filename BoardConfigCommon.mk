@@ -32,9 +32,9 @@ BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 BOARD_KERNEL_PAGESIZE := 2048
 TARGET_KERNEL_SOURCE := kernel/samsung/msm8930-common
 ifneq ($(filter serranoltespr serranolteusc,$(TARGET_DEVICE)),)
-TARGET_KERNEL_CONFIG := cyanogen_serrano_usa_defconfig
+TARGET_KERNEL_CONFIG := cyanogenmod_serrano_usa_defconfig
 else
-TARGET_KERNEL_CONFIG := cyanogen_serrano_defconfig
+TARGET_KERNEL_CONFIG := cyanogenmod_serrano_defconfig
 endif
 
 # Bootloader
