@@ -19,13 +19,11 @@
 #define _BDROID_BUILDCFG_H
 
 #define BTA_DISABLE_DELAY 100 /* in milliseconds */
-
-// Enable QCOM specific features
 #define BLUETOOTH_QTI_SW TRUE
-// Enables Interleave scan
 #define BTA_HOST_INTERLEAVE_SEARCH TRUE
 #define SC_MODE_INCLUDED FALSE
 #define HCI_RAW_CMD_INCLUDED FALSE
 #define SDP_DEBUG FALSE
 #define BTSNOOP_MEM FALSE
+
 #endif
