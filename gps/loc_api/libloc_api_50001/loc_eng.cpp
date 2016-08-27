@@ -143,7 +143,7 @@ static void loc_default_parameters(void)
    gps_conf.NMEA_PROVIDER = 0;
    gps_conf.GPS_LOCK = 0;
    gps_conf.SUPL_VER = 0x10000;
-   gps_conf.SUPL_MODE = 0x3;
+   gps_conf.SUPL_MODE = 0x1;
    gps_conf.SUPL_ES = 0;
    gps_conf.CAPABILITIES = 0x7;
    /* LTE Positioning Profile configuration is disable by default*/
