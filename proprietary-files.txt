@@ -138,7 +138,7 @@ lib/libTsAccm.so
 lib/libTsAwb.so
 
 # Perf
-lib/libqc-opt.so
+vendor/lib/libqti-perfd-client.so
 
 # DRM
 bin/insthk
