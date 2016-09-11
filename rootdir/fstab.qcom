@@ -4,13 +4,13 @@
 
 #<src>                                             <mnt_point>    <type>  <mnt_flags and options>                                                                         <fs_mgr_flags>
 /dev/block/platform/msm_sdcc.1/by-name/system      /system        ext4    ro,barrier=1                                                                                    wait
-/dev/block/platform/msm_sdcc.1/by-name/userdata    /data          f2fs    nosuid,nodev,noatime,nodiratime,inline_xattr                                                    wait,check,formattable,encryptable=footer,length=-16384
-/dev/block/platform/msm_sdcc.1/by-name/userdata    /data          ext4    nosuid,nodev,noatime,nodiratime,noauto_da_alloc,journal_async_commit,barrier=1                  wait,check,formattable,encryptable=footer,length=-16384
-/dev/block/platform/msm_sdcc.1/by-name/cache       /cache         f2fs    nosuid,nodev,noatime,nodiratime,inline_xattr                                                    wait,check,formattable
-/dev/block/platform/msm_sdcc.1/by-name/cache       /cache         ext4    nosuid,nodev,noatime,nodiratime,noauto_da_alloc,journal_async_commit,barrier=1                  wait,check,formattable
-/dev/block/platform/msm_sdcc.1/by-name/efs         /efs           ext4    nosuid,nodev,noatime,nodiratime,noauto_da_alloc,journal_async_commit,barrier=1                  wait,check
-/dev/block/platform/msm_sdcc.1/by-name/persist     /persist       ext4    nosuid,nodev,noatime,nodiratime,noauto_da_alloc,journal_async_commit,barrier=1                  wait,check
-/dev/block/platform/msm_sdcc.1/by-name/modem       /firmware      vfat    ro,shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337,context=u:object_r:firmware_file:s0    wait
+/dev/block/platform/msm_sdcc.1/by-name/userdata    /data          f2fs    rw,nosuid,nodev,noatime,nodiratime,inline_xattr                                                 wait,check,formattable,encryptable=footer,length=-16384
+/dev/block/platform/msm_sdcc.1/by-name/userdata    /data          ext4    rw,nosuid,nodev,noatime,nodiratime,noauto_da_alloc,journal_async_commit,barrier=1               wait,check,formattable,encryptable=footer,length=-16384
+/dev/block/platform/msm_sdcc.1/by-name/cache       /cache         f2fs    rw,nosuid,nodev,noatime,nodiratime,inline_xattr                                                 wait,check,formattable
+/dev/block/platform/msm_sdcc.1/by-name/cache       /cache         ext4    rw,nosuid,nodev,noatime,nodiratime,noauto_da_alloc,journal_async_commit,barrier=1               wait,check,formattable
+/dev/block/platform/msm_sdcc.1/by-name/efs         /efs           ext4    rw,nosuid,nodev,noatime,nodiratime,noauto_da_alloc,journal_async_commit,barrier=1               wait,check
+/dev/block/platform/msm_sdcc.1/by-name/persist     /persist       ext4    rw,nosuid,nodev,noatime,nodiratime,noauto_da_alloc,journal_async_commit,barrier=1               wait,check
+/dev/block/platform/msm_sdcc.1/by-name/modem       /firmware      vfat    ro,shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337                                        wait
 /dev/block/platform/msm_sdcc.1/by-name/boot        /boot          emmc    defaults    defaults
 /dev/block/platform/msm_sdcc.1/by-name/recovery    /recovery      emmc    defaults    defaults
 

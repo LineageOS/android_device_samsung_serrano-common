@@ -120,13 +120,13 @@ const char CameraParameters::EFFECT_VINTAGE_WARM[] = "vintage-warm"; \
 const char CameraParameters::EFFECT_WASHED[] = "washed"; \
 const char CameraParameters::SCENE_MODE_BACKLIGHT[] = "backlight"; \
 const char CameraParameters::SCENE_MODE_ASD[] = "asd"; \
-int CameraParameters::getInt64(const char *key) const { return -1; }; \
+int CameraParameters::getInt64(const char *key __unused) const { return -1; }; \
 const char *CameraParameters::getPreviewFrameRateMode() const { return get(KEY_PREVIEW_FRAME_RATE_MODE); }; \
 void CameraParameters::setPreviewFrameRateMode(const char *mode) { set(KEY_PREVIEW_FRAME_RATE_MODE, mode); }; \
-void CameraParameters::getMeteringAreaCenter(int *x, int *y) const { }; \
-void CameraParameters::setTouchIndexAec(int x, int y) { }; \
-void CameraParameters::setTouchIndexAf(int x, int y) { }; \
-void CameraParameters::setPreviewFpsRange(int minFPS, int maxFPS) { };
+void CameraParameters::getMeteringAreaCenter(int *x __unused, int *y __unused) const { }; \
+void CameraParameters::setTouchIndexAec(int x __unused, int y __unused) { }; \
+void CameraParameters::setTouchIndexAf(int x __unused, int y __unused) { }; \
+void CameraParameters::setPreviewFpsRange(int minFPS __unused, int maxFPS __unused) { };
 
 #define CAMERA_PARAMETERS_EXTRA_H \
     static const char KEY_SUPPORTED_ISO_MODES[]; \
@@ -234,10 +234,10 @@ void CameraParameters::setPreviewFpsRange(int minFPS, int maxFPS) { };
     static const char EFFECT_WASHED[]; \
     static const char SCENE_MODE_BACKLIGHT[]; \
     static const char SCENE_MODE_ASD[]; \
-    int getInt64(const char *key) const; \
+    int getInt64(const char *key __unused) const; \
     const char *getPreviewFrameRateMode() const; \
     void setPreviewFrameRateMode(const char *mode); \
-    void getMeteringAreaCenter(int *x, int *y) const; \
-    void setTouchIndexAec(int x, int y); \
-    void setTouchIndexAf(int x, int y); \
-    void setPreviewFpsRange(int minFPS, int maxFPS);
+    void getMeteringAreaCenter(int *x __unused, int *y __unused) const; \
+    void setTouchIndexAec(int x __unused, int y __unused); \
+    void setTouchIndexAf(int x __unused, int y __unused); \
+    void setPreviewFpsRange(int minFPS __unused, int maxFPS __unused);

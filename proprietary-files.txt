@@ -74,10 +74,8 @@ vendor/lib/libril-qcril-hook-oem.so
 bin/radish
 
 # Time services
--app/TimeService/TimeService.apk
 bin/time_daemon
--lib/libtime_genoff.so
--lib/libTimeService.so
+-vendor/lib/libtime_genoff.so
 
 # GPS
 bin/irsc_util
