@@ -62,6 +62,11 @@
     <ctl name="TX2 HPF Switch" value="0" />
     <ctl name="TX1 HPF cut off" value="MIN_3DB_4Hz" />
     <ctl name="TX2 HPF cut off" value="MIN_3DB_4Hz" />
+    <ctl name="Voip Mode Config" value="12" />
+    <ctl name="Voip Rate Config" value="0" />
+    <ctl name="Voip Evrc Min Max Rate Config" id="0" value="1" />
+    <ctl name="Voip Evrc Min Max Rate Config" id="1" value="4" />
+    <ctl name="Voip Dtx Mode" value="0" />
 
     <!-- echo reference -->
     <ctl name="EC_REF_RX" value="NONE" />
@@ -189,16 +194,6 @@
         <ctl name="Voice_Tx Mixer INTERNAL_BT_SCO_TX_Voice" value="1" />
     </path>
 
-    <path name="voip-call">
-        <ctl name="PRI_RX_Voice Mixer Voip" value="1" />
-        <ctl name="Voip_Tx Mixer PRI_TX_Voip" value="1" />
-    </path>
-
-    <path name="voip-call bt-sco">
-        <ctl name="INTERNAL_BT_SCO_RX_Voice Mixer Voip" value="1" />
-        <ctl name="Voip_Tx Mixer INTERNAL_BT_SCO_TX_Voip" value="1" />
-    </path>
-
     <path name="voice-call afe-proxy">
         <ctl name="AFE_PCM_RX_Voice Mixer CSVoice" value="1" />
         <ctl name="Voice_Tx Mixer AFE_PCM_TX_Voice" value="1" />
@@ -206,6 +201,21 @@
 
     <path name="voice-call usb-headphones">
         <path name="voice-call afe-proxy" />
+    </path>
+
+    <path name="compress-voip-call">
+        <ctl name="PRI_RX_Voice Mixer Voip" value="1" />
+        <ctl name="Voip_Tx Mixer PRI_TX_Voip" value="1" />
+    </path>
+
+    <path name="compress-voip-call bt-sco">
+        <ctl name="INTERNAL_BT_SCO_RX_Voice Mixer Voip" value="1" />
+        <ctl name="Voip_Tx Mixer INTERNAL_BT_SCO_TX_Voip" value="1" />
+    </path>
+
+    <path name="compress-voip-call usb-headphones">
+        <ctl name="AFE_PCM_RX_Voice Mixer Voip" value="1" />
+        <ctl name="Voip_Tx Mixer AFE_PCM_TX_Voip" value="1" />
     </path>
 
     <path name="incall-rec-uplink">
@@ -294,8 +304,8 @@
 
     <path name="speaker-mic">
         <path name="adc1" />
-        <ctl name="ADC1 Volume" value="11" />
-        <ctl name="DEC4 Volume" value="84" />
+        <ctl name="ADC1 Volume" value="15" />
+        <ctl name="DEC4 Volume" value="96" />
     </path>
 
     <path name="handset">
@@ -392,7 +402,7 @@
         <ctl name="RX1 MIX1 INP1" value="RX1" />
         <ctl name="SLIM RX1 MUX" value="AIF1_PB" />
         <ctl name="DAC1 Switch" value="1" />
-        <ctl name="EAR PA Gain" value="POS_3_DB" />
+        <ctl name="EAR PA Gain" value="POS_6_DB" />
         <ctl name="RX1 Digital Volume" value="78" />
     </path>
 
