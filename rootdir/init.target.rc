@@ -30,6 +30,7 @@
 on early-init
     mkdir /firmware 0771 system system
     symlink /data/tombstones /tombstones
+    mount debugfs debugfs /sys/kernel/debug
     chown system system /sys/kernel/debug/kgsl/proc
     mkdir /efs 0771 system radio
     chmod 644 /proc/cmdline
@@ -400,16 +401,17 @@ on post-fs-data
 service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
     user camera
-    group camera system inet input graphics net_bt_stack
+    group camera system inet input graphics
 
 service thermald /system/bin/thermald
     class main
     user root
     group root
 
-service mpdecision /system/bin/mpdecision --avg_comp
+service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
     class main
     user root
+    group root system
     disabled
 
 service qseecomd /system/bin/qseecomd
@@ -433,9 +435,9 @@ service time_daemon /system/bin/time_daemon
     group root
 
 service wcnss-service /system/bin/wcnss_service
-    class late_start
+    class main
     user system
-    group system wifi
+    group system wifi radio
     oneshot
 
 # insthk

@@ -31,7 +31,6 @@ vendor/lib/libc2d30-a3xx.so
 vendor/lib/libCB.so
 vendor/lib/libgsl.so
 vendor/lib/libllvm-qcom.so
-vendor/lib/libOpenCL.so
 vendor/lib/librs_adreno_sha1.so
 vendor/lib/librs_adreno.so
 vendor/lib/libRSDriver_adreno.so
@@ -72,10 +71,8 @@ vendor/lib/libril-qcril-hook-oem.so
 bin/radish
 
 # Time services
--app/TimeService/TimeService.apk
 bin/time_daemon
--lib/libtime_genoff.so
--lib/libTimeService.so
+-vendor/lib/libtime_genoff.so
 
 # GPS
 bin/irsc_util
@@ -151,14 +148,6 @@ vendor/lib/libdrmdecrypt.so
 vendor/lib/libwvm.so
 vendor/lib/libwvdrm_L1.so
 vendor/lib/libWVStreamControlAPI_L1.so
-
-# Media
-lib/libOmxAacDec.so
-lib/libOmxAmrwbplusDec.so
-lib/libOmxEvrcDec.so
-lib/libOmxMux.so
-lib/libOmxQcelp13Dec.so
-lib/libOmxWmaDec.so
 
 # NFC firmware
 vendor/firmware/bcm2079xB4_firmware.ncd
