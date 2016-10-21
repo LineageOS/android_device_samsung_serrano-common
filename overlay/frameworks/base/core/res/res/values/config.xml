@@ -155,6 +155,9 @@
          Also, the battery stats are flushed to disk when we hit this level.  -->
     <integer name="config_criticalBatteryWarningLevel">5</integer>
 
+    <!-- Disable lockscreen rotation by default -->
+    <bool name="config_enableLockScreenRotation">false</bool>
+
     <!-- Hardware 'face' keys present on the device, stored as a bit field.
          This integer should equal the sum of the corresponding value for each
          of the following keys present:
@@ -287,7 +290,7 @@
     <string name="config_dozeComponent">com.android.systemui/com.android.systemui.doze.DozeService</string>
     <bool name="config_dozeAfterScreenOff">true</bool>
 
-    <!-- Set the system language as value of EF LI/EF PL -->
+    <!-- Do not set the system language as value of EF LI/EF PL -->
     <bool name="config_use_sim_language_file">false</bool>
 
     <!-- Ultrasound support for Mic/speaker path -->
@@ -297,9 +300,6 @@
     <!-- Whether the default speaker audio output path supports near-ultrasound frequencies
          (range of 18 - 21 kHz). -->
     <bool name="config_supportSpeakerNearUltrasound">false</bool>
-
-    <!-- Flag indicating if device supports EAP SIM, AKA, AKA' -->
-    <bool name="config_eap_sim_based_auth_supported">false</bool>
 
     <!-- Whether to enable Hardware FLP overlay which allows Hardware FLP to be
          replaced by an app at run-time. When disabled, only the
@@ -314,11 +314,4 @@
     <!-- Older rotation sensors are not setting event.timestamp correctly. Setting to
          true will use SystemClock.elapsedRealtimeNanos() to set timestamp. -->
     <bool name="config_useSystemClockforRotationSensor">true</bool>
-
-    <!-- Indicate whether to allow the device to suspend when the screen is off
-         due to the proximity sensor.  This resource should only be set to true
-         if the sensor HAL correctly handles the proximity sensor as a wake-up source.
-         Otherwise, the device may fail to wake out of suspend reliably.
-         The default is false. -->
-    <bool name="config_suspendWhenScreenOffDueToProximity">true</bool>
 </resources>
