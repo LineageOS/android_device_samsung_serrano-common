@@ -414,10 +414,10 @@ service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
     group root system readproc
     disabled
 
-service charger /sbin/healthd -c
+service charger /charger
     class charger
     critical
-    seclabel u:r:healthd:s0
+    seclabel u:r:charger:s0
 
 service geomagneticd /system/bin/geomagneticd
     class late_start
