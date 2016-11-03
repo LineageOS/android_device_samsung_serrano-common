@@ -2,10 +2,6 @@
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
 
-# Set read only default composition for USB
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sys.usb.default.config=mtp
-
 # RIL
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.ril_class=SerranoRIL \
@@ -26,7 +22,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     mm.enable.smoothstreaming=true \
     use.dedicated.device.for.voip=true \
     use.voice.path.for.pcm.voip=true \
-    media.aac_51_output_enabled=true
+    media.aac_51_output_enabled=true \
+    media.stagefright.legacyencoder=true \
+    media.stagefright.less-secure=true
 
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -50,7 +48,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.timed.enable=true \
     wifi.interface=wlan0 \
     ro.qualcomm.bt.hci_transport=smd \
-    ro.sdcardfs.enable=true
+    qcom.bluetooth.soc=smd \
+    ro.sys.sdcardfs=true
 
 # QC Perf
 PRODUCT_PROPERTY_OVERRIDES += \

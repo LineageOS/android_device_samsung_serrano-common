@@ -12,10 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-
-# Also get non-open-source specific aspects if available
-$(call inherit-product-if-exists, vendor/samsung/serrano-common/serrano-common-vendor.mk)
+# Also get non-open-source specific aspects
+$(call inherit-product, vendor/samsung/serrano-common/serrano-common-vendor.mk)
 
 # Common overlay
 DEVICE_PACKAGE_OVERLAYS += device/samsung/serrano-common/overlay
@@ -82,10 +80,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/system/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
     $(LOCAL_PATH)/rootdir/system/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh
 
-# Eleven
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/Eleven.apk:system/app/Eleven/Eleven.apk
-
 # GPS/location security configuration file
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
@@ -102,7 +96,6 @@ PRODUCT_PACKAGES += \
 # FM radio
 PRODUCT_PACKAGES += \
     FM2 \
-    libqcomfm_jni \
     qcom.fmradio
 
 # Lights
@@ -150,4 +143,4 @@ $(call inherit-product, device/samsung/serrano-common/system_prop.mk)
 $(call inherit-product, device/samsung/msm8930-common/msm8930.mk)
 
 # call dalvik heap config
-$(call inherit-product, frameworks/native/build/phone-hdpi-2048-dalvik-heap.mk)
+$(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
