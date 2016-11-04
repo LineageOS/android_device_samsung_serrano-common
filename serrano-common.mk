@@ -116,9 +116,10 @@ PRODUCT_PACKAGES += \
     fsck.f2fs \
     mkfs.f2fs
 
-# RIL
+# Shims
 PRODUCT_PACKAGES += \
-    libshim_ril
+    libshim_ril \
+    libshim_wvm
 
 # Doze
 PRODUCT_PACKAGES += \
