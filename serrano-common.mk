@@ -118,7 +118,7 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
-    libril_shim
+    libshim_ril
 
 # Doze
 PRODUCT_PACKAGES += \
