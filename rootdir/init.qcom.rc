@@ -143,10 +143,6 @@ on boot
     # Set SSR level
     setprop persist.sys.ssr.restart_level 3
 
-    # Adaptive LMK
-    write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
-    write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 53059
-
 # MSM specific files that need to be created on /data
 on post-fs-data
     # Create directory used by audio subsystem
@@ -296,3 +292,8 @@ on property:sys.boot_completed=1
     mkdir /data/data/com.android.providers.telephony/shared_prefs 0700 radio radio
     symlink /data/user_de/0/com.android.providers.telephony/databases/telephony.db /data/data/com.android.providers.telephony/databases/telephony.db
     symlink /data/user_de/0/com.android.providers.telephony/shared_prefs/preferred-apn.xml /data/data/com.android.providers.telephony/shared_prefs/preferred-apn.xml
+
+    # Adaptive LMK
+    write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
+    write /sys/module/lowmemorykiller/parameters/minfree "18432,23040,27648,32256,55296,80640"
+    write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 81250
