@@ -23,13 +23,15 @@ function extract() {
     done
 }
 
-
-BASE=../../../vendor/samsung/serrano-common/proprietary
+BASE=../../../vendor/$VENDOR/$DEVICE_COMMON/proprietary
 rm -rf $BASE/*
 
 DEVBASE=../../../vendor/$VENDOR/$DEVICE/proprietary
 rm -rf $DEVBASE/*
 
-extract ../../samsung/serrano-common/proprietary-files.txt $DEVBASE
+extract ../../samsung/$DEVICE_COMMON/proprietary-files.txt $BASE
+extract ../../samsung/$DEVICE/device-proprietary-files.txt $DEVBASE
 
-./../../samsung/serrano-common/setup-makefiles.sh
+
+./../../samsung//$DEVICE_COMMON/setup-makefiles.sh
+./../../samsung//$DEVICE/setup-makefiles.sh

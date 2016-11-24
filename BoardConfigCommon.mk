@@ -20,8 +20,11 @@
 # definition file).
 #
 
-# inherit from common msm8930
+# Inherit from common msm8930
 -include device/samsung/msm8930-common/BoardConfigCommon.mk
+
+# Inherit from proprietary vendor
+-include vendor/samsung/serrano-common/BoardConfigVendor.mk
 
 TARGET_SPECIFIC_HEADER_PATH := device/samsung/serrano-common/include
 
