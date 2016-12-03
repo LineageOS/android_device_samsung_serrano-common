@@ -36,17 +36,11 @@ vendor/lib/librs_adreno.so
 vendor/lib/libRSDriver_adreno.so
 vendor/lib/libsc-a3xx.so
 
-# Graphics
-lib/libI420colorconvert.so
-lib/libmm-color-convertor.so
-
 # Radio
 bin/qmuxd
 bin/rmt_storage
 etc/plmn_se13.bin
-lib/libcordon.so
 lib/libfactoryutil.so
-lib/libomission_avoidance.so
 lib/libsecnativefeature.so
 lib/libxml.so
 vendor/lib/libconfigdb.so
