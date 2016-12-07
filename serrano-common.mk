@@ -89,6 +89,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/gps.conf:system/etc/gps.conf \
     $(LOCAL_PATH)/configs/sap.conf:system/etc/sap.conf
 
+# CMFileManager
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/CMFileManager.apk:system/app/CMFileManager/CMFileManager.apk
+
 # GPS HAL
 PRODUCT_PACKAGES += \
     gps.msm8960
