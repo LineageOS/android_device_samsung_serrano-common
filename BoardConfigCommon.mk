@@ -36,9 +36,9 @@ BOARD_KERNEL_PAGESIZE := 2048
 TARGET_KERNEL_SOURCE := kernel/samsung/msm8930-common
 TARGET_KERNEL_HAVE_EXFAT := true
 ifneq ($(filter serranoltespr serranolteusc,$(TARGET_DEVICE)),)
-TARGET_KERNEL_CONFIG := cyanogenmod_serrano_usa_defconfig
+TARGET_KERNEL_CONFIG := samsung_serrano_usa_defconfig
 else
-TARGET_KERNEL_CONFIG := cyanogenmod_serrano_defconfig
+TARGET_KERNEL_CONFIG := samsung_serrano_defconfig
 endif
 
 # Bootloader
