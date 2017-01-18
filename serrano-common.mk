@@ -89,10 +89,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/gps.conf:system/etc/gps.conf \
     $(LOCAL_PATH)/configs/sap.conf:system/etc/sap.conf
 
-# Snap
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/Snap.apk:system/priv-app/Snap/Snap.apk
-
 # GPS HAL
 PRODUCT_PACKAGES += \
     gps.msm8960
