@@ -66,6 +66,7 @@ USE_CUSTOM_AUDIO_POLICY := 1
 
 # FM
 AUDIO_FEATURE_ENABLED_FM_POWER_OPT := true
+BOARD_HAVE_QCOM_FM := true
 TARGET_FM_LEGACY_PATCHLOADER := true
 
 # Allow suspend in charge mode
