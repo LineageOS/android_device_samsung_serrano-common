@@ -4,6 +4,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 
 # RIL
 PRODUCT_PROPERTY_OVERRIDES += \
+    ro.com.android.mobiledata=false \
     ro.telephony.ril_class=SerranoRIL \
     ro.ril.telephony.mqanelements=6 \
     persist.radio.add_power_save=1
