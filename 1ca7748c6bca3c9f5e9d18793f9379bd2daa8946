@@ -22,6 +22,23 @@
       "revId": "1ca7748c6bca3c9f5e9d18793f9379bd2daa8946",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a437d4f_cef33f09",
+        "filename": "serrano-common.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1063
+      },
+      "writtenOn": "2017-01-29T11:24:54Z",
+      "side": 1,
+      "message": "Isn\u0027t this superfluous? All of those 3 are default with userdebug builds.",
+      "revId": "1ca7748c6bca3c9f5e9d18793f9379bd2daa8946",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
