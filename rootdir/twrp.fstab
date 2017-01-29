@@ -1,0 +1,12 @@
+/modem          emmc    /dev/block/mmcblk0p1                          flags=display="Modem";backup=1
+/misc           emmc    /dev/block/mmcblk0p8                          flags=display="Misc"
+/efs            ext4    /dev/block/mmcblk0p10                         flags=display="EFS";backup=1
+/boot           emmc    /dev/block/mmcblk0p13                         flags=display="Boot"
+/recovery       emmc    /dev/block/mmcblk0p14                         flags=display="Recovery";backup=1
+/system         ext4    /dev/block/mmcblk0p21                         flags=display="System"
+/cache          ext4    /dev/block/mmcblk0p22                         flags=display="Cache"
+/preload        ext4    /dev/block/mmcblk0p23                         flags=display="Preload";backup=1;wipeingui
+/data           ext4    /dev/block/mmcblk0p24                         flags=display="Data";encryptable=footer,length=-16384
+
+/external_sd    auto    /dev/block/mmcblk1p1    /dev/block/mmcblk1    flags=display="MicroSD";storage;wipeingui;removable
+/usb-otg        auto    /dev/block/sda1         /dev/block/sda        flags=display="USB OTG";storage;wipeingui;removable
