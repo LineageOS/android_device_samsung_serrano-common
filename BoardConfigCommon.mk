@@ -90,3 +90,7 @@ BOARD_USES_QC_TIME_SERVICES := true
 
 # CMHW
 BOARD_HARDWARE_CLASS += device/samsung/serrano-common/cmhw
+
+ifeq ($(WITH_TWRP),true)
+-include device/samsung/serrano-common/twrp.mk
+endif
