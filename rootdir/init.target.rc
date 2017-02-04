@@ -373,7 +373,7 @@ on post-fs-data
     chown system radio /sys/class/sec/sec_ir/ir_send_result
 
     # Permission for HALL IC
-    chown system radio /sys/class/sec/sec_key/hall_detect
+    chown system system /sys/class/sec/sec_key/hall_detect
 
     # Permission for fast dormacy for RIL
     chown system radio /sys/devices/virtual/sec/bamdmux/waketime

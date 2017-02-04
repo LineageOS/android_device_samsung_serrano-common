@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="config_deviceCoverType">3</integer>
+    <integer name="rectangular_window_top" translatable="false">0</integer>
+    <integer name="rectangular_window_left" translatable="false">0</integer>
+    <integer name="rectangular_window_width" translatable="false">540</integer>
+    <integer name="rectangular_window_height" translatable="false">230</integer>
+    <bool name="config_DeviceNeedsSmallRect">true</bool>
+</resources>
