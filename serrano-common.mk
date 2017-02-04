@@ -138,6 +138,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Gello
 
+# FlipFlap
+PRODUCT_PACKAGES += \
+    FlipFlap
+
 ifeq ($(WITH_TWRP),true)
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/twrp.fstab:recovery/root/etc/twrp.fstab
