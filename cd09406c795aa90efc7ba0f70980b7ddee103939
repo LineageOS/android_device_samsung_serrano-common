@@ -16,6 +16,109 @@
       "revId": "cd09406c795aa90efc7ba0f70980b7ddee103939",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a288981_1cdab778",
+        "filename": "serrano-common.mk",
+        "patchSetId": 7
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2017-02-08T18:11:05Z",
+      "side": 1,
+      "message": "Indeed, it\u0027s more typical to lunch -eng for TWRP, so these shouldn\u0027t really be necessary.",
+      "parentUuid": "7a288981_da4d52c6",
+      "revId": "cd09406c795aa90efc7ba0f70980b7ddee103939",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a288981_fce6cb43",
+        "filename": "twrp.mk",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2017-02-08T18:11:05Z",
+      "side": 1,
+      "message": "The correct theme will be applied if you have TARGET_SCREEN_WIDTH/HEIGHT set. You can delete this.",
+      "revId": "cd09406c795aa90efc7ba0f70980b7ddee103939",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a288981_bcd04354",
+        "filename": "twrp.mk",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2017-02-08T18:11:05Z",
+      "side": 1,
+      "message": "This brightness path matches one of the autodetected paths. You can delete this.",
+      "revId": "cd09406c795aa90efc7ba0f70980b7ddee103939",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a288981_9cd58745",
+        "filename": "twrp.mk",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2017-02-08T18:11:05Z",
+      "side": 1,
+      "message": "This is not a real flag. TW_NO_EXFAT is used to exclude exfat; it is included by default otherwise. This can be deleted.",
+      "revId": "cd09406c795aa90efc7ba0f70980b7ddee103939",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a288981_5ccf1fb1",
+        "filename": "twrp.mk",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2017-02-08T18:11:05Z",
+      "side": 1,
+      "message": "This is not a real flag. Maybe you want TW_INCLUDE_NTFS_3G?",
+      "revId": "cd09406c795aa90efc7ba0f70980b7ddee103939",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a288981_7ccadba2",
+        "filename": "twrp.mk",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2017-02-08T18:11:05Z",
+      "side": 1,
+      "message": "This is the default. You can delete this.",
+      "revId": "cd09406c795aa90efc7ba0f70980b7ddee103939",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
