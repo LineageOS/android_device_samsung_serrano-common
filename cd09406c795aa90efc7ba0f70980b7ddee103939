@@ -71,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "7a288981_02db6c1c",
+        "filename": "twrp.mk",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 444
+      },
+      "writtenOn": "2017-02-09T14:10:53Z",
+      "side": 1,
+      "message": "Doesn\u0027t seem to work here. If I remove this I can\u0027t adjust brightness",
+      "parentUuid": "7a288981_bcd04354",
+      "revId": "cd09406c795aa90efc7ba0f70980b7ddee103939",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a288981_1cc19780",
         "filename": "twrp.mk",
         "patchSetId": 7
