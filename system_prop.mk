@@ -49,8 +49,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.warmboot.capability=1 \
     persist.timed.enable=true \
     wifi.interface=wlan0 \
-    ro.qualcomm.bt.hci_transport=smd \
-    ro.sdcardfs.enable=true
+    ro.qualcomm.bt.hci_transport=smd
 
 # QC Perf
 PRODUCT_PROPERTY_OVERRIDES += \
