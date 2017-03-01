@@ -96,10 +96,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prima/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
     $(LOCAL_PATH)/prima/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
 
-# Shim for libc to fix camera
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/libshim_c.so:system/lib/libshim_c.so
-
 # GPS HAL
 PRODUCT_PACKAGES += \
     gps.msm8960
