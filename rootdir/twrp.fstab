@@ -6,7 +6,6 @@
 /cache          ext4    /dev/block/platform/msm_sdcc.1/by-name/cache       flags=display="Cache"
 /efs            ext4    /dev/block/platform/msm_sdcc.1/by-name/efs         flags=display="EFS";backup=1
 /persist        ext4    /dev/block/platform/msm_sdcc.1/by-name/persist     flags=display="Persist";backup=1
-/preload        ext4    /dev/block/platform/msm_sdcc.1/by-name/hidden      flags=display="Preload";backup=1;wipeingui
 /misc           emmc    /dev/block/platform/msm_sdcc.1/by-name/pad         flags=display="Misc"
 
 /external_sd    auto    /dev/block/mmcblk1p1    /dev/block/mmcblk1         flags=display="MicroSD";storage;wipeingui;removable
