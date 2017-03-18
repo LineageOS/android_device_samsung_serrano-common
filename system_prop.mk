@@ -25,8 +25,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     use.voice.path.for.pcm.voip=true \
     media.aac_51_output_enabled=true \
     media.stagefright.legacyencoder=true \
-    media.stagefright.less-secure=true \
-    persist.bluetooth.disableabsvol=true
+    media.stagefright.less-secure=true
 
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
