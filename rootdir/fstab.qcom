@@ -13,7 +13,7 @@
 /dev/block/platform/msm_sdcc.1/by-name/modem       /firmware      vfat    ro,shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337,context=u:object_r:firmware_file:s0    wait
 /dev/block/platform/msm_sdcc.1/by-name/boot        /boot          emmc    defaults    defaults
 /dev/block/platform/msm_sdcc.1/by-name/recovery    /recovery      emmc    defaults    defaults
-/dev/block/platform/msm_sdcc.1/by-name/pad         /misc          emmc    defaults    defaults
+/dev/block/platform/msm_sdcc.1/by-name/fota        /misc          emmc    defaults    defaults
 
 # vold managed volumes
 /devices/platform/msm_sdcc.3/mmc_host*             auto           auto    defaults    voldmanaged=sdcard1:auto,encryptable=userdata
