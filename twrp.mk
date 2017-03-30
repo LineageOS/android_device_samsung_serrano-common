@@ -13,7 +13,6 @@
 # limitations under the License.
 
 BOARD_HAS_NO_REAL_SDCARD := true
-LZMA_RAMDISK_TARGETS := recovery
 RECOVERY_SDCARD_ON_DATA := true
 RECOVERY_VARIANT := twrp
 TARGET_RECOVERY_FSTAB := device/samsung/serrano-common/rootdir/twrp.fstab

@@ -45,6 +45,7 @@ endif
 TARGET_BOOTLOADER_BOARD_NAME := MSM8960
 
 # Recovery
+LZMA_RAMDISK_TARGETS := recovery
 TARGET_RECOVERY_FSTAB := device/samsung/serrano-common/rootdir/fstab.qcom
 
 # Filesystem
