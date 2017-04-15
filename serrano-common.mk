@@ -90,6 +90,12 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/gps.conf:system/etc/gps.conf \
     $(LOCAL_PATH)/configs/sap.conf:system/etc/sap.conf
 
+# Prima opensource driver files
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prima/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
+    $(LOCAL_PATH)/prima/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
+    $(LOCAL_PATH)/prima/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
+
 # Shim for libc to fix camera
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/libshim_c.so:system/lib/libshim_c.so
