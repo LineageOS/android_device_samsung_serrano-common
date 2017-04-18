@@ -31,7 +31,7 @@ import init.target.rc
 import init.carrier.rc
 
 on init
-    export LD_SHIM_LIBS "/system/lib/libril.so|libshim_ril.so"
+    export LD_SHIM_LIBS "/system/lib/libril.so|libshim_ril.so:/system/bin/mm-qcamera-daemon|libshim_c.so"
 
     # Set permissions for persist partition
     mkdir /persist 0771 system system
