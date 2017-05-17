@@ -25,7 +25,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
-    debug.composition.type=c2d \
+    debug.composition.type=mdp \
+    debug.mdpcomp.maxlayer=4 \
+    debug.mdpcomp.idletime=-1 \
     persist.debug.wfd.enable=1 \
     persist.sys.wfd.virtual=0 \
     ro.sf.lcd_density=240 \
