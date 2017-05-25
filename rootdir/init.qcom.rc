@@ -140,6 +140,9 @@ on boot
     # Don't disable dmesg access for apps
     write /proc/sys/kernel/dmesg_restrict 0
 
+    # Set freeze timeout to 2 seconds
+    write /sys/power/pm_freeze_timeout 2000
+
     # Set SSR level
     setprop persist.sys.ssr.restart_level 3
 
