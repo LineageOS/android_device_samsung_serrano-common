@@ -168,8 +168,17 @@
          when adapting to brighter or darker environments.  This parameter controls how quickly
          brightness changes occur in response to an observed change in light level that exceeds the
          hysteresis threshold. -->
-    <integer name="config_autoBrightnessBrighteningLightDebounce">0</integer>
-    <integer name="config_autoBrightnessDarkeningLightDebounce">0</integer>
+    <integer name="config_autoBrightnessBrighteningLightDebounce">300</integer>
+    <integer name="config_autoBrightnessDarkeningLightDebounce">300</integer>
+
+    <!-- Initial light sensor event rate in milliseconds for automatic brightness control. This is
+         used for obtaining the first light sample when the device stops dozing.
+
+         Set this to 0 to disable this feature. -->
+    <integer name="config_autoBrightnessInitialLightSensorRate">250</integer>
+
+    <!-- Period of time in which to consider light samples in milliseconds. -->
+    <integer name="config_autoBrightnessAmbientLightHorizon">5000</integer>
 
     <!-- Array of light sensor LUX values to define our levels for auto backlight brightness support.
          The N entries of this array define N  1 zones as follows:
