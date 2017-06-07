@@ -37,15 +37,19 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api=1
 
+# Bluetooth
+PRODUCT_PROPERTY_OVERRIDES += \
+    qcom.bluetooth.soc=smd \
+    ro.bluetooth.hfp.ver=1.6 \
+    ro.qualcomm.bt.hci_transport=smd
+
 # Misc
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.chipname=MSM8930AB \
     ro.product_ship=true \
     ro.warmboot.capability=1 \
     persist.timed.enable=true \
-    wifi.interface=wlan0 \
-    ro.qualcomm.bt.hci_transport=smd \
-    qcom.bluetooth.soc=smd
+    wifi.interface=wlan0
 
 # QC Perf
 PRODUCT_PROPERTY_OVERRIDES += \
