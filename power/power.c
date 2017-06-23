@@ -19,13 +19,13 @@
 #include <hardware/hardware.h>
 #include <hardware/power.h>
 
-#include <stdbool.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <stdbool.h>
 #include <string.h>
 
-#include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 #include <utils/Log.h>
@@ -43,8 +43,7 @@ static int boostpulse_fd = -1;
 static int current_power_profile = -1;
 static int requested_power_profile = -1;
 
-static int sysfs_write_str(char *path, char *s)
-{
+static int sysfs_write_str(char* path, char* s) {
     char buf[80];
     int len;
     int ret = 0;
@@ -54,7 +53,7 @@ static int sysfs_write_str(char *path, char *s)
     if (fd < 0) {
         strerror_r(errno, buf, sizeof(buf));
         ALOGE("Error opening %s: %s\n", path, buf);
-        return -1 ;
+        return -1;
     }
 
     len = write(fd, s, strlen(s));
@@ -69,15 +68,13 @@ static int sysfs_write_str(char *path, char *s)
     return ret;
 }
 
-static int sysfs_write_int(char *path, int value)
-{
+static int sysfs_write_int(char* path, int value) {
     char buf[80];
     snprintf(buf, 80, "%d", value);
     return sysfs_write_str(path, buf);
 }
 
-static bool check_governor(void)
-{
+static bool check_governor(void) {
     struct stat s;
     int err = stat(INTERACTIVE_PATH, &s);
     if (err != 0) return false;
@@ -85,18 +82,15 @@ static bool check_governor(void)
     return false;
 }
 
-static int is_profile_valid(int profile)
-{
+static int is_profile_valid(int profile) {
     return profile >= 0 && profile < PROFILE_MAX;
 }
 
-static void power_init(__attribute__((unused)) struct power_module *module)
-{
+static void power_init(__attribute__((unused)) struct power_module* module) {
     ALOGI("%s", __func__);
 }
 
-static int boostpulse_open()
-{
+static int boostpulse_open() {
     pthread_mutex_lock(&lock);
     if (boostpulse_fd < 0) {
         boostpulse_fd = open(INTERACTIVE_PATH "boostpulse", O_WRONLY);
@@ -106,8 +100,7 @@ static int boostpulse_open()
     return boostpulse_fd;
 }
 
-static void power_set_interactive(__attribute__((unused)) struct power_module *module, int on)
-{
+static void power_set_interactive(__attribute__((unused)) struct power_module* module, int on) {
     if (!is_profile_valid(current_power_profile)) {
         ALOGD("%s: no power profile selected yet", __func__);
         return;
@@ -121,8 +114,7 @@ static void power_set_interactive(__attribute__((unused)) struct power_module *m
                         profiles[current_power_profile].hispeed_freq);
         sysfs_write_int(INTERACTIVE_PATH "go_hispeed_load",
                         profiles[current_power_profile].go_hispeed_load);
-        sysfs_write_int(INTERACTIVE_PATH "timer_rate",
-                        profiles[current_power_profile].timer_rate);
+        sysfs_write_int(INTERACTIVE_PATH "timer_rate", profiles[current_power_profile].timer_rate);
         sysfs_write_str(INTERACTIVE_PATH "target_loads",
                         profiles[current_power_profile].target_loads);
     } else {
@@ -137,8 +129,7 @@ static void power_set_interactive(__attribute__((unused)) struct power_module *m
     }
 }
 
-static void set_power_profile(int profile)
-{
+static void set_power_profile(int profile) {
     if (!is_profile_valid(profile)) {
         ALOGE("%s: unknown profile: %d", __func__, profile);
         return;
@@ -147,108 +138,88 @@ static void set_power_profile(int profile)
     // break out early if governor is not interactive
     if (!check_governor()) return;
 
-    if (profile == current_power_profile)
-        return;
+    if (profile == current_power_profile) return;
 
     ALOGD("%s: setting profile %d", __func__, profile);
 
-    sysfs_write_int(INTERACTIVE_PATH "boost",
-                    profiles[profile].boost);
-    sysfs_write_int(INTERACTIVE_PATH "boostpulse_duration",
-                    profiles[profile].boostpulse_duration);
-    sysfs_write_int(INTERACTIVE_PATH "go_hispeed_load",
-                    profiles[profile].go_hispeed_load);
-    sysfs_write_int(INTERACTIVE_PATH "hispeed_freq",
-                    profiles[profile].hispeed_freq);
-    sysfs_write_str(INTERACTIVE_PATH "above_hispeed_delay",
-                    profiles[profile].above_hispeed_delay);
-    sysfs_write_int(INTERACTIVE_PATH "timer_rate",
-                    profiles[profile].timer_rate);
-    sysfs_write_int(INTERACTIVE_PATH "io_is_busy",
-                    profiles[profile].io_is_busy);
-    sysfs_write_int(INTERACTIVE_PATH "min_sample_time",
-                    profiles[profile].min_sample_time);
-    sysfs_write_int(INTERACTIVE_PATH "max_freq_hysteresis",
-                    profiles[profile].max_freq_hysteresis);
-    sysfs_write_str(INTERACTIVE_PATH "target_loads",
-                    profiles[profile].target_loads);
-    sysfs_write_int(CPUFREQ_LIMIT_PATH "limited_min_freq",
-                    profiles[profile].limited_min_freq);
-    sysfs_write_int(CPUFREQ_LIMIT_PATH "limited_max_freq",
-                    profiles[profile].limited_max_freq);
+    sysfs_write_int(INTERACTIVE_PATH "boost", profiles[profile].boost);
+    sysfs_write_int(INTERACTIVE_PATH "boostpulse_duration", profiles[profile].boostpulse_duration);
+    sysfs_write_int(INTERACTIVE_PATH "go_hispeed_load", profiles[profile].go_hispeed_load);
+    sysfs_write_int(INTERACTIVE_PATH "hispeed_freq", profiles[profile].hispeed_freq);
+    sysfs_write_str(INTERACTIVE_PATH "above_hispeed_delay", profiles[profile].above_hispeed_delay);
+    sysfs_write_int(INTERACTIVE_PATH "timer_rate", profiles[profile].timer_rate);
+    sysfs_write_int(INTERACTIVE_PATH "io_is_busy", profiles[profile].io_is_busy);
+    sysfs_write_int(INTERACTIVE_PATH "min_sample_time", profiles[profile].min_sample_time);
+    sysfs_write_int(INTERACTIVE_PATH "max_freq_hysteresis", profiles[profile].max_freq_hysteresis);
+    sysfs_write_str(INTERACTIVE_PATH "target_loads", profiles[profile].target_loads);
+    sysfs_write_int(CPUFREQ_LIMIT_PATH "limited_min_freq", profiles[profile].limited_min_freq);
+    sysfs_write_int(CPUFREQ_LIMIT_PATH "limited_max_freq", profiles[profile].limited_max_freq);
 
     current_power_profile = profile;
 }
 
-static void process_video_encode_hint(void *metadata)
-{
+static void process_video_encode_hint(void* metadata) {
     int on;
 
-    if (!metadata)
-        return;
+    if (!metadata) return;
 
     /* Break out early if governor is not interactive */
-    if (!check_governor())
-        return;
+    if (!check_governor()) return;
 
     on = !strncmp(metadata, STATE_ON, sizeof(STATE_ON));
 
-    sysfs_write_int(INTERACTIVE_PATH "timer_rate", on ?
-            VID_ENC_TIMER_RATE :
-            profiles[current_power_profile].timer_rate);
+    sysfs_write_int(INTERACTIVE_PATH "timer_rate",
+                    on ? VID_ENC_TIMER_RATE : profiles[current_power_profile].timer_rate);
 
-    sysfs_write_int(INTERACTIVE_PATH "io_is_busy", on ?
-            VID_ENC_IO_IS_BUSY :
-            profiles[current_power_profile].io_is_busy);
+    sysfs_write_int(INTERACTIVE_PATH "io_is_busy",
+                    on ? VID_ENC_IO_IS_BUSY : profiles[current_power_profile].io_is_busy);
 }
 
-static void power_hint(__attribute__((unused)) struct power_module *module,
-                       power_hint_t hint, void *data)
-{
+static void power_hint(__attribute__((unused)) struct power_module* module, power_hint_t hint,
+                       void* data) {
     char buf[80];
     int len;
 
     switch (hint) {
-    case POWER_HINT_INTERACTION:
-    case POWER_HINT_LAUNCH:
-    case POWER_HINT_CPU_BOOST:
-        if (!is_profile_valid(current_power_profile)) {
-            ALOGD("%s: no power profile selected yet", __func__);
-            return;
-        }
-
-        if (!profiles[current_power_profile].boostpulse_duration)
-            return;
-
-        // break out early if governor is not interactive
-        if (!check_governor()) return;
-
-        if (boostpulse_open() >= 0) {
-            snprintf(buf, sizeof(buf), "%d", 1);
-            len = write(boostpulse_fd, &buf, sizeof(buf));
-            if (len < 0) {
-                strerror_r(errno, buf, sizeof(buf));
-                ALOGE("Error writing to boostpulse: %s\n", buf);
-
-                pthread_mutex_lock(&lock);
-                close(boostpulse_fd);
-                boostpulse_fd = -1;
-                pthread_mutex_unlock(&lock);
+        case POWER_HINT_INTERACTION:
+        case POWER_HINT_LAUNCH:
+        case POWER_HINT_CPU_BOOST:
+            if (!is_profile_valid(current_power_profile)) {
+                ALOGD("%s: no power profile selected yet", __func__);
+                return;
             }
-        }
-        break;
-    case POWER_HINT_SET_PROFILE:
-        pthread_mutex_lock(&lock);
-        set_power_profile(*(int32_t *)data);
-        pthread_mutex_unlock(&lock);
-        break;
-    case POWER_HINT_VIDEO_ENCODE:
-        pthread_mutex_lock(&lock);
-        process_video_encode_hint(data);
-        pthread_mutex_unlock(&lock);
-        break;
-    default:
-        break;
+
+            if (!profiles[current_power_profile].boostpulse_duration) return;
+
+            // break out early if governor is not interactive
+            if (!check_governor()) return;
+
+            if (boostpulse_open() >= 0) {
+                snprintf(buf, sizeof(buf), "%d", 1);
+                len = write(boostpulse_fd, &buf, sizeof(buf));
+                if (len < 0) {
+                    strerror_r(errno, buf, sizeof(buf));
+                    ALOGE("Error writing to boostpulse: %s\n", buf);
+
+                    pthread_mutex_lock(&lock);
+                    close(boostpulse_fd);
+                    boostpulse_fd = -1;
+                    pthread_mutex_unlock(&lock);
+                }
+            }
+            break;
+        case POWER_HINT_SET_PROFILE:
+            pthread_mutex_lock(&lock);
+            set_power_profile(*(int32_t*)data);
+            pthread_mutex_unlock(&lock);
+            break;
+        case POWER_HINT_VIDEO_ENCODE:
+            pthread_mutex_lock(&lock);
+            process_video_encode_hint(data);
+            pthread_mutex_unlock(&lock);
+            break;
+        default:
+            break;
     }
 }
 
@@ -256,9 +227,7 @@ static struct hw_module_methods_t power_module_methods = {
     .open = NULL,
 };
 
-static int get_feature(__attribute__((unused)) struct power_module *module,
-                       feature_t feature)
-{
+static int get_feature(__attribute__((unused)) struct power_module* module, feature_t feature) {
     if (feature == POWER_FEATURE_SUPPORTED_PROFILES) {
         return PROFILE_MAX;
     }
@@ -266,15 +235,16 @@ static int get_feature(__attribute__((unused)) struct power_module *module,
 }
 
 struct power_module HAL_MODULE_INFO_SYM = {
-    .common = {
-        .tag = HARDWARE_MODULE_TAG,
-        .module_api_version = POWER_MODULE_API_VERSION_0_2,
-        .hal_api_version = HARDWARE_HAL_API_VERSION,
-        .id = POWER_HARDWARE_MODULE_ID,
-        .name = "msm8960 Power HAL",
-        .author = "Gabriele M",
-        .methods = &power_module_methods,
-    },
+    .common =
+        {
+            .tag = HARDWARE_MODULE_TAG,
+            .module_api_version = POWER_MODULE_API_VERSION_0_2,
+            .hal_api_version = HARDWARE_HAL_API_VERSION,
+            .id = POWER_HARDWARE_MODULE_ID,
+            .name = "msm8960 Power HAL",
+            .author = "Gabriele M",
+            .methods = &power_module_methods,
+        },
 
     .init = power_init,
     .setInteractive = power_set_interactive,
