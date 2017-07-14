@@ -39,6 +39,8 @@ on boot
     chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/max_freq_hysteresis
     trigger enable-low-power
 
+    setprop sys.usb.ffs.aio_compat 1
+
 on property:init.svc.recovery=running
     trigger enable-low-power
 
