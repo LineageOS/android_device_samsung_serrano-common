@@ -114,7 +114,7 @@ static const GpsXtraInterface sLocEngXTRAInterface =
 static void loc_ni_init(GpsNiCallbacks *callbacks);
 static void loc_ni_respond(int notif_id, GpsUserResponseType user_response);
 
-const GpsNiInterface sLocEngNiInterface =
+static const GpsNiInterface sLocEngNiInterface =
 {
    sizeof(GpsNiInterface),
    loc_ni_init,
@@ -139,9 +139,29 @@ static const AGpsRilInterface sLocEngAGpsRilInterface =
    loc_agps_ril_update_network_availability
 };
 
+static int loc_agps_install_certificates(const DerEncodedCertificate* certificates,
+                                         size_t length);
+static int loc_agps_revoke_certificates(const Sha1CertificateFingerprint* fingerprints,
+                                        size_t length);
+
+static const SuplCertificateInterface sLocEngAGpsCertInterface =
+{
+    sizeof(SuplCertificateInterface),
+    loc_agps_install_certificates,
+    loc_agps_revoke_certificates
+};
+
+static void loc_configuration_update(const char* config_data, int32_t length);
+
+static const GnssConfigurationInterface sLocEngConfigInterface =
+{
+    sizeof(GnssConfigurationInterface),
+    loc_configuration_update
+};
+
 static loc_eng_data_s_type loc_afw_data;
 static int gss_fd = -1;
-
+static int sGnssType = GNSS_UNKNOWN;
 /*===========================================================================
 FUNCTION    gps_get_hardware_interface
 
@@ -193,8 +213,8 @@ extern "C" const GpsInterface* get_gps_interface()
     target = loc_get_target();
     LOC_LOGD("Target name check returned %s", loc_get_target_name(target));
 
-    int gnssType = getTargetGnssType(target);
-    switch (gnssType)
+    sGnssType = getTargetGnssType(target);
+    switch (sGnssType)
     {
     case GNSS_GSS:
         //APQ8064
@@ -278,6 +298,7 @@ static int loc_init(GpsCallbacks* callbacks)
     loc_afw_data.adapter->requestUlp(gps_conf.CAPABILITIES);
     loc_afw_data.adapter->mSupportsAgpsRequests = !loc_afw_data.adapter->hasAgpsExtendedCapabilities();
     loc_afw_data.adapter->mSupportsPositionInjection = !loc_afw_data.adapter->hasCPIExtendedCapabilities();
+    loc_afw_data.adapter->mSupportsTimeInjection = !loc_afw_data.adapter->hasCPIExtendedCapabilities();
 
     EXIT_LOG(%d, retVal);
     return retVal;
@@ -463,6 +484,11 @@ static int loc_inject_location(double latitude, double longitude, float accuracy
 {
     ENTRY_LOG();
 
+    if (accuracy < 1000)
+    {
+      accuracy = 1000;
+    }
+
     int ret_val = 0;
     ret_val = loc_eng_inject_location(loc_afw_data, latitude, longitude, accuracy);
 
@@ -521,7 +547,7 @@ const GpsGeofencingInterface* get_geofence_interface(void)
     }
     dlerror();    /* Clear any existing error */
     get_gps_geofence_interface = (get_gps_geofence_interface_function)dlsym(handle, "gps_geofence_get_interface");
-    if ((error = dlerror()) != NULL)  {
+    if ((error = dlerror()) != NULL && NULL != get_gps_geofence_interface)  {
         LOC_LOGE ("%s, dlsym for get_gps_geofence_interface failed, error = %s\n", __func__, error);
         goto exit;
      }
@@ -580,6 +606,14 @@ const void* loc_get_extension(const char* name)
        if ((gps_conf.CAPABILITIES | GPS_CAPABILITY_GEOFENCING) == gps_conf.CAPABILITIES ){
            ret_val = get_geofence_interface();
        }
+   }
+   else if (strcmp(name, SUPL_CERTIFICATE_INTERFACE) == 0)
+   {
+       ret_val = &sLocEngAGpsCertInterface;
+   }
+   else if (strcmp(name, GNSS_CONFIGURATION_INTERFACE) == 0)
+   {
+       ret_val = &sLocEngConfigInterface;
    }
    else
    {
@@ -862,6 +896,39 @@ static void loc_agps_ril_update_network_availability(int available, const char* 
 {
     ENTRY_LOG();
     loc_eng_agps_ril_update_network_availability(loc_afw_data, available, apn);
+    EXIT_LOG(%s, VOID_RET);
+}
+
+static int loc_agps_install_certificates(const DerEncodedCertificate* certificates,
+                                         size_t length)
+{
+    ENTRY_LOG();
+    int ret_val = loc_eng_agps_install_certificates(loc_afw_data, certificates, length);
+    EXIT_LOG(%d, ret_val);
+    return ret_val;
+}
+static int loc_agps_revoke_certificates(const Sha1CertificateFingerprint* fingerprints,
+                                        size_t length)
+{
+    ENTRY_LOG();
+    LOC_LOGE("%s:%d]: agps_revoke_certificates not supported");
+    int ret_val = AGPS_CERTIFICATE_ERROR_GENERIC;
+    EXIT_LOG(%d, ret_val);
+    return ret_val;
+}
+
+static void loc_configuration_update(const char* config_data, int32_t length)
+{
+    ENTRY_LOG();
+    loc_eng_configuration_update(loc_afw_data, config_data, length);
+    switch (sGnssType)
+    {
+    case GNSS_GSS:
+    case GNSS_QCA1530:
+        //APQ
+        gps_conf.CAPABILITIES &= ~(GPS_CAPABILITY_MSA | GPS_CAPABILITY_MSB);
+        break;
+    }
     EXIT_LOG(%s, VOID_RET);
 }
 

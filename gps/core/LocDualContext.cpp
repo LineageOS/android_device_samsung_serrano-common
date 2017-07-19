@@ -60,6 +60,8 @@ ContextBase* LocDualContext::mBgContext = NULL;
 const char* LocDualContext::mLocationHalName = "Loc_hal_worker";
 const char* LocDualContext::mIzatLibName = "liblbs_core.so";
 
+pthread_mutex_t LocDualContext::mGetLocContextMutex = PTHREAD_MUTEX_INITIALIZER;
+
 const MsgTask* LocDualContext::getMsgTask(MsgTask::tCreate tCreator,
                                           const char* name)
 {
@@ -83,22 +85,30 @@ const MsgTask* LocDualContext::getMsgTask(MsgTask::tAssociate tAssociate,
 ContextBase* LocDualContext::getLocFgContext(MsgTask::tCreate tCreator,
                                              const char* name)
 {
+    pthread_mutex_lock(&LocDualContext::mGetLocContextMutex);
+    LOC_LOGD("%s:%d]: querying ContextBase with tCreator", __func__, __LINE__);
     if (NULL == mFgContext) {
+        LOC_LOGD("%s:%d]: creating msgTask with tCreator", __func__, __LINE__);
         const MsgTask* msgTask = getMsgTask(tCreator, name);
         mFgContext = new LocDualContext(msgTask,
                                         mFgExclMask);
     }
+    pthread_mutex_unlock(&LocDualContext::mGetLocContextMutex);
     return mFgContext;
 }
 
 ContextBase* LocDualContext::getLocFgContext(MsgTask::tAssociate tAssociate,
-                                        const char* name)
+                                             const char* name)
 {
+    pthread_mutex_lock(&LocDualContext::mGetLocContextMutex);
+    LOC_LOGD("%s:%d]: querying ContextBase with tAssociate", __func__, __LINE__);
     if (NULL == mFgContext) {
+        LOC_LOGD("%s:%d]: creating msgTask with tAssociate", __func__, __LINE__);
         const MsgTask* msgTask = getMsgTask(tAssociate, name);
         mFgContext = new LocDualContext(msgTask,
                                         mFgExclMask);
     }
+    pthread_mutex_unlock(&LocDualContext::mGetLocContextMutex);
     return mFgContext;
 
 }
@@ -106,22 +116,30 @@ ContextBase* LocDualContext::getLocFgContext(MsgTask::tAssociate tAssociate,
 ContextBase* LocDualContext::getLocBgContext(MsgTask::tCreate tCreator,
                                              const char* name)
 {
+    pthread_mutex_lock(&LocDualContext::mGetLocContextMutex);
+    LOC_LOGD("%s:%d]: querying ContextBase with tCreator", __func__, __LINE__);
     if (NULL == mBgContext) {
+        LOC_LOGD("%s:%d]: creating msgTask with tCreator", __func__, __LINE__);
         const MsgTask* msgTask = getMsgTask(tCreator, name);
         mBgContext = new LocDualContext(msgTask,
                                         mBgExclMask);
     }
+    pthread_mutex_unlock(&LocDualContext::mGetLocContextMutex);
     return mBgContext;
 }
 
 ContextBase* LocDualContext::getLocBgContext(MsgTask::tAssociate tAssociate,
                                              const char* name)
 {
+    pthread_mutex_lock(&LocDualContext::mGetLocContextMutex);
+    LOC_LOGD("%s:%d]: querying ContextBase with tAssociate", __func__, __LINE__);
     if (NULL == mBgContext) {
+        LOC_LOGD("%s:%d]: creating msgTask with tAssociate", __func__, __LINE__);
         const MsgTask* msgTask = getMsgTask(tAssociate, name);
         mBgContext = new LocDualContext(msgTask,
                                         mBgExclMask);
     }
+    pthread_mutex_unlock(&LocDualContext::mGetLocContextMutex);
     return mBgContext;
 }
 

@@ -1,4 +1,4 @@
-/* Copyright (c) 2012-2014, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2012-2015, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -57,7 +57,10 @@
 #define LENGTH(s) (sizeof(s) - 1)
 #define GPS_CHECK_NO_ERROR 0
 #define GPS_CHECK_NO_GPS_HW 1
-#define QCA1530_DETECT_TIMEOUT 30
+/* When system server is started, it uses 20 seconds as ActivityManager
+ * timeout. After that it sends SIGSTOP signal to process.
+ */
+#define QCA1530_DETECT_TIMEOUT 15
 #define QCA1530_DETECT_PRESENT "yes"
 #define QCA1530_DETECT_PROGRESS "detect"
 
@@ -99,7 +102,7 @@ static int read_a_line(const char * file_path, char * line, int line_size)
  */
 static bool is_qca1530(void)
 {
-    static const char qca1530_property_name[] = "persist.qca1530";
+    static const char qca1530_property_name[] = "sys.qca1530";
     bool res = false;
     int ret, i;
     char buf[PROPERTY_VALUE_MAX];

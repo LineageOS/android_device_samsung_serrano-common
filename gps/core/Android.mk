@@ -11,6 +11,7 @@ LOCAL_MODULE_TAGS := optional
 
 LOCAL_SHARED_LIBRARIES := \
     libutils \
+    liblog \
     libcutils \
     libgps.utils \
     libdl
@@ -25,7 +26,8 @@ LOCAL_SRC_FILES += \
 
 LOCAL_CFLAGS += \
      -fno-short-enums \
-     -D_ANDROID_
+     -D_ANDROID_ \
+     -Wno-unused-parameter
 
 LOCAL_C_INCLUDES:= \
     $(TARGET_OUT_HEADERS)/gps.utils
@@ -42,8 +44,6 @@ LOCAL_COPY_HEADERS:= \
     gps_extended_c.h \
     gps_extended.h \
     loc_core_log.h
-
-LOCAL_CLANG := false
 
 include $(BUILD_SHARED_LIBRARY)
 

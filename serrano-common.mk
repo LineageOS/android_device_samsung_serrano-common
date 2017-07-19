@@ -85,11 +85,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
 
-# GPS config
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/gps.conf:system/etc/gps.conf \
-    $(LOCAL_PATH)/configs/sap.conf:system/etc/sap.conf
-
 # Prima opensource driver files
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prima/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
@@ -98,7 +93,9 @@ PRODUCT_COPY_FILES += \
 
 # GPS HAL
 PRODUCT_PACKAGES += \
-    gps.msm8960
+    gps.msm8960 \
+    gps.conf \
+    sap.conf
 
 # FM radio
 PRODUCT_PACKAGES += \

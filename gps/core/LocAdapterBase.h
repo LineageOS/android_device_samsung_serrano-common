@@ -37,7 +37,7 @@ namespace loc_core {
 
 class LocAdapterBase {
 protected:
-    const LOC_API_ADAPTER_EVENT_MASK_T mEvtMask;
+    LOC_API_ADAPTER_EVENT_MASK_T mEvtMask;
     ContextBase* mContext;
     LocApiBase* mLocApi;
     const MsgTask* mMsgTask;
@@ -63,6 +63,15 @@ public:
 
     inline void sendMsg(const LocMsg* msg) {
         mMsgTask->sendMsg(msg);
+    }
+
+    inline void updateEvtMask(LOC_API_ADAPTER_EVENT_MASK_T event,
+                       loc_registration_mask_status isEnabled)
+    {
+        mEvtMask =
+            isEnabled == LOC_REGISTRATION_MASK_ENABLED ? (mEvtMask|event):(mEvtMask&~event);
+
+        mLocApi->updateEvtMask();
     }
 
     // This will be overridden by the individual adapters

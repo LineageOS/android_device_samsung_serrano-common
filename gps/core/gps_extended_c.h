@@ -1,4 +1,4 @@
-/* Copyright (c) 2013-2014, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2013-2015, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -35,6 +35,7 @@ extern "C" {
 
 #include <ctype.h>
 #include <stdbool.h>
+#include <stdlib.h>
 #include <string.h>
 #include "hardware/gps.h"
 
@@ -61,11 +62,23 @@ extern "C" {
 #define ULP_LOCATION_IS_FROM_ZPP      0x0004
 /** Position is from a Geofence Breach Event */
 #define ULP_LOCATION_IS_FROM_GEOFENCE 0X0008
+/** Positioin is from Hardware FLP */
+#define ULP_LOCATION_IS_FROM_HW_FLP   0x0010
+/** Position is from PIP */
+#define ULP_LOCATION_IS_FROM_PIP      0x0040
 
 #define ULP_MIN_INTERVAL_INVALID 0xffffffff
 
 /*Emergency SUPL*/
 #define GPS_NI_TYPE_EMERGENCY_SUPL    4
+
+#define AGPS_CERTIFICATE_MAX_LENGTH 2000
+#define AGPS_CERTIFICATE_MAX_SLOTS 10
+
+enum loc_registration_mask_status {
+    LOC_REGISTRATION_MASK_ENABLED,
+    LOC_REGISTRATION_MASK_DISABLED
+};
 
 typedef struct {
     /** set to sizeof(UlpLocation) */
@@ -111,6 +124,14 @@ typedef struct {
     gps_create_thread create_thread_cb;
     gps_request_utc_time request_utc_time_cb;
 } GpsExtCallbacks;
+
+/** GPS extended batch options */
+typedef struct {
+    double max_power_allocation_mW;
+    uint32_t sources_to_use;
+    uint32_t flags;
+    int64_t period_ns;
+} GpsExtBatchOptions;
 
 /** Callback to report the xtra server url to the client.
  *  The client should use this url when downloading xtra unless overwritten
@@ -235,6 +256,19 @@ typedef struct {
     float           speed_unc;
 } GpsLocationExtended;
 
+typedef struct GpsExtLocation_s {
+    size_t          size;
+    uint16_t        flags;
+    double          latitude;
+    double          longitude;
+    double          altitude;
+    float           speed;
+    float           bearing;
+    float           accuracy;
+    int64_t         timestamp;
+    uint32_t        sources_used;
+} GpsExtLocation;
+
 enum loc_sess_status {
     LOC_SESS_SUCCESS,
     LOC_SESS_INTERMEDIATE,
@@ -343,6 +377,12 @@ enum loc_api_adapter_event_index {
 
 typedef unsigned int LOC_API_ADAPTER_EVENT_MASK_T;
 
+typedef enum loc_api_adapter_msg_to_check_supported {
+    LOC_API_ADAPTER_MESSAGE_LOCATION_BATCHING,               // Batching
+    LOC_API_ADAPTER_MESSAGE_BATCHED_GENFENCE_BREACH,         // Geofence Batched Breach
+
+    LOC_API_ADAPTER_MESSAGE_MAX
+} LocCheckingMessagesID;
 
 #ifdef __cplusplus
 }

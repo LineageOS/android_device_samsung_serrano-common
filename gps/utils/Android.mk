@@ -25,9 +25,12 @@ LOCAL_SRC_FILES += \
 
 LOCAL_CFLAGS += \
      -fno-short-enums \
-     -D_ANDROID_
+     -D_ANDROID_ \
+     -Wno-unused-parameter
 
-LOCAL_CLANG := false
+ifeq ($(TARGET_BUILD_VARIANT),user)
+   LOCAL_CFLAGS += -DTARGET_BUILD_VARIANT_USER
+endif
 
 LOCAL_LDFLAGS += -Wl,--export-dynamic
 
@@ -54,6 +57,5 @@ LOCAL_MODULE := libgps.utils
 
 LOCAL_MODULE_TAGS := optional
 
-LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)
 include $(BUILD_SHARED_LIBRARY)
 endif # not BUILD_TINY_ANDROID
