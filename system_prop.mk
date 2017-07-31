@@ -24,6 +24,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.composition.type=c2d \
+    debug.hwui.use_buffer_age=false \
     persist.debug.wfd.enable=1 \
     persist.sys.wfd.virtual=0 \
     ro.sf.lcd_density=240 \
