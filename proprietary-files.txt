@@ -40,7 +40,6 @@ vendor/lib/libsc-a3xx.so
 bin/qmuxd
 bin/rmt_storage
 etc/plmn_se13.bin
-lib/libfactoryutil.so
 lib/libsecnativefeature.so
 lib/libxml.so
 vendor/lib/libconfigdb.so
