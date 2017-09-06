@@ -158,7 +158,6 @@ public class SerranoRIL extends RIL {
             dc.als = p.readInt();
             voiceSettings = p.readInt();
             dc.isVoice = (0 == voiceSettings) ? false : true;
-            boolean isVideo = (0 != p.readInt());   // Samsung CallDetails
             int call_type = p.readInt();            // Samsung CallDetails
             int call_domain = p.readInt();          // Samsung CallDetails
             String csv = p.readString();            // Samsung CallDetails
@@ -167,7 +166,7 @@ public class SerranoRIL extends RIL {
             int np = p.readInt();
             dc.numberPresentation = DriverCall.presentationFromCLIP(np);
             dc.name = p.readString();
-            dc.namePresentation = p.readInt();
+            dc.namePresentation = DriverCall.presentationFromCLIP(p.readInt());
             int uusInfoPresent = p.readInt();
             if (uusInfoPresent == 1) {
                 dc.uusInfo = new UUSInfo();
