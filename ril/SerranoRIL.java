@@ -42,14 +42,6 @@ import java.util.Collections;
 public class SerranoRIL extends RIL {
 
     private static final int RIL_REQUEST_DIAL_EMERGENCY = 10016;
-    private static final int RIL_UNSOL_RESPONSE_IMS_NETWORK_STATE_CHANGED = 1036;
-    private static final int RIL_UNSOL_DEVICE_READY_NOTI = 11008;
-    private static final int RIL_UNSOL_AM = 11010;
-    private static final int RIL_UNSOL_WB_AMR_STATE = 11017;
-    private static final int RIL_UNSOL_RESPONSE_HANDOVER = 11021;
-    private static final int RIL_UNSOL_ON_SS_SAMSUNG = 1040;
-    private static final int RIL_UNSOL_STK_CC_ALPHA_NOTIFY_SAMSUNG = 1041;
-    private static final int RIL_UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED_SAMSUNG = 11031;
 
     public SerranoRIL(Context context, int preferredNetworkType, int cdmaSubscription) {
         this(context, preferredNetworkType, cdmaSubscription, null);
@@ -158,7 +150,6 @@ public class SerranoRIL extends RIL {
             dc.als = p.readInt();
             voiceSettings = p.readInt();
             dc.isVoice = (0 == voiceSettings) ? false : true;
-            boolean isVideo = (0 != p.readInt());   // Samsung CallDetails
             int call_type = p.readInt();            // Samsung CallDetails
             int call_domain = p.readInt();          // Samsung CallDetails
             String csv = p.readString();            // Samsung CallDetails
@@ -167,7 +158,7 @@ public class SerranoRIL extends RIL {
             int np = p.readInt();
             dc.numberPresentation = DriverCall.presentationFromCLIP(np);
             dc.name = p.readString();
-            dc.namePresentation = p.readInt();
+            dc.namePresentation = DriverCall.presentationFromCLIP(p.readInt());
             int uusInfoPresent = p.readInt();
             if (uusInfoPresent == 1) {
                 dc.uusInfo = new UUSInfo();
@@ -211,28 +202,6 @@ public class SerranoRIL extends RIL {
         }
 
         return response;
-    }
-
-    @Override
-    protected Object responseSignalStrength(Parcel p) {
-        int numInts = 12;
-        int response[];
-
-        // Get raw data
-        response = new int[numInts];
-        for (int i = 0; i < numInts; i++) {
-            response[i] = p.readInt();
-        }
-
-        //gsm
-        response[0] &= 0xff;
-
-        //cdma
-        response[2] %= 256;
-        response[4] %= 256;
-        response[7] &= 0xff;
-
-        return new SignalStrength(response[0], response[1], response[2], response[3], response[4], response[5], response[6], response[7], response[8], response[9], response[10], response[11], true);
     }
 
     @Override
@@ -339,33 +308,6 @@ public class SerranoRIL extends RIL {
                 p.setDataPosition(dataPosition);
                 super.processUnsolicited(p, type);
                 break;
-            case RIL_UNSOL_RESPONSE_IMS_NETWORK_STATE_CHANGED:
-                ret = responseVoid(p);
-                break;
-            case RIL_UNSOL_DEVICE_READY_NOTI:
-                ret = responseVoid(p);
-                break;
-            case RIL_UNSOL_AM:
-                ret = responseString(p);
-                break;
-            case RIL_UNSOL_WB_AMR_STATE:
-                ret = responseInts(p);
-                break;
-            case RIL_UNSOL_RESPONSE_HANDOVER:
-                ret = responseVoid(p);
-                break;
-            case RIL_UNSOL_ON_SS_SAMSUNG:
-                p.setDataPosition(dataPosition);
-                p.writeInt(RIL_UNSOL_ON_SS);
-                break;
-            case RIL_UNSOL_STK_CC_ALPHA_NOTIFY_SAMSUNG:
-                p.setDataPosition(dataPosition);
-                p.writeInt(RIL_UNSOL_STK_CC_ALPHA_NOTIFY);
-                break;
-            case RIL_UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED_SAMSUNG:
-                p.setDataPosition(dataPosition);
-                p.writeInt(RIL_UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED);
-                break;
             default:
                 // Rewind the Parcel
                 p.setDataPosition(dataPosition);
@@ -435,17 +377,6 @@ public class SerranoRIL extends RIL {
     }
 
     @Override
-    public void getCellInfoList(Message result) {
-        riljLog("getCellInfoList: not supported");
-        if (result != null) {
-            CommandException ex = new CommandException(
-                CommandException.Error.REQUEST_NOT_SUPPORTED);
-            AsyncResult.forMessage(result, null, ex);
-            result.sendToTarget();
-        }
-    }
-
-    @Override
     public void setCellInfoListRate(int rateInMillis, Message response) {
         riljLog("setCellInfoListRate: not supported");
         if (response != null) {
@@ -453,17 +384,6 @@ public class SerranoRIL extends RIL {
                 CommandException.Error.REQUEST_NOT_SUPPORTED);
             AsyncResult.forMessage(response, null, ex);
             response.sendToTarget();
-        }
-    }
-
-    @Override
-    public void getImsRegistrationState(Message result) {
-        riljLog("getImsRegistrationState: not supported");
-        if (result != null) {
-            CommandException ex = new CommandException(
-                CommandException.Error.REQUEST_NOT_SUPPORTED);
-            AsyncResult.forMessage(result, null, ex);
-            result.sendToTarget();
         }
     }
 
@@ -488,19 +408,6 @@ public class SerranoRIL extends RIL {
     @Override
     public void startLceService(int reportIntervalMs, boolean pullMode, Message response) {
         riljLog("startLceService: not supported");
-        if (response != null) {
-            CommandException ex = new CommandException(
-                CommandException.Error.REQUEST_NOT_SUPPORTED);
-            AsyncResult.forMessage(response, null, ex);
-            response.sendToTarget();
-        }
-    }
-
-    /**
-    * @hide
-    */
-    public void getModemActivityInfo(Message response) {
-        riljLog("getModemActivityInfo: not supported");
         if (response != null) {
             CommandException ex = new CommandException(
                 CommandException.Error.REQUEST_NOT_SUPPORTED);
