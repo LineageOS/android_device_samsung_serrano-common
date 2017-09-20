@@ -510,7 +510,7 @@ on post-fs-data
     setprop vold.post_fs_data_done 1
 
 # Start camera server as daemon
-service qcamerasvr /vendor/bin/mm-qcamera-daemon
+service vendor.qcamerasvr /vendor/bin/mm-qcamera-daemon
     class early_hal
     user camera
     group camera system inet input graphics
@@ -531,29 +531,29 @@ service charger /system/bin/charger
     group system
     seclabel u:r:charger:s0
 
-service geomagneticd /vendor/bin/geomagneticd
+service vendor.geomagneticd /vendor/bin/geomagneticd
     class late_start
     user compass
     group system input
 
-service wcnss-service /vendor/bin/wcnss_service
+service vendor.wcnss-service /vendor/bin/wcnss_service
     class main
     user system
     group system wifi radio
     oneshot
 
-service irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
+service vendor.irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
     class main
     user root
     oneshot
 
-service rmt_storage /vendor/bin/rmt_storage
+service vendor.rmt_storage /vendor/bin/rmt_storage
     class core
     user root
     group system wakelock
     shutdown critical
 
-service hciattach /vendor/bin/init.qcom.bt.sh
+service vendor.hciattach /vendor/bin/init.qcom.bt.sh
     class late_start
     user bluetooth
     group bluetooth net_bt_admin
@@ -561,18 +561,18 @@ service hciattach /vendor/bin/init.qcom.bt.sh
     oneshot
 
 on property:vendor.bluetooth.hciattach=true
-    start hciattach
+    start vendor.hciattach
 
 on property:vendor.bluetooth.hciattach=false
     setprop vendor.bluetooth.status off
 
 # QMUX must be in multiple groups to support external process connections
-service qmuxd /vendor/bin/qmuxd
+service vendor.qmuxd /vendor/bin/qmuxd
     class core
     user radio
     group radio audio bluetooth gps diag wakelock log
 
-service loc_launcher /vendor/bin/loc_launcher
+service vendor.loc_launcher /vendor/bin/loc_launcher
     # loc_launcher will start as root and set its uid to gps
     class late_start
     group gps inet net_raw diag net_admin wifi
@@ -584,7 +584,7 @@ service vendor.fm /vendor/bin/init.qcom.fm.sh
     disabled
     oneshot
 
-service qcom-audio /vendor/bin/init.qcom.audio.sh
+service vendor.qcom-audio /vendor/bin/init.qcom.audio.sh
     class late_start
     user root
     group system
@@ -608,7 +608,7 @@ on property:ro.data.large_tcp_window_size=true
     write /proc/sys/net/ipv4/tcp_adv_win_scale  2
 
 on property:sys.boot_completed=1
-    start qcom-audio
+    start vendor.qcom-audio
 
     exec u:r:vendor_init:s0 -- /vendor/bin/dumpsys deviceidle whitelist +com.android.deskclock
     exec u:r:vendor_init:s0 -- /vendor/bin/dumpsys deviceidle whitelist +com.android.messaging
