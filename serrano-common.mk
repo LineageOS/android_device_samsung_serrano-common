@@ -139,6 +139,9 @@ PRODUCT_PACKAGES += \
 # call common serrano system props
 $(call inherit-product, device/samsung/serrano-common/system_prop.mk)
 
+# call common serrano system debug props
+#$(call inherit-product, device/samsung/serrano-common/system_prop_debug.mk)
+
 # call common msm8930
 $(call inherit-product, device/samsung/msm8930-common/msm8930.mk)
 
