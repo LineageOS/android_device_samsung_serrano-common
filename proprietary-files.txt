@@ -1,14 +1,13 @@
 # Bluetooth
-bin/btnvtool
-bin/hci_qcomm_init
-lib/libbtnv.so
+vendor/bin/btnvtool
+vendor/bin/hci_qcomm_init
 
 # FM Radio
-bin/fm_qsoc_patches
+vendor/bin/fm_qsoc_patches
 
 # Thermal
-bin/mpdecision
-bin/thermald
+vendor/bin/mpdecision
+vendor/bin/thermald
 
 # Audio
 lib/libacdbloader.so
@@ -36,16 +35,18 @@ vendor/lib/libRSDriver_adreno.so
 vendor/lib/libsc-a3xx.so
 
 # Radio
-bin/qmuxd
-bin/rmt_storage
-etc/plmn_se13.bin
-lib/libsecnativefeature.so
-lib/libxml.so
+vendor/bin/qmuxd
+vendor/bin/netmgrd
+vendor/bin/rmt_storage
 vendor/lib/libconfigdb.so
 vendor/lib/libdiag.so
+vendor/lib/libdsi_netctrl
 vendor/lib/libdsutils.so
 vendor/lib/libidl.so
+vendor/lib/libnetmgr
 vendor/lib/libqcci_legacy.so
+vendor/lib/libqdi.so
+vendor/lib/libqdp.so
 vendor/lib/libqmi.so
 vendor/lib/libqmi_cci.so
 vendor/lib/libqmi_client_qmux.so
@@ -54,70 +55,66 @@ vendor/lib/libqmi_csi.so
 vendor/lib/libqmi_encdec.so
 vendor/lib/libqmiservices.so
 vendor/lib/libril-qcril-hook-oem.so
+vendor/lib/libxml.so
 
 # Network
-bin/radish
-
-# Time services
-bin/time_daemon
--vendor/lib/libtime_genoff.so
+vendor/bin/radish
 
 # GPS
-bin/irsc_util
-vendor/lib/libgeofence.so
+vendor/bin/irsc_util
+vendor/lib/libgeofence.o
 vendor/lib/libizat_core.so
-vendor/lib/liblbs_core.so
-vendor/lib/liblocationservice.so
+vendor/lib/libloc_ds_api.so
 
 # Sensors
-bin/geomagneticd
-lib/hw/sensors.msm8960.so
+vendor/bin/geomagneticd
+vendor/lib/sensors.vendor.msm8960.so
 
 # Camera
-bin/mm-qcamera-daemon
-lib/hw/camera.vendor.msm8960.so
-lib/libadsprpc.so
-lib/libchromatix_imx175_antishake.so
-lib/libchromatix_imx175_default_video.so
-lib/libchromatix_imx175_lls.so
-lib/libchromatix_imx175_preview.so
-lib/libchromatix_imx175_zsl.so
-lib/libchromatix_imx175_zsl_drama.so
-lib/libchromatix_imx175_zsl_panorama.so
-lib/libchromatix_s5k3h5xa_antishake.so
-lib/libchromatix_s5k3h5xa_default_video.so
-lib/libchromatix_s5k3h5xa_lls.so
-lib/libchromatix_s5k3h5xa_preview.so
-lib/libchromatix_s5k3h5xa_zsl.so
-lib/libchromatix_s5k3h5xa_zsl_drama.so
-lib/libchromatix_s5k3h5xa_zsl_panorama.so
-lib/libchromatix_s5k6a3yx_default_video.so
-lib/libchromatix_s5k6a3yx_preview.so
-lib/libchromatix_s5k6a3yx_smart_stay.so
-lib/libchromatix_s5k6a3yx_vt.so
-lib/libchromatix_s5k6a3yx_vt_hd.so
-lib/libgemini.so
-lib/libimage-jpeg-dec-omx-comp.so
-lib/libimage-jpeg-enc-omx-comp.so
-lib/libimage-omx-common.so
-lib/libmercury.so
-lib/libmmcamera_faceproc.so
-lib/libmmcamera_frameproc.so
-lib/libmmcamera_hdr_lib.so
-lib/libmmcamera_image_stab.so
-lib/libmmcamera_interface.so
-lib/libmmcamera_interface2.so
-lib/libmmcamera_plugin.so
-lib/libmmcamera_statsproc31.so
-lib/libmmcamera_wavelet_lib.so
-lib/libmmjpeg.so
-lib/libmmjpeg_interface.so
-lib/libmmmpod.so
-lib/libmmstillomx.so
-lib/liboemcamera.so
-lib/libsensor1.so
-lib/libTsAccm.so
-lib/libTsAwb.so
+vendor/bin/mm-qcamera-daemon
+vendor/lib/hw/camera.vendor.msm8960.so
+vendor/lib/libadsprpc.so
+vendor/lib/libchromatix_imx175_antishake.so
+vendor/lib/libchromatix_imx175_default_video.so
+vendor/lib/libchromatix_imx175_lls.so
+vendor/lib/libchromatix_imx175_preview.so
+vendor/lib/libchromatix_imx175_zsl.so
+vendor/lib/libchromatix_imx175_zsl_drama.so
+vendor/lib/libchromatix_imx175_zsl_panorama.so
+vendor/lib/libchromatix_s5k3h5xa_antishake.so
+vendor/lib/libchromatix_s5k3h5xa_default_video.so
+vendor/lib/libchromatix_s5k3h5xa_lls.so
+vendor/lib/libchromatix_s5k3h5xa_preview.so
+vendor/lib/libchromatix_s5k3h5xa_zsl.so
+vendor/lib/libchromatix_s5k3h5xa_zsl_drama.so
+vendor/lib/libchromatix_s5k3h5xa_zsl_panorama.so
+vendor/lib/libchromatix_s5k6a3yx_default_video.so
+vendor/lib/libchromatix_s5k6a3yx_preview.so
+vendor/lib/libchromatix_s5k6a3yx_smart_stay.so
+vendor/lib/libchromatix_s5k6a3yx_vt.so
+vendor/lib/libchromatix_s5k6a3yx_vt_hd.so
+vendor/lib/libgemini.so
+vendor/lib/libimage-jpeg-dec-omx-comp.so
+vendor/lib/libimage-jpeg-enc-omx-comp.so
+vendor/lib/libimage-omx-common.so
+vendor/lib/libmercury.so
+vendor/lib/libmmcamera_faceproc.so
+vendor/lib/libmmcamera_frameproc.so
+vendor/lib/libmmcamera_hdr_lib.so
+vendor/lib/libmmcamera_image_stab.so
+vendor/lib/libmmcamera_interface.so
+vendor/lib/libmmcamera_interface2.so
+vendor/lib/libmmcamera_plugin.so
+vendor/lib/libmmcamera_statsproc31.so
+vendor/lib/libmmcamera_wavelet_lib.so
+vendor/lib/libmmjpeg.so
+vendor/lib/libmmjpeg_interface.so
+vendor/lib/libmmmpod.so
+vendor/lib/libmmstillomx.so
+vendor/lib/liboemcamera.so
+vendor/lib/libsensor1.so
+vendor/lib/libTsAccm.so
+vendor/lib/libTsAwb.so
 
 # Perf
 vendor/lib/libqti-perfd-client.so
