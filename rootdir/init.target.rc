@@ -63,6 +63,9 @@ on post-fs-data
     mkdir /tombstones/mdm 0771 system system
     mkdir /tombstones/mdm2 0771 system system
 
+    # Communicate with mpdecision and thermald
+    mkdir /dev/socket/mpdecision 2770 root system
+
     chown system system /dev/tzic
 
     # h2k permission
