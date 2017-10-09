@@ -19,9 +19,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     mm.enable.smoothstreaming=true \
     use.dedicated.device.for.voip=true \
     use.voice.path.for.pcm.voip=true \
-    media.aac_51_output_enabled=true \
-    media.stagefright.legacyencoder=true \
-    media.stagefright.less-secure=true
+    media.aac_51_output_enabled=true
 
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
