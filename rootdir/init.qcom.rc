@@ -223,7 +223,7 @@ on property:bluetooth.hciattach=false
 service qmuxd /system/vendor/bin/qmuxd
     class main
     user radio
-    group radio audio bluetooth gps qcom_diag wakelock
+    group radio audio bluetooth gps diag wakelock
 
 # Adjust socket buffer to enlarge TCP receive window for high bandwidth
 # but only if ro.data.large_tcp_window_size property is set.
