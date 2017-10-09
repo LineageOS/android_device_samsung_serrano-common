@@ -134,10 +134,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Snap
 
-# Voice processing
-PRODUCT_PACKAGES += \
-    libqcomvoiceprocessing
-
 # FlipFlap
 PRODUCT_PACKAGES += \
     FlipFlap
