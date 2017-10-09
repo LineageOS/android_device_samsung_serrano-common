@@ -398,17 +398,17 @@ on post-fs-data
     chmod 0660 /sys/class/sec/sec_touchkey/touchkey_enable
 
 # Start camera server as daemon
-service qcamerasvr /system/bin/mm-qcamera-daemon
+service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
 
-service thermald /system/bin/thermald
+service thermald /system/vendor/bin/thermald
     class main
     user root
     group root
 
-service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
+service mpdecision /system/vendor/bin/mpdecision --no_sleep --avg_comp
     class main
     user root
     group root system readproc
@@ -420,7 +420,7 @@ service charger /charger
     group system
     seclabel u:r:healthd:s0
 
-service geomagneticd /system/bin/geomagneticd
+service geomagneticd /system/vendor/bin/geomagneticd
     class late_start
     user compass
     group system input

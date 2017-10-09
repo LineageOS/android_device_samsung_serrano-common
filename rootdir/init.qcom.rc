@@ -31,7 +31,7 @@ import init.target.rc
 import init.carrier.rc
 
 on init
-    export LD_SHIM_LIBS "/system/lib/libril.so|libshim_ril.so:/system/bin/mm-qcamera-daemon|libshim_camera.so"
+    export LD_SHIM_LIBS "/system/lib/libril.so|libshim_ril.so:/system/vendor/bin/mm-qcamera-daemon|libshim_camera.so"
 
     # Set permissions for persist partition
     mkdir /persist 0771 system system
@@ -196,12 +196,12 @@ on post-fs-data
 
     setprop vold.post_fs_data_done 1
 
-service irsc_util /system/bin/irsc_util "/system/vendor/etc/sec_config"
+service irsc_util /system/vendor/bin/irsc_util "/system/vendor/etc/sec_config"
     class main
     user root
     oneshot
 
-service rmt_storage /system/bin/rmt_storage
+service rmt_storage /system/vendor/bin/rmt_storage
     class core
     user root
     group system wakelock
@@ -220,7 +220,7 @@ on property:bluetooth.hciattach=false
     setprop bluetooth.status off
 
 # QMUX must be in multiple groups to support external process connections
-service qmuxd /system/bin/qmuxd
+service qmuxd /system/vendor/bin/qmuxd
     class main
     user radio
     group radio audio bluetooth gps qcom_diag wakelock
