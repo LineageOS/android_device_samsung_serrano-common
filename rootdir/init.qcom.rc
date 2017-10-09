@@ -181,9 +181,6 @@ on post-fs-data
     mkdir /data/fota 0771
     chown system system /data/fota
 
-    # Create directory for hostapd
-    mkdir /data/hostapd 0771 system wifi
-
     mkdir /data/audio/ 0770 media audio
 
     setprop vold.post_fs_data_done 1
@@ -251,13 +248,6 @@ service qcom-audio /system/bin/sh /system/vendor/etc/init.qcom.audio.sh
    user root
    disabled
    oneshot
-
-service hostapd /system/bin/hostapd -dd /data/misc/wifi/hostapd.conf
-    class late_start
-    user root
-    group root
-    oneshot
-    disabled
 
 on property:ro.data.large_tcp_window_size=true
     # Adjust socket buffer to enlarge TCP receive window for high bandwidth (e.g. DO-RevB)
