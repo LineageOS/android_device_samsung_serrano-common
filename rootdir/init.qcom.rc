@@ -202,9 +202,10 @@ service irsc_util /system/vendor/bin/irsc_util "/system/vendor/etc/sec_config"
     oneshot
 
 service rmt_storage /system/vendor/bin/rmt_storage
-    class core
+    class main
     user root
     group system wakelock
+    shutdown critical
 
 service hciattach /system/bin/sh /system/vendor/etc/init.qcom.bt.sh
     class late_start

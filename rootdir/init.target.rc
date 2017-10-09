@@ -412,12 +412,12 @@ service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
 service thermald /system/vendor/bin/thermald
     class main
     user root
-    group root
+    group radio system
 
 service mpdecision /system/vendor/bin/mpdecision --no_sleep --avg_comp
     class main
     user root
-    group root system readproc
+    group root system readproc wakelock
     disabled
 
 service charger /charger
