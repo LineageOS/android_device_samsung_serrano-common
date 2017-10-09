@@ -99,11 +99,17 @@ PRODUCT_PACKAGES += \
 
 # Lights
 PRODUCT_PACKAGES += \
+    android.hardware.light@2.0-impl \
     lights.msm8960
 
 # IR package
 PRODUCT_PACKAGES += \
+    android.hardware.ir@1.0-impl \
     consumerir.msm8960
+
+# Vibrator
+PRODUCT_PACKAGES += \
+    android.hardware.vibrator@1.0-impl
 
 # IPv6 tethering
 PRODUCT_PACKAGES += \
