@@ -3280,11 +3280,37 @@ static int responseCdmaInformationRecords(Parcel &p,
 }
 
 static void responseRilSignalStrengthV5(Parcel &p, RIL_SignalStrength_v10 *p_cur) {
-    p.writeInt32(p_cur->GW_SignalStrength.signalStrength);
+    int gsmSignalStrength;
+    int cdmaDbm;
+    int evdoDbm;
+
+    gsmSignalStrength = p_cur->GW_SignalStrength.signalStrength & 0xFF;
+
+        if (gsmSignalStrength < 0) {
+            gsmSignalStrength = 99;
+        } else if (gsmSignalStrength > 31 && gsmSignalStrength != 99) {
+            gsmSignalStrength = 31;
+        }
+
+        cdmaDbm = p_cur->CDMA_SignalStrength.dbm & 0xFF;
+        if (cdmaDbm < 0) {
+            cdmaDbm = 99;
+        } else if (cdmaDbm > 31 && cdmaDbm != 99) {
+            cdmaDbm = 31;
+        }
+
+        evdoDbm = p_cur->EVDO_SignalStrength.dbm & 0xFF;
+        if (evdoDbm < 0) {
+            evdoDbm = 99;
+        } else if (evdoDbm > 31 && evdoDbm != 99) {
+            evdoDbm = 31;
+        }
+
+    p.writeInt32(gsmSignalStrength);
     p.writeInt32(p_cur->GW_SignalStrength.bitErrorRate);
-    p.writeInt32(p_cur->CDMA_SignalStrength.dbm);
+    p.writeInt32(cdmaDbm);
     p.writeInt32(p_cur->CDMA_SignalStrength.ecio);
-    p.writeInt32(p_cur->EVDO_SignalStrength.dbm);
+    p.writeInt32(evdoDbm);
     p.writeInt32(p_cur->EVDO_SignalStrength.ecio);
     p.writeInt32(p_cur->EVDO_SignalStrength.signalNoiseRatio);
 }
@@ -3381,11 +3407,11 @@ static int responseRilSignalStrength(Parcel &p,
             LTE_SS.signalStrength=%d,LTE_SS.rsrp=%d,LTE_SS.rsrq=%d,\
             LTE_SS.rssnr=%d,LTE_SS.cqi=%d,TDSCDMA_SS.rscp=%d]",
             printBuf,
-            p_cur->GW_SignalStrength.signalStrength,
+            gsmSignalStrength,
             p_cur->GW_SignalStrength.bitErrorRate,
-            p_cur->CDMA_SignalStrength.dbm,
+            cdmaDbm,
             p_cur->CDMA_SignalStrength.ecio,
-            p_cur->EVDO_SignalStrength.dbm,
+            evdoDbm,
             p_cur->EVDO_SignalStrength.ecio,
             p_cur->EVDO_SignalStrength.signalNoiseRatio,
             p_cur->LTE_SignalStrength.signalStrength,
@@ -5985,7 +6011,7 @@ requestToString(int request) {
         case RIL_REQUEST_SIM_GET_ATR: return "SIM_GET_ATR";
         case RIL_REQUEST_SET_UICC_SUBSCRIPTION: return "SET_UICC_SUBSCRIPTION";
         case RIL_REQUEST_ALLOW_DATA: return "ALLOW_DATA";
-        case RIL_REQUEST_GET_HARDWARE_CONFIG: return "GET_HARDWARE_CONFIG";
+//        case RIL_REQUEST_GET_HARDWARE_CONFIG: return "GET_HARDWARE_CONFIG";
         case RIL_REQUEST_SIM_AUTHENTICATION: return "SIM_AUTHENTICATION";
         case RIL_REQUEST_GET_DC_RT_INFO: return "GET_DC_RT_INFO";
         case RIL_REQUEST_SET_DC_RT_INFO_RATE: return "SET_DC_RT_INFO_RATE";
@@ -6033,15 +6059,16 @@ requestToString(int request) {
         case RIL_UNSOL_CELL_INFO_LIST: return "UNSOL_CELL_INFO_LIST";
         case RIL_UNSOL_RESPONSE_IMS_NETWORK_STATE_CHANGED: return "RESPONSE_IMS_NETWORK_STATE_CHANGED";
         case RIL_UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED: return "UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED";
-        case RIL_UNSOL_SRVCC_STATE_NOTIFY: return "UNSOL_SRVCC_STATE_NOTIFY";
-        case RIL_UNSOL_HARDWARE_CONFIG_CHANGED: return "HARDWARE_CONFIG_CHANGED";
-        case RIL_UNSOL_DC_RT_INFO_CHANGED: return "UNSOL_DC_RT_INFO_CHANGED";
+//        case RIL_UNSOL_SRVCC_STATE_NOTIFY: return "UNSOL_SRVCC_STATE_NOTIFY";
+//        case RIL_UNSOL_HARDWARE_CONFIG_CHANGED: return "HARDWARE_CONFIG_CHANGED";
+//        case RIL_UNSOL_DC_RT_INFO_CHANGED: return "UNSOL_DC_RT_INFO_CHANGED";
         case RIL_REQUEST_SHUTDOWN: return "SHUTDOWN";
-        case RIL_UNSOL_RADIO_CAPABILITY: return "RIL_UNSOL_RADIO_CAPABILITY";
+//        case RIL_UNSOL_RADIO_CAPABILITY: return "RIL_UNSOL_RADIO_CAPABILITY";
         case RIL_RESPONSE_ACKNOWLEDGEMENT: return "RIL_RESPONSE_ACKNOWLEDGEMENT";
-        case RIL_UNSOL_PCO_DATA: return "RIL_UNSOL_PCO_DATA";
+//        case RIL_UNSOL_PCO_DATA: return "RIL_UNSOL_PCO_DATA";
         case RIL_UNSOL_RESPONSE_ADN_INIT_DONE: return "RIL_UNSOL_RESPONSE_ADN_INIT_DONE";
         case RIL_UNSOL_RESPONSE_ADN_RECORDS: return "RIL_UNSOL_RESPONSE_ADN_RECORDS";
+        case RIL_UNSOL_DEVICE_READY_NOTI: return "UNSOL_DEVICE_READY_NOTI";
         default: return "<unknown request>";
     }
 }

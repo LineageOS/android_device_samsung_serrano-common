@@ -129,7 +129,7 @@ typedef enum {
     RIL_E_ILLEGAL_SIM_OR_ME = 15,               /* network selection failed due to
                                                    illegal SIM or ME */
     RIL_E_MISSING_RESOURCE = 16,                /* no logical channel available */
-    RIL_E_NO_SUCH_ELEMENT = 17,                  /* application not found on SIM */
+    RIL_E_NO_SUCH_ELEMENT = 17,                 /* application not found on SIM */
     RIL_E_DIAL_MODIFIED_TO_USSD = 18,           /* DIAL request modified to USSD */
     RIL_E_DIAL_MODIFIED_TO_SS = 19,             /* DIAL request modified to SS */
     RIL_E_DIAL_MODIFIED_TO_DIAL = 20,           /* DIAL request modified to DIAL with different
@@ -407,7 +407,10 @@ typedef struct {
 
 typedef struct {
     RIL_CallState   state;
-    int             index;      /* Connection Index for use with, eg, AT+CHLD */
+    char            index;      /* Connection Index for use with, eg, AT+CHLD */
+    char            call_id;    /* Samsung */
+    char            foo1;       /* Samsung */
+    char            foo2;       /* Samsung */
     int             toa;        /* type of address, eg 145 = intl */
     char            isMpty;     /* nonzero if is mpty call */
     char            isMT;       /* nonzero if call is mobile terminated */
@@ -417,8 +420,12 @@ typedef struct {
     char            isVoicePrivacy;     /* nonzero if CDMA voice privacy mode is active */
     char *          number;     /* Remote party number */
     int             numberPresentation; /* 0=Allowed, 1=Restricted, 2=Not Specified/Unknown 3=Payphone */
-    char *          name;       /* Remote party name */
+    char            isVideo;    /* Samsung */
+    char            call_type;  /* Samsung */
+    char            call_domain;/* Samsung */
     int             namePresentation; /* 0=Allowed, 1=Restricted, 2=Not Specified/Unknown 3=Payphone */
+    char *          csv;        /* Samsung */
+    char *          name;       /* Remote party name */
     RIL_UUS_Info *  uusInfo;    /* NULL or Pointer to User-User Signaling Information */
 } RIL_Call;
 
@@ -1021,6 +1028,11 @@ typedef struct
   int              pin1_replaced;   /* applicable to USIM, CSIM & ISIM */
   RIL_PinState     pin1;
   RIL_PinState     pin2;
+  int              foo1;            // pin1_num_retries
+  int              foo2;            // puk1_num_retries
+  int              foo3;            // pin2_num_retries
+  int              foo4;            // puk2_num_retries
+  int              foo5;            // perso_unblock_retries
 } RIL_AppStatus;
 
 /* Deprecated, use RIL_CardStatus_v6 */
@@ -4810,7 +4822,7 @@ typedef struct {
  *  MISSING_RESOURCE
  *  NO_SUCH_ELEMENT
  */
-#define RIL_REQUEST_SIM_OPEN_CHANNEL 115
+#define RIL_REQUEST_SIM_OPEN_CHANNEL 10027
 
 /**
  * RIL_REQUEST_SIM_CLOSE_CHANNEL
@@ -4828,7 +4840,7 @@ typedef struct {
  *  RADIO_NOT_AVAILABLE
  *  GENERIC_FAILURE
  */
-#define RIL_REQUEST_SIM_CLOSE_CHANNEL 116
+#define RIL_REQUEST_SIM_CLOSE_CHANNEL 10028
 
 /**
  * RIL_REQUEST_SIM_TRANSMIT_APDU_CHANNEL
@@ -4925,7 +4937,6 @@ typedef struct {
  *
  * Selection/de-selection of a subscription from a SIM card
  * "data" is const  RIL_SelectUiccSub*
-
  *
  * "response" is NULL
  *
@@ -4936,7 +4947,7 @@ typedef struct {
  *  SUBSCRIPTION_NOT_SUPPORTED
  *
  */
-#define RIL_REQUEST_SET_UICC_SUBSCRIPTION  122
+#define RIL_REQUEST_SET_UICC_SUBSCRIPTION  115
 
 /**
  *  RIL_REQUEST_ALLOW_DATA
@@ -4990,7 +5001,7 @@ typedef struct {
  *      int   sw2;
  *      char *simResponse;          Response in Base64 format, see 3GPP TS 31.102 7.1.2
  */
-#define RIL_REQUEST_SIM_AUTHENTICATION 125
+#define RIL_REQUEST_SIM_AUTHENTICATION 10030
 
 /**
  * RIL_REQUEST_GET_DC_RT_INFO
@@ -5825,7 +5836,7 @@ typedef struct {
  * ((const int *)data)[0] == 1 for Subscription Activated
  *
  */
-#define RIL_UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED 1038
+#define RIL_UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED 11031
 
 /**
  * RIL_UNSOL_SRVCC_STATE_NOTIFY
@@ -5837,7 +5848,6 @@ typedef struct {
  * ((int *)data)[0] is of type const RIL_SrvccState
  *
  */
-
 #define RIL_UNSOL_SRVCC_STATE_NOTIFY 1039
 
 /**
@@ -5848,7 +5858,7 @@ typedef struct {
  * "data" is an array of RIL_HardwareConfig
  *
  */
-#define RIL_UNSOL_HARDWARE_CONFIG_CHANGED 1040
+//#define RIL_UNSOL_HARDWARE_CONFIG_CHANGED 1040
 
 /**
  * RIL_UNSOL_DC_RT_INFO_CHANGED
@@ -5861,7 +5871,7 @@ typedef struct {
  * "data" is the most recent RIL_DcRtInfo
  *
  */
-#define RIL_UNSOL_DC_RT_INFO_CHANGED 1041
+//#define RIL_UNSOL_DC_RT_INFO_CHANGED 1041
 
 /**
  * RIL_UNSOL_RADIO_CAPABILITY
@@ -5884,7 +5894,7 @@ typedef struct {
  * "data" is const RIL_StkCcUnsolSsResponse *
  *
  */
-#define RIL_UNSOL_ON_SS 1043
+#define RIL_UNSOL_ON_SS 1040
 
 /**
  * RIL_UNSOL_STK_CC_ALPHA_NOTIFY
@@ -5894,7 +5904,7 @@ typedef struct {
  * "data" is const char * containing ALPHA string from UICC in UTF-8 format.
  *
  */
-#define RIL_UNSOL_STK_CC_ALPHA_NOTIFY 1044
+#define RIL_UNSOL_STK_CC_ALPHA_NOTIFY 1041
 
 /**
  * RIL_UNSOL_LCEDATA_RECV
@@ -5937,6 +5947,8 @@ typedef struct {
  *
  */
 #define RIL_UNSOL_RESPONSE_ADN_RECORDS 1048
+
+#define RIL_UNSOL_DEVICE_READY_NOTI 11008
 
 /***********************************************************************/
 

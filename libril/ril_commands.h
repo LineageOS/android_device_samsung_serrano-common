@@ -138,7 +138,7 @@
     {RIL_REQUEST_NV_RESET_CONFIG, dispatchInts, responseVoid},
     {RIL_REQUEST_SET_UICC_SUBSCRIPTION, dispatchUiccSubscripton, responseVoid},
     {RIL_REQUEST_ALLOW_DATA, dispatchInts, responseVoid},
-    {RIL_REQUEST_GET_HARDWARE_CONFIG, dispatchVoid, responseHardwareConfig},
+//    {RIL_REQUEST_GET_HARDWARE_CONFIG, dispatchVoid, responseHardwareConfig},
     {RIL_REQUEST_SIM_AUTHENTICATION, dispatchSimAuthentication, responseSIM_IO},
     {RIL_REQUEST_GET_DC_RT_INFO, dispatchVoid, responseDcRtInfo},
     {RIL_REQUEST_SET_DC_RT_INFO_RATE, dispatchInts, responseVoid},
