@@ -82,7 +82,6 @@ TARGET_NEED_DISABLE_FACE_DETECTION_BOTH_CAMERAS := true
 
 # RIL
 BOARD_PROVIDES_LIBRIL := true
-BOARD_RIL_CLASS := ../../../device/samsung/serrano-common/ril/
 TARGET_RIL_VARIANT := caf
 
 # Time service
