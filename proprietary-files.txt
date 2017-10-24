@@ -12,7 +12,6 @@ bin/thermald
 
 # Audio
 lib/libacdbloader.so
-lib/libaudcal.so
 
 # Adreno GPU
 etc/firmware/a300_pfp.fw
