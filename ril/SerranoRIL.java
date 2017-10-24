@@ -24,10 +24,15 @@ import android.telephony.Rlog;
 import android.os.AsyncResult;
 import android.os.Message;
 import android.os.Parcel;
+import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.telephony.ModemActivityInfo;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.SignalStrength;
+import com.android.internal.telephony.cdma.CdmaInformationRecords;
+import com.android.internal.telephony.cdma.CdmaInformationRecords.CdmaSignalInfoRec;
+import com.android.internal.telephony.cdma.SignalToneUtil;
+import com.android.internal.telephony.gsm.SmsBroadcastConfigInfo;
 import com.android.internal.telephony.uicc.IccCardApplicationStatus;
 import com.android.internal.telephony.uicc.IccCardStatus;
 import com.android.internal.telephony.uicc.IccUtils;
@@ -50,6 +55,11 @@ public class SerranoRIL extends RIL {
     private static final int RIL_UNSOL_ON_SS_SAMSUNG = 1040;
     private static final int RIL_UNSOL_STK_CC_ALPHA_NOTIFY_SAMSUNG = 1041;
     private static final int RIL_UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED_SAMSUNG = 11031;
+
+    private Object mSMSLock = new Object();
+    private boolean mIsSendingSMS = false;
+    public static final long SEND_SMS_TIMEOUT_IN_MS = 30000;
+    protected boolean isGSM = false;
 
     public SerranoRIL(Context context, int preferredNetworkType, int cdmaSubscription) {
         this(context, preferredNetworkType, cdmaSubscription, null);
@@ -132,10 +142,58 @@ public class SerranoRIL extends RIL {
     }
 
     @Override
+    public void
+    sendCdmaSms(byte[] pdu, Message result) {
+        smsLock();
+        super.sendCdmaSms(pdu, result);
+    }
+
+    @Override
+    public void
+        sendSMS (String smscPDU, String pdu, Message result) {
+        smsLock();
+        super.sendSMS(smscPDU, pdu, result);
+    }
+
+    @Override
+    protected Object
+    responseSMS(Parcel p) {
+        // Notify that sendSMS() can send the next SMS
+        synchronized (mSMSLock) {
+            mIsSendingSMS = false;
+            mSMSLock.notify();
+        }
+
+        return super.responseSMS(p);
+    }
+
+    private void smsLock(){
+        // Do not send a new SMS until the response for the previous SMS has been received
+        //   * for the error case where the response never comes back, time out after
+        //     30 seconds and just try the next SEND_SMS
+        synchronized (mSMSLock) {
+            long timeoutTime  = SystemClock.elapsedRealtime() + SEND_SMS_TIMEOUT_IN_MS;
+            long waitTimeLeft = SEND_SMS_TIMEOUT_IN_MS;
+            while (mIsSendingSMS && (waitTimeLeft > 0)) {
+                Rlog.d(RILJ_LOG_TAG, "sendSMS() waiting for response of previous SEND_SMS");
+                try {
+                    mSMSLock.wait(waitTimeLeft);
+                } catch (InterruptedException ex) {
+                    // ignore the interrupt and rewait for the remainder
+                }
+                waitTimeLeft = timeoutTime - SystemClock.elapsedRealtime();
+            }
+            if (waitTimeLeft <= 0) {
+                Rlog.e(RILJ_LOG_TAG, "sendSms() timed out waiting for response of previous CDMA_SEND_SMS");
+            }
+            mIsSendingSMS = true;
+        }
+    }
+
+    @Override
     protected Object
     responseCallList(Parcel p) {
         int num;
-        int voiceSettings;
         ArrayList<DriverCall> response;
         DriverCall dc;
 
@@ -156,12 +214,13 @@ public class SerranoRIL extends RIL {
             dc.isMpty = (0 != p.readInt());
             dc.isMT = (0 != p.readInt());
             dc.als = p.readInt();
-            voiceSettings = p.readInt();
-            dc.isVoice = (0 == voiceSettings) ? false : true;
-            boolean isVideo = (0 != p.readInt());   // Samsung CallDetails
-            int call_type = p.readInt();            // Samsung CallDetails
-            int call_domain = p.readInt();          // Samsung CallDetails
-            String csv = p.readString();            // Samsung CallDetails
+            dc.isVoice = (0 != p.readInt());
+            if (isGSM) {
+                boolean isVideo = (0 != p.readInt());   // Samsung CallDetails
+                int call_type = p.readInt();            // Samsung CallDetails
+                int call_domain = p.readInt();          // Samsung CallDetails
+                String csv = p.readString();            // Samsung CallDetails
+            }
             dc.isVoicePrivacy = (0 != p.readInt());
             dc.number = p.readString();
             int np = p.readInt();
@@ -236,6 +295,12 @@ public class SerranoRIL extends RIL {
     }
 
     @Override
+    public void setPhoneType(int phoneType){
+        super.setPhoneType(phoneType);
+        isGSM = (phoneType != RILConstants.CDMA_PHONE);
+    }
+
+    @Override
     protected RILRequest
     processSolicited (Parcel p, int type) {
         int serial, error;
@@ -251,7 +316,9 @@ public class SerranoRIL extends RIL {
                 if (error == 0 || p.dataAvail() > 0) {
                     try {switch (tr.mRequest) {
                             /* Get those we're interested in */
+                        case RIL_REQUEST_VOICE_REGISTRATION_STATE:
                         case RIL_REQUEST_DATA_REGISTRATION_STATE:
+                        case RIL_REQUEST_OPERATOR:
                             rr = tr;
                             break;
                     }} catch (Throwable thr) {
@@ -278,7 +345,9 @@ public class SerranoRIL extends RIL {
         Object ret = null;
         if (error == 0 || p.dataAvail() > 0) {
             switch (rr.mRequest) {
-                case RIL_REQUEST_DATA_REGISTRATION_STATE: ret = responseDataRegistrationState(p); break;
+                case RIL_REQUEST_VOICE_REGISTRATION_STATE: ret = responseVoiceDataRegistrationState(p, false); break;
+                case RIL_REQUEST_DATA_REGISTRATION_STATE: ret = responseVoiceDataRegistrationState(p, true); break;
+                case RIL_REQUEST_OPERATOR: ret = operatorCheck(p); break;
                 default:
                     throw new RuntimeException("Unrecognized solicited response: " + rr.mRequest);
             }
@@ -294,17 +363,42 @@ public class SerranoRIL extends RIL {
     }
 
     private Object
-    responseDataRegistrationState(Parcel p) {
+    operatorCheck(Parcel p) {
         String response[] = (String[])responseStrings(p);
-        /* DANGER WILL ROBINSON
-         * In some cases from Vodaphone we are receiving a RAT of 102
-         * while in tunnels of the metro. Lets Assume that if we
-         * receive 102 we actually want a RAT of 2 for EDGE service */
-        if (response.length > 4 &&
-            response[0].equals("1") &&
-            response[3].equals("102")) {
-            response[3] = "2";
+        for(int i=0; i<2; i++){
+            if (response[i]!= null){
+                response[i] = Operators.operatorReplace(response[i]);
+            }
         }
+        return response;
+    }
+
+    private Object
+    responseVoiceDataRegistrationState(Parcel p, boolean data) {
+        String response[] = (String[])responseStrings(p);
+        if (isGSM){
+            if (data &&
+                response.length > 4 &&
+                response[0].equals("1") &&
+                response[3].equals("102")) {
+                response[3] = "2";
+            }
+            return response;
+        }
+        if (response.length>=10){
+            for(int i=6; i<=9; i++){
+                if (response[i]== null){
+                    response[i]=Integer.toString(Integer.MAX_VALUE);
+                } else {
+                    try {
+                        Integer.parseInt(response[i]);
+                    } catch(NumberFormatException e) {
+                        response[i]=Integer.toString(Integer.parseInt(response[i],16));
+                    }
+                }
+            }
+        }
+
         return response;
     }
 
@@ -334,6 +428,15 @@ public class SerranoRIL extends RIL {
         int response = p.readInt();
 
         switch(response) {
+            case RIL_UNSOL_RIL_CONNECTED:
+                ret = responseInts(p);
+                setRadioPower(false, null);
+                setPreferredNetworkType(mPreferredNetworkType, null);
+                setCdmaSubscriptionSource(mCdmaSubscription, null);
+                if(mRilVersion >= 8)
+                    setCellInfoListRate(Integer.MAX_VALUE, null);
+                notifyRegistrantsRilConnectionChanged(((int[])ret)[0]);
+                break;
             case RIL_UNSOL_NITZ_TIME_RECEIVED:
                 fixNitz(p);
                 p.setDataPosition(dataPosition);
@@ -374,6 +477,63 @@ public class SerranoRIL extends RIL {
                 super.processUnsolicited(p, type);
                 return;
         }
+    }
+
+    // Workaround for Samsung CDMA "ring of death" bug:
+    //
+    // Symptom: As soon as the phone receives notice of an incoming call, an
+    // audible "old fashioned ring" is emitted through the earpiece and
+    // persists through the duration of the call, or until reboot if the call
+    // isn't answered.
+    //
+    // Background: The CDMA telephony stack implements a number of "signal info
+    // tones" that are locally generated by ToneGenerator and mixed into the
+    // voice call path in response to radio RIL_UNSOL_CDMA_INFO_REC requests.
+    // One of these tones, IS95_CONST_IR_SIG_IS54B_L, is requested by the
+    // radio just prior to notice of an incoming call when the voice call
+    // path is muted. CallNotifier is responsible for stopping all signal
+    // tones (by "playing" the TONE_CDMA_SIGNAL_OFF tone) upon receipt of a
+    // "new ringing connection", prior to unmuting the voice call path.
+    //
+    // Problem: CallNotifier's incoming call path is designed to minimize
+    // latency to notify users of incoming calls ASAP. Thus,
+    // SignalInfoTonePlayer requests are handled asynchronously by spawning a
+    // one-shot thread for each. Unfortunately the ToneGenerator API does
+    // not provide a mechanism to specify an ordering on requests, and thus,
+    // unexpected thread interleaving may result in ToneGenerator processing
+    // them in the opposite order that CallNotifier intended. In this case,
+    // playing the "signal off" tone first, followed by playing the "old
+    // fashioned ring" indefinitely.
+    //
+    // Solution: An API change to ToneGenerator is required to enable
+    // SignalInfoTonePlayer to impose an ordering on requests (i.e., drop any
+    // request that's older than the most recent observed). Such a change,
+    // or another appropriate fix should be implemented in AOSP first.
+    //
+    // Workaround: Intercept RIL_UNSOL_CDMA_INFO_REC requests from the radio,
+    // check for a signal info record matching IS95_CONST_IR_SIG_IS54B_L, and
+    // drop it so it's never seen by CallNotifier. If other signal tones are
+    // observed to cause this problem, they should be dropped here as well.
+    @Override
+    protected void notifyRegistrantsCdmaInfoRec(CdmaInformationRecords infoRec) {
+        final int response = RIL_UNSOL_CDMA_INFO_REC;
+
+        if (infoRec.record instanceof CdmaSignalInfoRec) {
+            CdmaSignalInfoRec sir = (CdmaSignalInfoRec) infoRec.record;
+            if (sir != null
+                    && sir.isPresent
+                    && sir.signalType == SignalToneUtil.IS95_CONST_IR_SIGNAL_IS54B
+                    && sir.alertPitch == SignalToneUtil.IS95_CONST_IR_ALERT_MED
+                    && sir.signal == SignalToneUtil.IS95_CONST_IR_SIG_IS54B_L) {
+
+                Rlog.d(RILJ_LOG_TAG, "Dropping \"" + responseToString(response) + " "
+                        + retToString(response, sir)
+                        + "\" to prevent \"ring of death\" bug.");
+                return;
+            }
+        }
+
+        super.notifyRegistrantsCdmaInfoRec(infoRec);
     }
 
     private void
