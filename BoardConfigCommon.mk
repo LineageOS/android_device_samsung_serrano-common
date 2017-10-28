@@ -88,9 +88,6 @@ TARGET_RIL_VARIANT := caf
 BOARD_GLOBAL_CFLAGS += -DDISABLE_ASHMEM_TRACKING
 BOARD_RIL_CLASS := ../../../device/samsung/serrano-common/ril/
 
-# Time service
-BOARD_USES_QC_TIME_SERVICES := true
-
 # CMHW
 BOARD_HARDWARE_CLASS += $(COMMON_PATH)/cmhw
 

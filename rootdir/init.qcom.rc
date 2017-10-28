@@ -189,9 +189,6 @@ on post-fs-data
     # Create directory for hostapd
     mkdir /data/hostapd 0771 system wifi
 
-    # Create /data/time folder for time-services
-    mkdir /data/time/ 0700 system system
-
     mkdir /data/audio/ 0770 media audio
 
     setprop vold.post_fs_data_done 1

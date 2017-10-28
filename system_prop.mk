@@ -47,7 +47,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Misc
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.chipname=MSM8930AB \
-    persist.timed.enable=true \
     wifi.interface=wlan0
 
 # QC Perf

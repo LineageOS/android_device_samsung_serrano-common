@@ -431,11 +431,6 @@ service geomagneticd /system/vendor/bin/geomagneticd
     user compass
     group system input
 
-service time_daemon /system/bin/time_daemon
-    class late_start
-    user root
-    group root
-
 service wcnss-service /system/bin/wcnss_service
     class main
     user system
