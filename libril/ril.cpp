@@ -1960,9 +1960,9 @@ static void dispatchUiccSubscripton(Parcel &p, RequestInfo *pRI) {
     RLOGD("dispatchUiccSubscription, slot=%d, app_index=%d, act_status = %d", uicc_sub.slot,
             uicc_sub.app_index, uicc_sub.act_status);
     closeRequest;
-    printRequest(pRI->token, pRI->pCI->requestNumber);
+    printRequest(pRI->token, 115);
 
-    CALL_ONREQUEST(pRI->pCI->requestNumber, &uicc_sub, sizeof(uicc_sub), pRI, pRI->socket_id);
+    CALL_ONREQUEST(115, &uicc_sub, sizeof(uicc_sub), pRI, pRI->socket_id);
 
 #ifdef MEMSET_FREED
     memset(&uicc_sub, 0, sizeof(uicc_sub));
