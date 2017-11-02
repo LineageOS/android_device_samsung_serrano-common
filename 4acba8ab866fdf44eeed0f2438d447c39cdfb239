@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82f41a7a_11a15e9a",
+        "filename": "libril/ril_commands_vendor.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 11801
+      },
+      "writtenOn": "2017-11-02T01:00:13Z",
+      "side": 1,
+      "message": "extra line",
+      "revId": "4acba8ab866fdf44eeed0f2438d447c39cdfb239",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd0520a6_ce2b6be0",
+        "filename": "libril/ril_unsol_commands_vendor.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 11801
+      },
+      "writtenOn": "2017-11-02T01:00:13Z",
+      "side": 1,
+      "message": "Derp on my part here, this should technically be responseVoid, since it is actually a valid unsol",
+      "range": {
+        "startLine": 17,
+        "startChar": 25,
+        "endLine": 17,
+        "endChar": 29
+      },
+      "revId": "4acba8ab866fdf44eeed0f2438d447c39cdfb239",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
