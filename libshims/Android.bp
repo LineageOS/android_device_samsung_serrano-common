@@ -1,0 +1,16 @@
+cc_library_shared {
+    name: "libshim_camera_serrano",
+    srcs: [
+        "bionic/bionic_time_conversions.cpp",
+        "bionic/pthread_cond.cpp",
+    ],
+    shared_libs: [
+        "libc"
+    ],
+    export_include_dirs: ["."],
+    stl: "none",
+    sanitize: {
+        never: true,
+    },
+    proprietary: true,
+}
