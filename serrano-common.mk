@@ -97,11 +97,6 @@ PRODUCT_PACKAGES += \
     gps.conf \
     sap.conf
 
-# FM radio
-PRODUCT_PACKAGES += \
-    FM2 \
-    qcom.fmradio
-
 # Lights
 PRODUCT_PACKAGES += \
     lights.msm8960
