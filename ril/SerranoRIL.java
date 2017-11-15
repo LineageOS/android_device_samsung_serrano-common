@@ -304,89 +304,112 @@ public class SerranoRIL extends RIL {
     protected RILRequest
     processSolicited (Parcel p, int type) {
         int serial, error;
-        boolean found = false;
         int dataPosition = p.dataPosition(); // save off position within the Parcel
+
         serial = p.readInt();
         error = p.readInt();
-        RILRequest rr = null;
-        /* Pre-process the reply before popping it */
-        synchronized (mRequestList) {
-            RILRequest tr = mRequestList.get(serial);
-            if (tr != null && tr.mSerial == serial) {
-                if (error == 0 || p.dataAvail() > 0) {
-                    try {switch (tr.mRequest) {
-                            /* Get those we're interested in */
-                        case RIL_REQUEST_VOICE_REGISTRATION_STATE:
-                        case RIL_REQUEST_DATA_REGISTRATION_STATE:
-                            rr = tr;
-                            break;
-                    }} catch (Throwable thr) {
-                        // Exceptions here usually mean invalid RIL responses
-                        if (tr.mResult != null) {
-                            AsyncResult.forMessage(tr.mResult, null, thr);
-                            tr.mResult.sendToTarget();
-                        }
-                        return tr;
-                    }
-                }
-            }
-        }
-        if (rr == null) {
-            /* Nothing we care about, go up */
+
+        RILRequest rr;
+
+        rr = mRequestList.get(serial);
+        if (rr == null || error != 0 || p.dataAvail() <= 0) {
             p.setDataPosition(dataPosition);
-            // Forward responses that we are not overriding to the super class
             return super.processSolicited(p, type);
         }
-        rr = findAndRemoveRequestFromList(serial);
-        if (rr == null) {
-            return rr;
-        }
-        Object ret = null;
-        if (error == 0 || p.dataAvail() > 0) {
-            switch (rr.mRequest) {
-                case RIL_REQUEST_VOICE_REGISTRATION_STATE: ret = responseVoiceDataRegistrationState(p, false); break;
-                case RIL_REQUEST_DATA_REGISTRATION_STATE: ret = responseVoiceDataRegistrationState(p, true); break;
-                default:
-                    throw new RuntimeException("Unrecognized solicited response: " + rr.mRequest);
-            }
-            //break;
-        }
-        if (RILJ_LOGD) riljLog(rr.serialString() + "< " + requestToString(rr.mRequest)
-                               + " " + retToString(rr.mRequest, ret));
-        if (rr.mResult != null) {
-            AsyncResult.forMessage(rr.mResult, ret, null);
-            rr.mResult.sendToTarget();
-        }
-        return rr;
-    }
 
-    private Object
-    responseVoiceDataRegistrationState(Parcel p, boolean data) {
-        String response[] = (String[])responseStrings(p);
-        if (isGSM){
-            if (data &&
-                response.length > 4 &&
-                response[0].equals("1") &&
-                response[3].equals("102")) {
-                response[3] = "2";
-            }
-            return response;
-        }
-        if (response.length>=10){
-            for(int i=6; i<=9; i++){
-                if (response[i]== null){
-                    response[i]=Integer.toString(Integer.MAX_VALUE);
+        try { switch (rr.mRequest) {
+            case RIL_REQUEST_OPERATOR:
+                String operators[] = (String [])responseStrings(p);
+
+                riljLog("Operator response");
+
+                if (operators == null || operators.length < 0) {
+                    riljLog("Operators is empty or null");
                 } else {
-                    try {
-                        Integer.parseInt(response[i]);
-                    } catch(NumberFormatException e) {
-                        response[i]=Integer.toString(Integer.parseInt(response[i],16));
+                    riljLog("Length of operators:" + operators.length);
+                    for (int i = 0; i < operators.length; i++) {
+                        riljLog("Operator[" + i + "]:" + operators[i]);
                     }
                 }
-            }
+
+                if (!isGSM) {
+                    riljLog("Forcing operator name using build property ro.cdma.home.operator.alpha");
+                    operators[0] = SystemProperties.get("ro.cdma.home.operator.alpha");
+                }
+
+                if (RILJ_LOGD) riljLog(rr.serialString() + "< " + requestToString(rr.mRequest)
+                                       + " " + retToString(rr.mRequest, operators));
+
+                if (rr.mResult != null) {
+                    AsyncResult.forMessage(rr.mResult, operators, null);
+                    rr.mResult.sendToTarget();
+                }
+                mRequestList.remove(serial);
+                break;
+            case RIL_REQUEST_VOICE_REGISTRATION_STATE:
+                String voiceRegStates[] = (String [])responseStrings(p);
+
+                riljLog("VoiceRegistrationState response");
+
+                if (voiceRegStates == null || voiceRegStates.length < 0) {
+                    riljLog("VoiceRegStates is empty or null");
+                } else {
+                    riljLog("Length of voiceRegStates:" + voiceRegStates.length);
+                    for (int i = 0; i < voiceRegStates.length; i++) {
+                        riljLog("VoiceRegStates[" + i + "]:" + voiceRegStates[i]);
+                    }
+                }
+
+                if (RILJ_LOGD) riljLog(rr.serialString() + "< " + requestToString(rr.mRequest)
+                                       + " " + retToString(rr.mRequest, voiceRegStates));
+
+                if (rr.mResult != null) {
+                    AsyncResult.forMessage(rr.mResult, voiceRegStates, null);
+                    rr.mResult.sendToTarget();
+                }
+                mRequestList.remove(serial);
+                break;
+            case RIL_REQUEST_DATA_REGISTRATION_STATE:
+                String dataRegStates[] = (String [])responseStrings(p);
+
+                riljLog("DataRegistrationState response");
+
+                if (dataRegStates == null || dataRegStates.length < 0) {
+                   riljLog("DataRegStates is empty or null");
+                } else {
+                   riljLog("Length of dataRegStates:" + dataRegStates.length);
+                   for (int i = 0; i < dataRegStates.length; i++) {
+                      riljLog("DataRegStates[" + i + "]:" + dataRegStates[i]);
+                   }
+                }
+
+                if (RILJ_LOGD) riljLog(rr.serialString() + "< " + requestToString(rr.mRequest)
+                                       + " " + retToString(rr.mRequest, dataRegStates));
+
+                if (rr.mResult != null) {
+                    AsyncResult.forMessage(rr.mResult, dataRegStates, null);
+                    rr.mResult.sendToTarget();
+                }
+                mRequestList.remove(serial);
+                break;
+            default:
+                p.setDataPosition(dataPosition);
+                return super.processSolicited(p, type);
+        }} catch (Throwable tr) {
+                // Exceptions here usually mean invalid RIL responses
+
+                Rlog.w(RILJ_LOG_TAG, rr.serialString() + "< "
+                        + requestToString(rr.mRequest)
+                        + " exception, possible invalid RIL response", tr);
+
+                if (rr.mResult != null) {
+                    AsyncResult.forMessage(rr.mResult, null, tr);
+                    rr.mResult.sendToTarget();
+                }
+                return rr;
         }
 
-        return response;
+        return rr;
     }
 
     private void
