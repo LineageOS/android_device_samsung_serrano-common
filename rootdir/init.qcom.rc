@@ -255,7 +255,7 @@ on property:persist.sys.ssr.restart_level=3
 
 on property:sys.boot_completed=1
     start qcom-audio
-    setprop sys.io.scheduler bfq
+    setprop sys.io.scheduler cfq
 
     # Adaptive LMK
     write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
