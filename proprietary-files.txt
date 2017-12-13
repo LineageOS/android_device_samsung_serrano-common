@@ -1,6 +1,7 @@
 # Bluetooth
 vendor/bin/btnvtool
 vendor/bin/hci_qcomm_init
+vendor/lib/libaptX_encoder.so
 
 # FM Radio
 vendor/bin/fm_qsoc_patches
