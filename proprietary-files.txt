@@ -2,6 +2,8 @@
 bin/btnvtool
 bin/hci_qcomm_init
 lib/libbtnv.so
+vendor/lib/libaptX-1.0.0-rel-Android21-ARMv7A.so
+vendor/lib/libaptXScheduler.so
 
 # FM Radio
 bin/fm_qsoc_patches
