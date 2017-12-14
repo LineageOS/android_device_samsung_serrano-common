@@ -166,9 +166,6 @@
          config to 7.
     <integer name="config_deviceHardwareWakeKeys">65</integer> -->
 
-    <!-- Slow brightness animation ramp rate in brightness units per second-->
-    <integer translatable="false" name="config_brightness_ramp_rate_slow">80</integer>
-
     <!-- Stability requirements in milliseconds for accepting a new brightness level.  This is used
          for debouncing the light sensor.  Different constants are used to debounce the light sensor
          when adapting to brighter or darker environments.  This parameter controls how quickly
