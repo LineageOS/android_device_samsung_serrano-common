@@ -22,6 +22,30 @@
       "revId": "7f3e8a6f1f235389ceb529aaa952be628b4fe376",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcb5ca1b_e0dce6fd",
+        "filename": "rootdir/init.target.rc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 444
+      },
+      "writtenOn": "2017-12-20T17:51:42Z",
+      "side": 1,
+      "message": "Yup",
+      "parentUuid": "b77590c5_29ee20a3",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 75
+      },
+      "revId": "7f3e8a6f1f235389ceb529aaa952be628b4fe376",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
