@@ -35,12 +35,12 @@ on early-init
     mkdir /efs 0771 system radio
     chmod 644 /proc/cmdline
 
-on fs
+    mount_all fstab.qcom
+
     wait /dev/block/platform/${ro.boot.bootdevice}
     symlink /dev/block/platform/${ro.boot.bootdevice} /dev/block/bootdevice
 
-    mount_all fstab.qcom
-
+on fs
     restorecon_recursive /persist
 
     chown system radio /efs
