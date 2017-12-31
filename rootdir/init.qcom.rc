@@ -35,6 +35,7 @@ on early-init
 
 on init
     export LD_SHIM_LIBS "/system/vendor/bin/mm-qcamera-daemon|libshim_camera.so"
+    export TERMINFO /system/etc/terminfo
 
     # Set permissions for persist partition
     mkdir /persist 0771 system system
