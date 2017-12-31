@@ -32,7 +32,7 @@ PATH=/sbin:/system/sbin:/system/bin:/system/xbin
 export PATH
 
 # fastrpc permission setting
-insmod /system/lib/modules/adsprpc.ko
+insmod /vendor/lib/modules/adsprpc.ko
 chown -h system.system /dev/adsprpc-smd
 chmod -h 664 /dev/adsprpc-smd
 
