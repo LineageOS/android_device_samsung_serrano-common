@@ -125,6 +125,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.0-impl
 
+# Power
+PRODUCT_PACKAGES += \
+    android.hardware.power@1.0-impl \
+    power.msm8960
+
 # IPv6 tethering
 PRODUCT_PACKAGES += \
     ebtables
