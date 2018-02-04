@@ -1,0 +1,27 @@
+cc_binary {
+    proprietary: true,
+    defaults: ["hidl_defaults"],
+    relative_install_path: "hw",
+    name: "android.hardware.power@1.0-service.serrano",
+    init_rc: ["android.hardware.power@1.0-service.serrano.rc"],
+    srcs: [
+        "service.cpp",
+        "Power.cpp",
+        "power.c",
+    ],
+
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
+
+    shared_libs: [
+        "liblog",
+        "libdl",
+        "libutils",
+        "libhardware",
+        "libhidlbase",
+        "libhidltransport",
+        "android.hardware.power@1.0",
+    ],
+}
