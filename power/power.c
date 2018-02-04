@@ -29,7 +29,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include <utils/Log.h>
+#include <log/log.h>
 
 #include "power.h"
 
@@ -38,7 +38,6 @@
 #define CPUFREQ_LIMIT_PATH "/sys/kernel/cpufreq_limit/"
 #define INTERACTIVE_PATH "/sys/devices/system/cpu/cpufreq/interactive/"
 
-static pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 static int boostpulse_fd = -1;
 
 static int current_power_profile = -1;
@@ -86,21 +85,19 @@ static int is_profile_valid(int profile) {
     return profile >= 0 && profile < PROFILE_MAX;
 }
 
-static void power_init(__attribute__((unused)) struct power_module* module) {
+void power_init(void) {
     ALOGI("%s", __func__);
 }
 
 static int boostpulse_open() {
-    pthread_mutex_lock(&lock);
     if (boostpulse_fd < 0) {
         boostpulse_fd = open(INTERACTIVE_PATH "boostpulse", O_WRONLY);
     }
-    pthread_mutex_unlock(&lock);
 
     return boostpulse_fd;
 }
 
-static void power_set_interactive(__attribute__((unused)) struct power_module* module, int on) {
+void power_set_interactive(int on) {
     if (!is_profile_valid(current_power_profile)) {
         ALOGD("%s: no power profile selected yet", __func__);
         return;
@@ -175,15 +172,12 @@ static void process_video_encode_hint(void* metadata) {
                     on ? VID_ENC_IO_IS_BUSY : profiles[current_power_profile].io_is_busy);
 }
 
-static void power_hint(__attribute__((unused)) struct power_module* module, power_hint_t hint,
-                       void* data) {
+void power_hint(power_hint_t hint, void* data) {
     char buf[80];
     int len;
 
     if (hint == POWER_HINT_SET_PROFILE) {
-        pthread_mutex_lock(&lock);
         set_power_profile(*(int32_t *)data);
-        pthread_mutex_unlock(&lock);
         return;
     }
 
@@ -212,88 +206,15 @@ static void power_hint(__attribute__((unused)) struct power_module* module, powe
                     strerror_r(errno, buf, sizeof(buf));
                     ALOGE("Error writing to boostpulse: %s\n", buf);
 
-                    pthread_mutex_lock(&lock);
                     close(boostpulse_fd);
                     boostpulse_fd = -1;
-                    pthread_mutex_unlock(&lock);
                 }
             }
             break;
         case POWER_HINT_VIDEO_ENCODE:
-            pthread_mutex_lock(&lock);
             process_video_encode_hint(data);
-            pthread_mutex_unlock(&lock);
             break;
         default:
             break;
     }
 }
-
-static int get_feature(__attribute__((unused)) struct power_module* module, feature_t feature) {
-    if (feature == POWER_FEATURE_SUPPORTED_PROFILES) {
-        return PROFILE_MAX;
-    }
-    return -1;
-}
-
-static int power_open(const hw_module_t* module __unused, const char* name,
-                    hw_device_t** device)
-{
-    ALOGD("%s: enter; name=%s", __FUNCTION__, name);
-    int retval = 0; /* 0 is ok; -1 is error */
-
-    if (strcmp(name, POWER_HARDWARE_MODULE_ID) == 0) {
-        power_module_t *dev = (power_module_t *)calloc(1,
-                sizeof(power_module_t));
-
-        if (dev) {
-            /* Common hw_device_t fields */
-            dev->common.tag = HARDWARE_MODULE_TAG;
-            dev->common.module_api_version = POWER_MODULE_API_VERSION_0_2;
-            dev->common.hal_api_version = HARDWARE_HAL_API_VERSION;
-
-            dev->init = power_init;
-            dev->powerHint = power_hint;
-            dev->setInteractive = power_set_interactive;
-            dev->getFeature = get_feature;
-            dev->setFeature = NULL;
-            dev->get_number_of_platform_modes = NULL;
-            dev->get_platform_low_power_stats = NULL;
-            dev->get_voter_list = NULL;
-
-            *device = (hw_device_t*)dev;
-        } else
-            retval = -ENOMEM;
-    } else {
-        retval = -EINVAL;
-    }
-
-    ALOGD("%s: exit %d", __FUNCTION__, retval);
-    return retval;
-}
-
-static struct hw_module_methods_t power_module_methods = {
-    .open = power_open,
-};
-
-struct power_module HAL_MODULE_INFO_SYM = {
-    .common =
-        {
-            .tag = HARDWARE_MODULE_TAG,
-            .module_api_version = POWER_MODULE_API_VERSION_0_2,
-            .hal_api_version = HARDWARE_HAL_API_VERSION,
-            .id = POWER_HARDWARE_MODULE_ID,
-            .name = "msm8960 Power HAL",
-            .author = "Gabriele M",
-            .methods = &power_module_methods,
-        },
-
-    .init = power_init,
-    .powerHint = power_hint,
-    .setInteractive = power_set_interactive,
-    .getFeature = get_feature,
-    .setFeature = NULL,
-    .get_number_of_platform_modes = NULL,
-    .get_platform_low_power_stats = NULL,
-    .get_voter_list = NULL,
-};
