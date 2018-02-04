@@ -33,6 +33,7 @@ LOCAL_SHARED_LIBRARIES := \
     libhidltransport \
     liblog \
     libutils \
-    android.hardware.power@1.0
+    android.hardware.power@1.0 \
+    vendor.lineage.power@1.0
 
 include $(BUILD_EXECUTABLE)
