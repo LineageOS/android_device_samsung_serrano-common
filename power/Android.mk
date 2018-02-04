@@ -34,5 +34,6 @@ LOCAL_SHARED_LIBRARIES := \
     liblog \
     libutils \
     android.hardware.power@1.0 \
+    vendor.lineage.power@1.0
 
 include $(BUILD_EXECUTABLE)
