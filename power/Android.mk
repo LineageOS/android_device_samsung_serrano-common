@@ -17,10 +17,22 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
+
 LOCAL_MODULE_RELATIVE_PATH := hw
-LOCAL_SRC_FILES := power.c
-LOCAL_SHARED_LIBRARIES := liblog libcutils
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE := power.$(TARGET_BOARD_PLATFORM)
 LOCAL_PROPRIETARY_MODULE := true
-include $(BUILD_SHARED_LIBRARY)
+LOCAL_MODULE_TAGS := optional
+
+LOCAL_MODULE := android.hardware.power@1.0-service.serrano
+LOCAL_INIT_RC := android.hardware.power@1.0-service.serrano.rc
+LOCAL_SRC_FILES := service.cpp Power.cpp power.c
+LOCAL_HEADER_LIBRARIES := libhardware_headers
+
+LOCAL_SHARED_LIBRARIES := \
+    libcutils \
+    libhidlbase \
+    libhidltransport \
+    liblog \
+    libutils \
+    android.hardware.power@1.0 \
+
+include $(BUILD_EXECUTABLE)
