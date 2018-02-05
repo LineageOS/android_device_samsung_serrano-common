@@ -143,7 +143,7 @@ PRODUCT_PACKAGES += \
     libshim_camera
 
 # Doze
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
     SamsungDoze
 
 # Camera
