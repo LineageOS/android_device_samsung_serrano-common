@@ -107,15 +107,14 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     gps.msm8960
 
-# Lights
-PRODUCT_PACKAGES += \
-    android.hardware.light@2.0-impl \
-    lights.msm8960
-
 # IR package
 PRODUCT_PACKAGES += \
     android.hardware.ir@1.0-impl \
     consumerir.msm8960
+
+# Lights
+PRODUCT_PACKAGES += \
+    android.hardware.light@2.0-service.serrano
 
 # Vibrator
 PRODUCT_PACKAGES += \
