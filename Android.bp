@@ -1,4 +1,5 @@
 subdirs = [
     "hidl/usb",
+    "hidl/vibrator",
     "power",
 ]
