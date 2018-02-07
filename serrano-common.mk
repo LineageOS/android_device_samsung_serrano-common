@@ -116,10 +116,9 @@ PRODUCT_PACKAGES += \
     android.hardware.light@2.0-impl \
     lights.msm8960
 
-# IR package
+# USB
 PRODUCT_PACKAGES += \
-    android.hardware.ir@1.0-impl \
-    consumerir.msm8960
+    android.hardware.usb@1.0-service.serrano
 
 # Vibrator
 PRODUCT_PACKAGES += \
@@ -128,6 +127,11 @@ PRODUCT_PACKAGES += \
 # Power
 PRODUCT_PACKAGES += \
     android.hardware.power@1.0-service.serrano
+
+# IR package
+PRODUCT_PACKAGES += \
+    android.hardware.ir@1.0-impl \
+    consumerir.msm8960
 
 # IPv6 tethering
 PRODUCT_PACKAGES += \
