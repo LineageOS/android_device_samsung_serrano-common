@@ -138,10 +138,6 @@ PRODUCT_PACKAGES += \
     fsck.f2fs \
     mkfs.f2fs
 
-# Shims
-PRODUCT_PACKAGES += \
-    libshim_camera
-
 # Doze
 PRODUCT_PACKAGES += \
     SamsungDoze
