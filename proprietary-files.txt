@@ -94,6 +94,7 @@ vendor/lib/libchromatix_s5k6a3yx_preview.so
 vendor/lib/libchromatix_s5k6a3yx_smart_stay.so
 vendor/lib/libchromatix_s5k6a3yx_vt.so
 vendor/lib/libchromatix_s5k6a3yx_vt_hd.so
+vendor/lib/libC.so
 vendor/lib/libgemini.so
 vendor/lib/libimage-jpeg-dec-omx-comp.so
 vendor/lib/libimage-jpeg-enc-omx-comp.so
