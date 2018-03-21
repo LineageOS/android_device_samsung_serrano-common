@@ -29,7 +29,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
-    camera2.portability.force_api=1
+    camera2.portability.force_api=1 \
+    debug.camcorder.disablemeta=true
 
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
