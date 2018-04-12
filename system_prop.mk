@@ -66,9 +66,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # LMKD
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.lmk.critical_upgrade=true \
-    ro.lmk.downgrade_pressure=60 \
-    ro.lmk.kill_heaviest_task=false \
+    ro.lmk.kill_heaviest_task=true \
+    ro.lmk.kill_timeout_ms=100 \
     ro.lmk.log_stats=true \
-    ro.lmk.upgrade_pressure=40 \
-    ro.lmk.use_psi=false
+    ro.lmk.use_minfree_levels=true
