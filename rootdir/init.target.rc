@@ -418,7 +418,6 @@ service mpdecision /system/vendor/bin/mpdecision --no_sleep --avg_comp
     class main
     user root
     group root system readproc wakelock
-    disabled
 
 service charger /charger
     class charger
