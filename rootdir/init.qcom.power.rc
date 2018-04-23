@@ -31,7 +31,6 @@ on enable-low-power
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 384000
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 384000
     write /sys/module/msm_thermal/core_control/enabled 1
-    start mpdecision
 
 on boot
     chown system system /sys/kernel/cpufreq_limit/limited_max_freq

@@ -412,7 +412,6 @@ service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
     class main
     user root
     group root system readproc
-    disabled
 
 service charger /charger
     class charger
