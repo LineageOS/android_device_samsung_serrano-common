@@ -20,7 +20,6 @@ TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 TW_EXCLUDE_TWRPAPP := true
 TW_HAS_DOWNLOAD_MODE := true
 TW_INCLUDE_CRYPTO := true
-TW_NO_LEGACY_PROPS := true
 TW_NO_REBOOT_BOOTLOADER := true
 TW_TARGET_USES_QCOM_BSP := true
 TW_USE_TOOLBOX := true
