@@ -41,6 +41,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Misc
 PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.usb.config=none \
     ro.chipname=MSM8930AB \
     wifi.interface=wlan0
 
