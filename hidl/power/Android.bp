@@ -1,8 +1,6 @@
 cc_binary {
-    proprietary: true,
-    defaults: ["hidl_defaults"],
-    relative_install_path: "hw",
     name: "android.hardware.power@1.0-service.serrano",
+    relative_install_path: "hw",
     init_rc: ["android.hardware.power@1.0-service.serrano.rc"],
     srcs: [
         "service.cpp",
@@ -25,4 +23,5 @@ cc_binary {
         "android.hardware.power@1.0",
         "vendor.lineage.power@1.0",
     ],
+    proprietary: true,
 }
