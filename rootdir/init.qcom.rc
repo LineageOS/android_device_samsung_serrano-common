@@ -34,8 +34,6 @@ on early-init
     setprop ro.wcnss.serialno ${ro.boot.serialno}
 
 on init
-    export LD_SHIM_LIBS "/system/vendor/bin/mm-qcamera-daemon|libshim_camera.so"
-
     # Set permissions for persist partition
     mkdir /persist 0771 system system
 
