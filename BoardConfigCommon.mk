@@ -84,6 +84,7 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGER_SHOW_PERCENTAGE := true
 
 # Camera
+TARGET_LD_SHIM_LIBS := /system/vendor/bin/mm-qcamera-daemon|libshim_camera.so
 TARGET_NEED_CAMERA_ZSL := true
 TARGET_NEED_FFC_PICTURE_FIXUP := true
 TARGET_NEED_FFC_VIDEO_FIXUP := true
