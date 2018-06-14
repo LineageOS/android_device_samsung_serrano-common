@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67d909f9_69cf91b2",
+        "filename": "libshims/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 18602
+      },
+      "writtenOn": "2018-06-14T11:09:41Z",
+      "side": 1,
+      "message": "i think this will cause conflicts with other devices",
+      "range": {
+        "startLine": 2,
+        "startChar": 11,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "0f2b1a758275ac5b691a14a900ebca9d057db518",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c882553a_b8b92696",
+        "filename": "libshims/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 18602
+      },
+      "writtenOn": "2018-06-14T11:09:41Z",
+      "side": 1,
+      "message": "vendor",
+      "range": {
+        "startLine": 15,
+        "startChar": 4,
+        "endLine": 15,
+        "endChar": 15
+      },
+      "revId": "0f2b1a758275ac5b691a14a900ebca9d057db518",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
