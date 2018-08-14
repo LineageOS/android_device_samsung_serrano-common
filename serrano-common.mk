@@ -147,15 +147,15 @@ PRODUCT_PACKAGES += \
     libshim_camera_serrano
 
 # Doze
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
     SamsungDoze
 
 # Camera
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
     Snap
 
 # FlipFlap
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
     FlipFlap
 
 # call common serrano system props
