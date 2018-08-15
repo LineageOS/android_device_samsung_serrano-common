@@ -60,6 +60,12 @@ using android::sp;
 #define CALL_ONSTATEREQUEST(a) s_vendorFunctions->onStateRequest()
 #endif
 
+#ifdef OEM_HOOK_DISABLED
+constexpr bool kOemHookEnabled = false;
+#else
+constexpr bool kOemHookEnabled = true;
+#endif
+
 RIL_RadioFunctions *s_vendorFunctions = NULL;
 static CommandInfo *s_commands;
 
@@ -2814,9 +2820,9 @@ Return<void> RadioImpl::setCarrierInfoForImsiEncryption(int32_t serial,
         memsetAndFreeStrings(2, imsiEncryption.mnc, imsiEncryption.mcc);
         return Void();
     }
-    int32_t lSize = data.carrierKey.size();
-    imsiEncryption.carrierKey = new uint8_t[lSize];
-    memcpy(imsiEncryption.carrierKey, data.carrierKey.data(), lSize);
+    imsiEncryption.carrierKeyLength = data.carrierKey.size();
+    imsiEncryption.carrierKey = new uint8_t[imsiEncryption.carrierKeyLength];
+    memcpy(imsiEncryption.carrierKey, data.carrierKey.data(), imsiEncryption.carrierKeyLength);
     imsiEncryption.expirationTime = data.expirationTime;
     CALL_ONREQUEST(pRI->pCI->requestNumber, &imsiEncryption,
             sizeof(RIL_CarrierInfoForImsiEncryption), pRI, mSlotId);
@@ -6724,6 +6730,8 @@ int radio::sendRequestRawResponse(int slotId,
    RLOGD("sendRequestRawResponse: serial %d", serial);
 #endif
 
+    if (!kOemHookEnabled) return 0;
+
     if (oemHookService[slotId]->mOemHookResponse != NULL) {
         RadioResponseInfo responseInfo = {};
         populateResponseInfo(responseInfo, serial, responseType, e);
@@ -6752,6 +6760,8 @@ int radio::sendRequestStringsResponse(int slotId,
 #if VDBG
     RLOGD("sendRequestStringsResponse: serial %d", serial);
 #endif
+
+    if (!kOemHookEnabled) return 0;
 
     if (oemHookService[slotId]->mOemHookResponse != NULL) {
         RadioResponseInfo responseInfo = {};
@@ -8494,7 +8504,7 @@ int radio::networkScanResultInd(int slotId,
 
         V1_1::NetworkScanResult result;
         result.status = (V1_1::ScanStatus) networkScanResult->status;
-        result.error = (RadioError) e;
+        result.error = (RadioError) networkScanResult->error;
         convertRilCellInfoListToHal(
                 networkScanResult->network_infos,
                 networkScanResult->network_infos_length * sizeof(RIL_CellInfo_v12),
@@ -8565,6 +8575,8 @@ int radio::keepaliveStatusInd(int slotId,
 int radio::oemHookRawInd(int slotId,
                          int indicationType, int token, RIL_Errno e, void *response,
                          size_t responseLen) {
+    if (!kOemHookEnabled) return 0;
+
     if (oemHookService[slotId] != NULL && oemHookService[slotId]->mOemHookIndication != NULL) {
         if (response == NULL || responseLen == 0) {
             RLOGE("oemHookRawInd: invalid response");
@@ -8606,6 +8618,9 @@ void radio::registerService(RIL_RadioFunctions *callbacks, CommandInfo *commands
     simCount = SIM_COUNT;
     #endif
 
+    s_vendorFunctions = callbacks;
+    s_commands = commands;
+
     configureRpcThreadpool(1, true /* callerWillJoin */);
     for (int i = 0; i < simCount; i++) {
         pthread_rwlock_t *radioServiceRwlockPtr = getRadioServiceRwlock(i);
@@ -8614,19 +8629,19 @@ void radio::registerService(RIL_RadioFunctions *callbacks, CommandInfo *commands
 
         radioService[i] = new RadioImpl;
         radioService[i]->mSlotId = i;
-        oemHookService[i] = new OemHookImpl;
-        oemHookService[i]->mSlotId = i;
         RLOGD("registerService: starting android::hardware::radio::V1_1::IRadio %s",
                 serviceNames[i]);
         android::status_t status = radioService[i]->registerAsService(serviceNames[i]);
-        status = oemHookService[i]->registerAsService(serviceNames[i]);
+
+        if (kOemHookEnabled) {
+            oemHookService[i] = new OemHookImpl;
+            oemHookService[i]->mSlotId = i;
+            status = oemHookService[i]->registerAsService(serviceNames[i]);
+        }
 
         ret = pthread_rwlock_unlock(radioServiceRwlockPtr);
         assert(ret == 0);
     }
-
-    s_vendorFunctions = callbacks;
-    s_commands = commands;
 }
 
 void rilc_thread_pool() {
