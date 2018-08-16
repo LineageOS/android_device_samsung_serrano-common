@@ -56,3 +56,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Vendor security patch level
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.lineage.build.vendor_security_patch=2016-08-01
+
+# ro.product.first_api_level indicates the first api level
+# the device has commercially launched on
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.product.first_api_level=19
