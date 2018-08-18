@@ -40,12 +40,6 @@ namespace light {
 namespace V2_0 {
 namespace implementation {
 
-static constexpr uint32_t MODE_ON = 0x1;
-static constexpr uint32_t MODE_BLINK = 0x2;
-
-static constexpr uint32_t MODE_SHIFT = 24;
-static constexpr uint32_t MODE_MASK = 0x0f000000;
-
 Light::Light(std::ofstream&& backlight, std::ofstream&& buttonlight, std::ofstream&& indicator) :
     mBacklight(std::move(backlight)),
     mButtonlight(std::move(buttonlight)),
