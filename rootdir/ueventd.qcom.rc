@@ -96,7 +96,6 @@
 /dev/msm_vidc_enc         0660   system     camera
 /dev/msm_vidc_enc_sec     0660   system     camera
 /dev/msm_rotator          0660   system     system
-/dev/hw_random            0660   system     system
 /dev/graphics/*           0660   system     system
 /dev/tun                  0660   system     vpn
 
