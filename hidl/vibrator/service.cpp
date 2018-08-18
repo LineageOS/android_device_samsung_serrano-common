@@ -28,11 +28,12 @@ using android::hardware::configureRpcThreadpool;
 using android::hardware::joinRpcThreadpool;
 using android::hardware::vibrator::V1_0::IVibrator;
 using android::hardware::vibrator::V1_0::implementation::Vibrator;
+using android::status_t;
 using namespace android;
 
 static const char *ENABLE_PATH = "/sys/class/timed_output/vibrator/enable";
 
-status_t registerVibratorService() {
+int main() {
     std::ofstream enable{ENABLE_PATH};
     if (!enable) {
         int error = errno;
@@ -41,17 +42,18 @@ status_t registerVibratorService() {
     }
 
     sp<IVibrator> vibrator = new Vibrator(std::move(enable));
-    vibrator->registerAsService();
-    return OK;
-}
 
-int main() {
     configureRpcThreadpool(1, true);
-    status_t status = registerVibratorService();
+
+    status_t status = vibrator->registerAsService();
 
     if (status != OK) {
-        return status;
+        return 1;
     }
 
+    ALOGI("Vibrator HAL Ready.");
     joinRpcThreadpool();
+    // Under normal cases, execution will not reach this line.
+    ALOGE("Vibrator HAL failed to join thread pool.");
+    return 1;
 }
