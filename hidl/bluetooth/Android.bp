@@ -1,0 +1,25 @@
+cc_library_shared {
+    name: "android.hardware.bluetooth@1.0-impl-serrano",
+    defaults: ["hidl_defaults"],
+    vendor: true,
+    relative_install_path: "hw",
+    srcs: [
+        "bluetooth_hci.cc",
+        "bluetooth_address.cc",
+        "vendor_interface.cc",
+    ],
+    shared_libs: [
+        "android.hardware.bluetooth@1.0",
+        "libbase",
+        "libcutils",
+        "libhardware",
+        "libhidlbase",
+        "libhidltransport",
+        "liblog",
+        "libutils",
+    ],
+    static_libs: [
+        "android.hardware.bluetooth-async",
+        "android.hardware.bluetooth-hci",
+    ],
+}

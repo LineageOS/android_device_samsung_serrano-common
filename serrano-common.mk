@@ -112,6 +112,11 @@ PRODUCT_PACKAGES += \
     android.hardware.ir@1.0-impl \
     consumerir.msm8960
 
+# Bluetooth
+PRODUCT_PACKAGES += \
+    android.hardware.bluetooth@1.0-impl-serrano \
+    libbt-vendor
+
 # Lights
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service.serrano
