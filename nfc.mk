@@ -23,6 +23,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.nfc@1.0-impl-bcm \
     android.hardware.nfc@1.0-service \
-    nfc_nci.bcm2079x.default \
+    nfc_nci.bcm2079x.msm8960 \
     NfcNci \
     Tag
