@@ -22,6 +22,30 @@
       "revId": "9bd54603c16c94fa7ad9050dee722092f6f3cf34",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6582cda7_51f0a835",
+        "filename": "system_prop.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 444
+      },
+      "writtenOn": "2018-08-21T12:12:01Z",
+      "side": 1,
+      "message": "Ooops! Thanks for noticing.",
+      "parentUuid": "c33a3209_63cd3645",
+      "range": {
+        "startLine": 16,
+        "startChar": 4,
+        "endLine": 16,
+        "endChar": 38
+      },
+      "revId": "9bd54603c16c94fa7ad9050dee722092f6f3cf34",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
