@@ -75,6 +75,9 @@ on post-fs-data
     # h2k permission
     chmod 0644 /efs/redata.bin
 
+    # Bluetooth
+    chown bluetooth bluetooth /persist/.bt_nv.bin
+
     # WiFi
     mkdir /efs/wifi 0775 system system
     chown system system /efs/wifi/.mac.info
