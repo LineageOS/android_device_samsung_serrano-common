@@ -22,17 +22,17 @@ failed ()
 # Note that "hci_qcomm_init -e" prints expressions to set the shell variables
 # BTS_DEVICE, BTS_TYPE, BTS_BAUD, and BTS_ADDRESS.
 
-setprop bluetooth.status off
+setprop vendor.bluetooth.status off
 
 eval $(/vendor/bin/hci_qcomm_init -e && echo "exit_code_hci_qcomm_init=0" || echo "exit_code_hci_qcomm_init=1")
 
 case $exit_code_hci_qcomm_init in
   0) logi "Bluetooth QSoC firmware download succeeded, $BTS_DEVICE $BTS_TYPE $BTS_BAUD $BTS_ADDRESS";;
   *) failed "Bluetooth QSoC firmware download failed" $exit_code_hci_qcomm_init;
-     setprop bluetooth.status off
+     setprop vendor.bluetooth.status off
      exit $exit_code_hci_qcomm_init;;
 esac
 
-setprop bluetooth.status on
+setprop vendor.bluetooth.status on
 
 exit 0
