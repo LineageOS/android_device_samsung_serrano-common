@@ -11,7 +11,7 @@ vendor/bin/mpdecision
 vendor/bin/thermald
 
 # Audio
-lib/libacdbloader.so
+vendor/lib/libacdbloader.so
 
 # Adreno GPU
 vendor/firmware/a300_pfp.fw
