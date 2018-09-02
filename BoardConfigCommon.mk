@@ -102,7 +102,7 @@ TARGET_NEED_DISABLE_FACE_DETECTION_BOTH_CAMERAS := true
 BOARD_PROVIDES_LIBRIL := true
 
 # LineageHW
-BOARD_HARDWARE_CLASS += $(COMMON_PATH)/lineagehw
+JAVA_SOURCE_OVERLAYS := org.lineageos.hardware|$(COMMON_PATH)/lineagehw|**/*.java
 
 ifeq ($(WITH_TWRP),true)
 -include $(COMMON_PATH)/twrp.mk
