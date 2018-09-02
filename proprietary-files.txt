@@ -14,10 +14,10 @@ vendor/bin/thermald
 lib/libacdbloader.so
 
 # Adreno GPU
-etc/firmware/a300_pfp.fw
-etc/firmware/a300_pm4.fw
-etc/firmware/vidc_1080p.fw
-etc/firmware/vidcfw.elf
+vendor/firmware/a300_pfp.fw
+vendor/firmware/a300_pm4.fw
+vendor/firmware/vidc_1080p.fw
+vendor/firmware/vidcfw.elf
 vendor/lib/egl/eglsubAndroid.so
 vendor/lib/egl/libEGL_adreno.so
 vendor/lib/egl/libGLESv1_CM_adreno.so
