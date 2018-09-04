@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+#include <hardware/power.h>
+
 /* Video encode hint optimisations */
 #define VID_ENC_TIMER_RATE 30000
 #define VID_ENC_IO_IS_BUSY 0
@@ -125,3 +127,6 @@ static power_profile profiles[PROFILE_MAX] = {
                 .limited_max_freq = 1242000,
             },
 };
+
+// Custom Lineage hints
+const static power_hint_t POWER_HINT_SET_PROFILE = (power_hint_t)0x00000111;
