@@ -17,6 +17,9 @@
 #define LOG_TAG "android.hardware.light@2.0-service.serrano"
 
 #include <hidl/HidlTransportSupport.h>
+#ifdef ARCH_ARM_32
+#include <hwbinder/ProcessState.h>
+#endif
 #include <utils/Errors.h>
 
 #include "Light.h"
@@ -34,6 +37,9 @@ const static std::string kButtonlightPath = "/sys/class/leds/button-backlight/br
 const static std::string kIndicatorPath = "/sys/class/sec/led/led_blink";
 
 int main() {
+#ifdef ARCH_ARM_32
+    android::hardware::ProcessState::initWithMmapSize((size_t)(32768));
+#endif
     std::ofstream backlight(kBacklightPath);
     if (!backlight) {
         int error = errno;
