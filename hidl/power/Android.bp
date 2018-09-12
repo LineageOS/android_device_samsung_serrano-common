@@ -24,5 +24,10 @@ cc_binary {
         "android.hardware.power@1.0",
         "vendor.lineage.power@1.0",
     ],
+    arch: {
+        arm: {
+            cflags: ["-DARCH_ARM_32"],
+        },
+    },
     vendor: true,
 }

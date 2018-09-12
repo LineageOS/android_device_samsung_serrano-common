@@ -13,5 +13,12 @@ cc_binary {
         "libhardware",
         "android.hardware.vibrator@1.0",
     ],
+    arch: {
+        arm: {
+            cflags: [
+                "-DARCH_ARM_32"
+            ],
+        },
+    },
     vendor: true,
 }
