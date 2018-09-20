@@ -102,6 +102,10 @@ BOARD_PROVIDES_LIBRIL := true
 # LineageHW
 JAVA_SOURCE_OVERLAYS := org.lineageos.hardware|$(COMMON_PATH)/lineagehw|**/*.java
 
+# Vendor init
+TARGET_INIT_VENDOR_LIB := libinit_serrano
+TARGET_RECOVERY_DEVICE_MODULES := libinit_serrano
+
 ifeq ($(WITH_TWRP),true)
 -include $(COMMON_PATH)/twrp.mk
 endif
