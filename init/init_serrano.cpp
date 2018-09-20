@@ -1,12 +1,16 @@
 #include <stdlib.h>
-#include <unistd.h>
 
 #include <android-base/logging.h>
-#include <cutils/properties.h>
+#include <android-base/properties.h>
+
 #include "vendor_init.h"
 
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
 #include <sys/_system_properties.h>
+
+using android::base::GetProperty;
+
+#define MODEL_NAME_LEN 5
 
 void property_override(char const prop[], char const value[])
 {
@@ -27,31 +31,26 @@ void property_override_dual(char const system_prop[], char const vendor_prop[], 
 
 void vendor_load_properties()
 {
-    char platform[PROP_VALUE_MAX];
-    char bootloader[PROP_VALUE_MAX];
-    char device[PROP_VALUE_MAX];
-    char devicename[PROP_VALUE_MAX];
-    int rc;
+    const std::string bootloader = GetProperty("ro.bootloader", "");
+    const std::string platform = GetProperty("ro.board.platform", "");
+    const std::string model = bootloader.substr(0, MODEL_NAME_LEN);
 
-    rc = property_get("ro.board.platform", platform, NULL);
-    if (!rc || strncmp(platform, ANDROID_TARGET, PROP_VALUE_MAX))
+    if (platform != ANDROID_TARGET)
         return;
 
-    property_get("ro.bootloader", bootloader, NULL);
-
-    if (strstr(bootloader, "I257M")) {
+    if (model == "I257M") {
         /* serranoltebmc */
         property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "samsung/serranoltebmc/serranoltebmc:4.4.2/KOT49H/I257MVLUBNE6:user/release-keys");
         property_override("ro.build.description", "serranoltebmc-user 4.4.2 KOT49H I257MVLUBNE6 release-keys");
         property_override_dual("ro.product.model", "ro.vendor.product.model", "SGH-I257M");
         property_override_dual("ro.product.device", "ro.vendor.product.device", "serranoltebmc");
-    } else if (strstr(bootloader, "I9195")) {
+    } else if (model == "I9195") {
         /* serranoltexx */
         property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "samsung/serranoltexx/serranolte:4.4.2/KOT49H/I9195XXUCNE6:user/release-keys");
         property_override("ro.build.description", "serranoltexx-user 4.4.2 KOT49H I9195XXUCNE6 release-keys");
         property_override_dual("ro.product.model", "ro.vendor.product.model", "GT-I9195");
         property_override_dual("ro.product.device", "ro.vendor.product.device", "serranoltexx");
-    } else if (strstr(bootloader, "E370K")) {
+    } else if (model == "E370K") {
         /* serranoltektt */
         property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint",  "samsung/serranoltektt/serranoltektt:4.4.4/KTU84P/E370KKTU2BNK5:user/release-keys");
         property_override("ro.build.description", "serranoltektt-user 4.4.4 KTU84P E370KKTU2BNK5 release-keys");
@@ -59,7 +58,6 @@ void vendor_load_properties()
         property_override_dual("ro.product.device", "ro.vendor.product.device", "serranoltektt");
     }
 
-    property_get("ro.product.device", device, NULL);
-    strlcpy(devicename, device, sizeof(devicename));
-    LOG(ERROR) << "Found bootloader id " << bootloader << " setting build properties for " << devicename << " device\n";
+    const std::string device = android::base::GetProperty("ro.product.device", "");
+    LOG(INFO) << "Found bootloader " << bootloader.c_str() << ". " << "Setting build properties for " << device.c_str() << ".\n";
 }
