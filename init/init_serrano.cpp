@@ -1,7 +1,9 @@
 #include <stdlib.h>
 
+#include <android-base/file.h>
 #include <android-base/logging.h>
 #include <android-base/properties.h>
+#include <android-base/strings.h>
 
 #include "vendor_init.h"
 
@@ -9,8 +11,11 @@
 #include <sys/_system_properties.h>
 
 using android::base::GetProperty;
+using android::base::ReadFileToString;
+using android::base::Trim;
 
 #define MODEL_NAME_LEN 5
+#define SERIAL_NUMBER_FILE "/efs/FactoryApp/serial_no"
 
 void property_override(char const prop[], char const value[])
 {
@@ -35,8 +40,16 @@ void vendor_load_properties()
     const std::string platform = GetProperty("ro.board.platform", "");
     const std::string model = bootloader.substr(0, MODEL_NAME_LEN);
 
+    char const *serial_number_file = SERIAL_NUMBER_FILE;
+    std::string serial_number;
+
     if (platform != ANDROID_TARGET)
         return;
+
+    if (ReadFileToString(serial_number_file, &serial_number)) {
+        serial_number = Trim(serial_number);
+        property_override("ro.serialno", serial_number.c_str());
+    }
 
     if (model == "I257M") {
         /* serranoltebmc */
