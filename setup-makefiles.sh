@@ -90,9 +90,6 @@ EOF
 # Pick up overlay for features that depend on non-open-source files
 DEVICE_PACKAGE_OVERLAYS += vendor/$VENDOR/$DEVICE_COMMON/overlay
 
-PRODUCT_PACKAGES += \\
-    libtime_genoff
-
 \$(call inherit-product, vendor/$VENDOR/$DEVICE_COMMON/$DEVICE_COMMON-vendor-blobs.mk)
 EOF
 
@@ -138,16 +135,6 @@ LOCAL_PATH := \$(call my-dir)
 ifeq (\$(BOARD_VENDOR),samsung)
 ifneq (\$(filter serrano3gxx serranodsdd serranodsub serranoltebmc \\
                 serranoltespr serranolteusc serranoltexx,\$(TARGET_DEVICE)),)
-
-include \$(CLEAR_VARS)
-LOCAL_MODULE := libtime_genoff
-LOCAL_MODULE_OWNER := $VENDOR
-LOCAL_SRC_FILES := proprietary/vendor/lib/libtime_genoff.so
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_CLASS := SHARED_LIBRARIES
-LOCAL_MODULE_SUFFIX := .so
-LOCAL_PROPRIETARY_MODULE := true
-include \$(BUILD_PREBUILT)
 
 endif
 endif
