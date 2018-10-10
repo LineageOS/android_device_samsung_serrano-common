@@ -100,6 +100,9 @@ TARGET_RIL_VARIANT := caf
 TARGET_PROCESS_SDK_VERSION_OVERRIDE += \
     /system/vendor/bin/hw/rild=27
 
+# Network Routing
+TARGET_NEEDS_NETD_DIRECT_CONNECT_RULE := true
+
 # LineageHW
 JAVA_SOURCE_OVERLAYS := org.lineageos.hardware|$(COMMON_PATH)/lineagehw|**/*.java
 
