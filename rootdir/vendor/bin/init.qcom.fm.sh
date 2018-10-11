@@ -1,4 +1,4 @@
-#!/system/bin/sh
+#!/vendor/bin/sh
 # Copyright (c) 2009-2011, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -40,12 +40,12 @@ LOG_NAME="${0}:"
 
 loge ()
 {
-  /system/bin/log -t $LOG_TAG -p e "$LOG_NAME $@"
+  /vendor/bin/log -t $LOG_TAG -p e "$LOG_NAME $@"
 }
 
 logi ()
 {
-  /system/bin/log -t $LOG_TAG -p i "$LOG_NAME $@"
+  /vendor/bin/log -t $LOG_TAG -p i "$LOG_NAME $@"
 }
 
 failed ()
@@ -67,7 +67,7 @@ case $mode in
     case $TRANSPORT in
     "smd")
         logi "inserting the radio transport module"
-        /system/bin/insmod /vendor/lib/modules/radio-iris-transport.ko
+        /vendor/bin/insmod /vendor/lib/modules/radio-iris-transport.ko
      ;;
      *)
         logi "default transport case "

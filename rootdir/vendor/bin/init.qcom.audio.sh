@@ -1,4 +1,4 @@
-#!/system/bin/sh
+#!/vendor/bin/sh
 # Copyright (c) 2012, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -28,7 +28,7 @@
 #
 
 # No path is set up at this point so we have to do it here.
-PATH=/sbin:/system/sbin:/system/bin:/system/xbin
+PATH=/vendor/bin
 export PATH
 
 # fastrpc permission setting
