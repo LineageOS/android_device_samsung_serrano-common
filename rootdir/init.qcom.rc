@@ -244,6 +244,7 @@ service fm_dl /vendor/bin/init.qcom.fm.sh
 service qcom-audio /vendor/bin/init.qcom.audio.sh
    class late_start
    user root
+   group system
    disabled
    oneshot
 
