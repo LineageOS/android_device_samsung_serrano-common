@@ -192,7 +192,7 @@ service rmt_storage /system/vendor/bin/rmt_storage
     group system wakelock
     shutdown critical
 
-service hciattach /system/bin/sh /system/vendor/etc/init.qcom.bt.sh
+service hciattach /vendor/bin/init.qcom.bt.sh
     class late_start
     user bluetooth
     group bluetooth net_bt_admin
@@ -234,14 +234,14 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     disabled
     oneshot
 
-service fm_dl /system/bin/sh /system/vendor/etc/init.qcom.fm.sh
+service fm_dl /vendor/bin/init.qcom.fm.sh
     class late_start
     user root
     group system
     disabled
     oneshot
 
-service qcom-audio /system/bin/sh /system/vendor/etc/init.qcom.audio.sh
+service qcom-audio /vendor/bin/init.qcom.audio.sh
    class late_start
    user root
    disabled
