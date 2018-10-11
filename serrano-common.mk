@@ -77,9 +77,9 @@ PRODUCT_COPY_FILES += \
 
 # Etc scripts
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/vendor/etc/init.qcom.audio.sh:$(TARGET_COPY_OUT_VENDOR)/etc/init.qcom.audio.sh \
-    $(LOCAL_PATH)/rootdir/vendor/etc/init.qcom.bt.sh:$(TARGET_COPY_OUT_VENDOR)/etc/init.qcom.bt.sh \
-    $(LOCAL_PATH)/rootdir/vendor/etc/init.qcom.fm.sh:$(TARGET_COPY_OUT_VENDOR)/etc/init.qcom.fm.sh
+    $(LOCAL_PATH)/rootdir/vendor/bin/init.qcom.audio.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qcom.audio.sh \
+    $(LOCAL_PATH)/rootdir/vendor/bin/init.qcom.bt.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qcom.bt.sh \
+    $(LOCAL_PATH)/rootdir/vendor/bin/init.qcom.fm.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qcom.fm.sh
 
 # GPS/location security configuration file
 PRODUCT_COPY_FILES += \
