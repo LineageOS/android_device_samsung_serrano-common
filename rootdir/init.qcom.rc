@@ -176,18 +176,18 @@ on post-fs-data
 
     setprop vold.post_fs_data_done 1
 
-service irsc_util /system/vendor/bin/irsc_util "/system/vendor/etc/sec_config"
+service irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
     class main
     user root
     oneshot
 
-service rmt_storage /system/vendor/bin/rmt_storage
+service rmt_storage /vendor/bin/rmt_storage
     class main
     user root
     group system wakelock
     shutdown critical
 
-service hciattach /system/vendor/bin/init.qcom.bt.sh
+service hciattach /vendor/bin/init.qcom.bt.sh
     class late_start
     user bluetooth
     group bluetooth net_bt_admin
@@ -202,12 +202,12 @@ on property:bluetooth.hciattach=false
     setprop bluetooth.status off
 
 # QMUX must be in multiple groups to support external process connections
-service qmuxd /system/vendor/bin/qmuxd
+service qmuxd /vendor/bin/qmuxd
     class main
     user radio
     group radio audio bluetooth gps diag wakelock
 
-service netmgrd /system/vendor/bin/netmgrd
+service netmgrd /vendor/bin/netmgrd
     class main
     group radio system wakelock
 
@@ -232,14 +232,14 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     disabled
     oneshot
 
-service fm_dl /system/vendor/bin/init.qcom.fm.sh
+service fm_dl /vendor/bin/init.qcom.fm.sh
     class late_start
     user root
     group system
     disabled
     oneshot
 
-service qcom-audio /system/vendor/bin/init.qcom.audio.sh
+service qcom-audio /vendor/bin/init.qcom.audio.sh
    class late_start
    user root
    group system
