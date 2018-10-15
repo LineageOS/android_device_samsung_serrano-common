@@ -98,6 +98,7 @@ TARGET_NEED_DISABLE_FACE_DETECTION_BOTH_CAMERAS := true
 
 # RIL
 BOARD_PROVIDES_LIBRIL := true
+TARGET_RIL_VARIANT := caf
 
 # LineageHW
 JAVA_SOURCE_OVERLAYS := org.lineageos.hardware|$(COMMON_PATH)/lineagehw|**/*.java
