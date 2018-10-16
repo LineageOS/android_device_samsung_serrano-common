@@ -22,6 +22,7 @@
 #include <telephony/ril_cdma_sms.h>
 #include <cutils/sockets.h>
 #include <cutils/jstring.h>
+#include <hwbinder/ProcessState.h>
 #include <telephony/record_stream.h>
 #include <utils/Log.h>
 #include <utils/SystemClock.h>
@@ -54,6 +55,10 @@ RIL_onRequestComplete(RIL_Token t, RIL_Errno e, void *response, size_t responsel
 
 extern "C" void
 RIL_onRequestAck(RIL_Token t);
+
+extern "C" void
+initWithMmapSize();
+
 namespace android {
 
 #define PHONE_PROCESS "radio"
@@ -82,6 +87,9 @@ namespace android {
 
 // request, response, and unsolicited msg print macro
 #define PRINTBUF_SIZE 8096
+
+// Set hwbinder buffer size to 512KB
+#define HW_BINDER_MMAP_SIZE 524288
 
 enum WakeType {DONT_WAKE, WAKE_PARTIAL};
 
@@ -184,11 +192,11 @@ static UserCallbackInfo * internalRequestTimedCallback
 
 /** Index == requestNumber */
 static CommandInfo s_commands[] = {
-#include "ril_commands.h"
+#include <ril_commands.h>
 };
 
 static UnsolResponseInfo s_unsolResponses[] = {
-#include "ril_unsol_commands.h"
+#include <ril_unsol_commands.h>
 };
 
 char * RIL_getServiceName() {
@@ -224,6 +232,11 @@ addRequestToList(int serial, int slotId, int request) {
     }
 #endif
 #endif
+
+    if (request >= (int)NUM_ELEMS(s_commands)) {
+        RLOGE("Request %s not supported", requestToString(request));
+        return NULL;
+    }
 
     pRI = (RequestInfo *)calloc(1, sizeof(RequestInfo));
     if (pRI == NULL) {
@@ -1238,6 +1251,11 @@ rilSocketIdToString(RIL_SOCKET_ID socket_id)
         default:
             return "not a valid RIL";
     }
+}
+
+extern "C" void
+initWithMmapSize() {
+    android::hardware::ProcessState::initWithMmapSize((size_t)(HW_BINDER_MMAP_SIZE));
 }
 
 } /* namespace android */
