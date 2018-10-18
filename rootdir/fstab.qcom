@@ -10,7 +10,7 @@
 /dev/block/platform/msm_sdcc.1/by-name/cache       /cache         ext4    rw,nosuid,nodev,noatime,nodiratime,noauto_da_alloc,journal_async_commit,barrier=1               wait,check,formattable
 /dev/block/platform/msm_sdcc.1/by-name/efs         /efs           ext4    rw,nosuid,nodev,noatime,nodiratime,noauto_da_alloc,journal_async_commit,barrier=1               wait,check
 /dev/block/platform/msm_sdcc.1/by-name/persist     /persist       ext4    rw,nosuid,nodev,noatime,nodiratime,noauto_da_alloc,journal_async_commit,barrier=1               wait,check
-/dev/block/platform/msm_sdcc.1/by-name/modem       /firmware      vfat    ro,shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337                                        wait
+/dev/block/platform/msm_sdcc.1/by-name/modem       /firmware      sdfat   ro,uid=1000,gid=1000,dmask=227,fmask=337                                        wait
 /dev/block/platform/msm_sdcc.1/by-name/boot        /boot          emmc    defaults    defaults
 /dev/block/platform/msm_sdcc.1/by-name/recovery    /recovery      emmc    defaults    defaults
 /dev/block/platform/msm_sdcc.1/by-name/fota        /misc          emmc    defaults    defaults
