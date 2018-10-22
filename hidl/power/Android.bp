@@ -15,12 +15,12 @@ cc_binary {
     ],
 
     shared_libs: [
-        "liblog",
-        "libdl",
-        "libutils",
-        "libhardware",
         "libhidlbase",
         "libhidltransport",
+        "liblog",
+        "libhwbinder",
+        "libutils",
+        "libhardware",
         "android.hardware.power@1.0",
         "vendor.lineage.power@1.0",
     ],

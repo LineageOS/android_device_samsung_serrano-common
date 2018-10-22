@@ -5,7 +5,6 @@ cc_binary {
     init_rc: ["android.hardware.usb@1.0-service.serrano.rc"],
     srcs: ["service.cpp", "Usb.cpp"],
     shared_libs: [
-        "libcutils",
         "libhidlbase",
         "libhidltransport",
         "liblog",
