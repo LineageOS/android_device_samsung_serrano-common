@@ -40,6 +40,24 @@
       "revId": "8c2709e1ded1953398166926a8c3483029e4c4c1",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04f9c04c_00c6fd39",
+        "filename": "hidl/lights/service.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 13648
+      },
+      "writtenOn": "2018-11-06T22:50:10Z",
+      "side": 1,
+      "message": "I see. :) Thanks.",
+      "parentUuid": "a394f614_a2660862",
+      "revId": "8c2709e1ded1953398166926a8c3483029e4c4c1",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
