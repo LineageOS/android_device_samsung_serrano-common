@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Enables or disables fading edges when marquee is enabled in TextView. -->
+    <!-- Enables or disables fading edges when marquee is enabled in TextView.
+         Off by default, since the framebuffer readback used to implement the
+         fading edges is prohibitively expensive on most GPUs. -->
     <bool name="config_ui_enableFadingMarquee">false</bool>
 
     <!-- The duration (in milliseconds) that the radio will scan for a signal
          when there's no network connection. If the scan doesn't timeout, use zero -->
     <integer name="config_radioScanningTimeout">9000</integer>
-
-    <!-- XXXXX NOTE THE FOLLOWING RESOURCES USE THE WRONG NAMING CONVENTION.
-         Please don't copy them, copy anything else. -->
 
     <!-- This string array should be overridden by the device to present a list of network
          attributes.  This is used by the connectivity manager to decide which networks can coexist
@@ -29,6 +28,9 @@
         <item>"bluetooth,7,7,2,-1,true"</item>
     </string-array>
 
+    <!-- This string array should be overridden by the device to present a list of radio
+         attributes.  This is used by the connectivity manager to decide which networks can coexist
+         based on the hardware -->
     <!-- An Array of "[ConnectivityManager connectionType],
                       [# simultaneous connection types]"  -->
     <string-array translatable="false" name="radioAttributes">
@@ -59,9 +61,41 @@
         <item>"bt-pan"</item>
     </string-array>
 
-    <!-- Array of ConnectivityManager.TYPE_xxxx values allowable for tethering -->
-    <!-- Common options are [1, 4] for TYPE_WIFI and TYPE_MOBILE_DUN or
-    <!== [0,1,5,7] for TYPE_MOBILE, TYPE_WIFI, TYPE_MOBILE_HIPRI and TYPE_BLUETOOTH -->
+    <!-- Array of ConnectivityManager.TYPE_xxxx values allowable for tethering.
+
+         Common options are [1, 4] for TYPE_WIFI and TYPE_MOBILE_DUN or
+         [1,7,0] for TYPE_WIFI, TYPE_BLUETOOTH, and TYPE_MOBILE.
+
+         This list is also modified by code within the framework, including:
+
+             - TYPE_ETHERNET (9) is prepended to this list, and
+
+             - the return value of TelephonyManager.getTetherApnRequired()
+               determines how the array is further modified:
+
+                   * DUN_REQUIRED
+                     TYPE_MOBILE is removed (if present)
+                     TYPE_MOBILE_HIPRI is removed (if present)
+                     TYPE_MOBILE_DUN is appended (if not already present)
+
+                   * DUN_NOT_REQUIRED
+                     TYPE_MOBILE_DUN is removed (if present)
+                     TYPE_MOBILE is appended (if not already present)
+                     TYPE_MOBILE_HIPRI is appended (if not already present)
+
+                   * DUN_UNSPECIFIED
+                     if any of TYPE_MOBILE{,_DUN,_HIPRI} are present:
+                         change nothing
+                     else:
+                         TYPE_MOBILE is appended
+                         TYPE_MOBILE_HIPRI is appended
+
+         For other changes applied to this list, now and in the future, see
+         com.android.server.connectivity.tethering.TetheringConfiguration.
+
+         Note also: the order of this is important. The first upstream type
+         for which a satisfying network exists is used.
+    -->
     <integer-array translatable="false" name="config_tether_upstream_types">
         <item>0</item>
         <item>1</item>
@@ -72,8 +106,8 @@
     <!-- Boolean indicating whether the wifi chipset has dual frequency band support -->
     <bool translatable="false" name="config_wifi_dual_band_support">true</bool>
 
-    <!-- Flag indicating whether we should enable the automatic brightness in Settings.
-         config_hardware_automatic_brightness_available is not set, so we will use software implementation -->
+    <!-- Flag indicating whether we should enable the automatic brightness.
+         Software implementation will be used if config_hardware_auto_brightness_available is not set -->
     <bool name="config_automatic_brightness_available">true</bool>
 
     <!-- Control whether being in the desk dock should enable accelerometer
@@ -129,14 +163,24 @@
     <!-- Disable lockscreen rotation by default -->
     <bool name="config_enableLockScreenRotation">false</bool>
 
-    <!-- Array of light sensor LUX values to define our levels for auto backlight brightness support.
-         The N entries of this array define N  1 zones as follows:
+    <!-- Array of light sensor lux values to define our levels for auto backlight brightness support.
+         The N entries of this array define N + 1 control points as follows:
+         (1-based arrays)
 
-         Zone 0:        0 <= LUX < array[0]
-         Zone 1:        array[0] <= LUX < array[1]
+         Point 1:            (0, value[1]):             lux <= 0
+         Point 2:     (level[1], value[2]):  0        < lux <= level[1]
+         Point 3:     (level[2], value[3]):  level[2] < lux <= level[3]
          ...
-         Zone N:        array[N - 1] <= LUX < array[N]
-         Zone N + 1     array[N] <= LUX < infinity
+         Point N+1: (level[N], value[N+1]):  level[N] < lux
+
+         The control points must be strictly increasing.  Each control point
+         corresponds to an entry in the brightness backlight values arrays.
+         For example, if lux == level[1] (first element of the levels array)
+         then the brightness will be determined by value[2] (second element
+         of the brightness values array).
+
+         Spline interpolation is used to determine the auto-brightness
+         backlight values for lux levels between these control points.
 
          Must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLevels">
@@ -146,9 +190,10 @@
         <item>5000</item>
     </integer-array>
 
-    <!-- Array of output values for LCD backlight corresponding to the LUX values
+    <!-- Array of output values for LCD backlight corresponding to the lux values
          in the config_autoBrightnessLevels array.  This array should have size one greater
          than the size of the config_autoBrightnessLevels array.
+         The brightness values must be between 0 and 255 and be non-decreasing.
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
         <item>20</item>
@@ -235,9 +280,24 @@
     <!-- If supported, are dreams enabled? (by default) -->
     <bool name="config_dreamsEnabledByDefault">false</bool>
 
-    <!-- Ambient display. -->
+    <!-- Screen brightness used to dim the screen while dozing in a very low power state.
+         May be less than the minimum allowed brightness setting
+         that can be set by the user. -->
     <integer name="config_screenBrightnessDoze">30</integer>
+
+    <!-- ComponentName of a dream to show whenever the system would otherwise have
+         gone to sleep.  When the PowerManager is asked to go to sleep, it will instead
+         try to start this dream if possible.  The dream should typically call startDozing()
+         to put the display into a low power state and allow the application processor
+         to be suspended.  When the dream ends, the system will go to sleep as usual.
+         Specify the component name or an empty string if none.
+
+         Note that doze dreams are not subject to the same start conditions as ordinary dreams.
+         Doze dreams will run whenever the power manager is in a dozing state. -->
     <string name="config_dozeComponent">com.android.systemui/com.android.systemui.doze.DozeService</string>
+
+    <!-- If true, the doze component is not started until after the screen has been
+         turned off and the screen off animation has been performed. -->
     <bool name="config_dozeAfterScreenOff">true</bool>
 
     <!-- Do not set the system language as value of EF LI/EF PL -->
