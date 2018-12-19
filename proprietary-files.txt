@@ -66,7 +66,11 @@ vendor/bin/irsc_util
 vendor/lib/libdsi_netctrl.so
 vendor/lib/libgeofence.so
 vendor/lib/libizat_core.so
+vendor/lib/liblbs_core.so
+vendor/lib/libloc_api_v02.so
 vendor/lib/libloc_ds_api.so
+vendor/lib/libmdmdetect.so
+vendor/lib/libperipheral_client.so
 
 # Sensors
 vendor/lib/hw/sensors.vendor.msm8960.so
