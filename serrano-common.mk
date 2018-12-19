@@ -143,6 +143,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     FlipFlap
 
+# Telephony
+PRODUCT_PACKAGES += \
+    libsecnativefeature
+
 # call common serrano system props
 $(call inherit-product, device/samsung/serrano-common/system_prop.mk)
 

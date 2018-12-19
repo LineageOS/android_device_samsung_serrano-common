@@ -125,7 +125,7 @@ Return<void> SapImpl::addPayloadAndDispatchRequest(MsgHeader *msg, uint16_t reqL
         sendFailedResponse(msg->id, msg->token, 3, payload, reqPtr, msg);
         return Void();
     }
-    free(msg->payload);
+    free(payload);
     free(reqPtr);
     return Void();
 }
