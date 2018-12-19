@@ -93,13 +93,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/vendor/etc/thermald.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermald.conf
 
-# GPS config
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/etc/gps.conf:system/etc/gps.conf
-
 # GPS HAL
 PRODUCT_PACKAGES += \
-    gps.msm8960
+    gps.msm8960 \
+    gps.conf
 
 # IR package
 PRODUCT_PACKAGES += \
