@@ -36,16 +36,16 @@ vendor/lib/librs_adreno_sha1.so
 vendor/lib/libsc-a3xx.so
 
 # Radio
-vendor/bin/netmgrd
+etc/plmn_se13.bin
 vendor/bin/qmuxd
 vendor/bin/rmt_storage
+vendor/lib/libconfigdb.so
 vendor/lib/libdiag.so
 vendor/lib/libdsutils.so
 vendor/lib/libidl.so
 vendor/lib/libnetmgr.so
 vendor/lib/libqcci_legacy.so
 vendor/lib/libqdi.so
-vendor/lib/libqdp.so
 vendor/lib/libqmi.so
 vendor/lib/libqmi_cci.so
 vendor/lib/libqmi_client_qmux.so
@@ -54,6 +54,8 @@ vendor/lib/libqmi_csi.so
 vendor/lib/libqmi_encdec.so
 vendor/lib/libqmiservices.so
 vendor/lib/libril-qcril-hook-oem.so
+vendor/lib/libstlport.so
+vendor/lib/libtime_genoff.so
 vendor/lib/libxml.so
 
 # Network

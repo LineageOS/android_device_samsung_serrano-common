@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2016 The Android Open Source Project
+ * Copyright (c) 2018 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +32,12 @@
 #include <hidl/HidlTransportSupport.h>
 #include <utils/SystemClock.h>
 #include <inttypes.h>
+#include <cutils/properties.h>
+
+#define ANDROID_ATOMIC_INLINE
+extern "C" {
+#include <cutils/atomic.h>
+}
 
 #define INVALID_HEX_CHAR 16
 
@@ -2831,9 +2838,9 @@ Return<void> RadioImpl::setCarrierInfoForImsiEncryption(int32_t serial,
         memsetAndFreeStrings(2, imsiEncryption.mnc, imsiEncryption.mcc);
         return Void();
     }
-    imsiEncryption.carrierKeyLength = data.carrierKey.size();
-    imsiEncryption.carrierKey = new uint8_t[imsiEncryption.carrierKeyLength];
-    memcpy(imsiEncryption.carrierKey, data.carrierKey.data(), imsiEncryption.carrierKeyLength);
+    int32_t lSize = data.carrierKey.size();
+    imsiEncryption.carrierKey = new uint8_t[lSize];
+    memcpy(imsiEncryption.carrierKey, data.carrierKey.data(), lSize);
     imsiEncryption.expirationTime = data.expirationTime;
     CALL_ONREQUEST(pRI->pCI->requestNumber, &imsiEncryption,
             sizeof(RIL_CarrierInfoForImsiEncryption), pRI, mSlotId);
@@ -2984,7 +2991,7 @@ int responseIntOrEmpty(RadioResponseInfo& responseInfo, int serial, int response
         // Earlier RILs did not send a response for some cases although the interface
         // expected an integer as response. Do not return error if response is empty. Instead
         // Return -1 in those cases to maintain backward compatibility.
-    } else if (response == NULL || responseLen != sizeof(int)) {
+    } else if (response == NULL || responseLen % sizeof(int) != 0) {
         RLOGE("responseIntOrEmpty: Invalid response");
         if (e == RIL_E_SUCCESS) responseInfo.error = RadioError::INVALID_RESPONSE;
     } else {
@@ -2999,7 +3006,7 @@ int responseInt(RadioResponseInfo& responseInfo, int serial, int responseType, R
     populateResponseInfo(responseInfo, serial, responseType, e);
     int ret = -1;
 
-    if (response == NULL || responseLen != sizeof(int)) {
+    if (response == NULL || responseLen % sizeof(int) != 0) {
         RLOGE("responseInt: Invalid response");
         if (e == RIL_E_SUCCESS) responseInfo.error = RadioError::INVALID_RESPONSE;
     } else {
@@ -3448,13 +3455,13 @@ int radio::getLastCallFailCauseResponse(int slotId,
         if (response == NULL) {
             RLOGE("getCurrentCallsResponse Invalid response: NULL");
             if (e == RIL_E_SUCCESS) responseInfo.error = RadioError::INVALID_RESPONSE;
-        } else if (responseLen == sizeof(int)) {
-            int *pInt = (int *) response;
-            info.causeCode = (LastCallFailCause) pInt[0];
         } else if (responseLen == sizeof(RIL_LastCallFailCauseInfo))  {
             RIL_LastCallFailCauseInfo *pFailCauseInfo = (RIL_LastCallFailCauseInfo *) response;
             info.causeCode = (LastCallFailCause) pFailCauseInfo->cause_code;
             info.vendorCause = convertCharPtrToHidlString(pFailCauseInfo->vendor_cause);
+        } else if (responseLen % sizeof(int) != 0) {
+            int *pInt = (int *) response;
+            info.causeCode = (LastCallFailCause) pInt[0];
         } else {
             RLOGE("getCurrentCallsResponse Invalid response: NULL");
             if (e == RIL_E_SUCCESS) responseInfo.error = RadioError::INVALID_RESPONSE;
@@ -3807,7 +3814,7 @@ int radio::getVoiceRegistrationStateResponse(int slotId,
                RLOGE("getVoiceRegistrationStateResponse Invalid response: NULL");
                if (e == RIL_E_SUCCESS) responseInfo.error = RadioError::INVALID_RESPONSE;
         } else if (s_vendorFunctions->version <= 14) {
-            if (numStrings != 15) {
+            if (numStrings < 15) {
                 RLOGE("getVoiceRegistrationStateResponse Invalid response: NULL");
                 if (e == RIL_E_SUCCESS) responseInfo.error = RadioError::INVALID_RESPONSE;
             } else {
@@ -3820,7 +3827,7 @@ int radio::getVoiceRegistrationStateResponse(int slotId,
                 voiceRegResponse.defaultRoamingIndicator = ATOI_NULL_HANDLED_DEF(resp[12], 0);
                 voiceRegResponse.reasonForDenial = ATOI_NULL_HANDLED_DEF(resp[13], 0);
                 fillCellIdentityFromVoiceRegStateResponseString(voiceRegResponse.cellIdentity,
-                        numStrings, resp);
+                        15, resp);
             }
         } else {
             RIL_VoiceRegistrationStateResponse *voiceRegState =
@@ -3870,7 +3877,7 @@ int radio::getDataRegistrationStateResponse(int slotId,
             if (e == RIL_E_SUCCESS) responseInfo.error = RadioError::INVALID_RESPONSE;
         } else if (s_vendorFunctions->version <= 14) {
             int numStrings = responseLen / sizeof(char *);
-            if ((numStrings != 6) && (numStrings != 11)) {
+            if (numStrings < 6) {
                 RLOGE("getDataRegistrationStateResponse Invalid response: NULL");
                 if (e == RIL_E_SUCCESS) responseInfo.error = RadioError::INVALID_RESPONSE;
             } else {
@@ -3880,7 +3887,7 @@ int radio::getDataRegistrationStateResponse(int slotId,
                 dataRegResponse.reasonDataDenied =  ATOI_NULL_HANDLED(resp[4]);
                 dataRegResponse.maxDataCalls =  ATOI_NULL_HANDLED_DEF(resp[5], 1);
                 fillCellIdentityFromDataRegStateResponseString(dataRegResponse.cellIdentity,
-                        numStrings, resp);
+                        numStrings < 11 ? 6 : 11, resp);
             }
         } else {
             RIL_DataRegistrationStateResponse *dataRegState =
@@ -3924,7 +3931,7 @@ int radio::getOperatorResponse(int slotId,
         hidl_string shortName;
         hidl_string numeric;
         int numStrings = responseLen / sizeof(char *);
-        if (response == NULL || numStrings != 3) {
+        if (response == NULL || numStrings < 3) {
             RLOGE("getOperatorResponse Invalid response: NULL");
             if (e == RIL_E_SUCCESS) responseInfo.error = RadioError::INVALID_RESPONSE;
 
@@ -3990,15 +3997,20 @@ SendSmsResult makeSendSmsResult(RadioResponseInfo& responseInfo, int serial, int
     populateResponseInfo(responseInfo, serial, responseType, e);
     SendSmsResult result = {};
 
-    if (response == NULL || responseLen != sizeof(RIL_SMS_Response)) {
-        RLOGE("Invalid response: NULL");
-        if (e == RIL_E_SUCCESS) responseInfo.error = RadioError::INVALID_RESPONSE;
-        result.ackPDU = hidl_string();
-    } else {
+    if (response != NULL && responseLen == sizeof(RIL_SMS_Response)) {
         RIL_SMS_Response *resp = (RIL_SMS_Response *) response;
         result.messageRef = resp->messageRef;
         result.ackPDU = convertCharPtrToHidlString(resp->ackPDU);
         result.errorCode = resp->errorCode;
+    } else if (response != NULL && responseLen == sizeof(RIL_SMS_Response_Ext)) {
+        RIL_SMS_Response *resp = &(((RIL_SMS_Response_Ext *) response)->response);
+        result.messageRef = resp->messageRef;
+        result.ackPDU = convertCharPtrToHidlString(resp->ackPDU);
+        result.errorCode = resp->errorCode;
+    } else {
+        RLOGE("Invalid response: NULL");
+        if (e == RIL_E_SUCCESS) responseInfo.error = RadioError::INVALID_RESPONSE;
+        result.ackPDU = hidl_string();
     }
     return result;
 }
@@ -4186,7 +4198,7 @@ int radio::getClirResponse(int slotId,
         populateResponseInfo(responseInfo, serial, responseType, e);
         int n = -1, m = -1;
         int numInts = responseLen / sizeof(int);
-        if (response == NULL || numInts != 2) {
+        if (response == NULL || numInts < 2) {
             RLOGE("getClirResponse Invalid response: NULL");
             if (e == RIL_E_SUCCESS) responseInfo.error = RadioError::INVALID_RESPONSE;
         } else {
@@ -4298,7 +4310,7 @@ int radio::getCallWaitingResponse(int slotId,
         bool enable = false;
         int serviceClass = -1;
         int numInts = responseLen / sizeof(int);
-        if (response == NULL || numInts != 2) {
+        if (response == NULL || numInts < 2) {
             RLOGE("getCallWaitingResponse Invalid response: NULL");
             if (e == RIL_E_SUCCESS) responseInfo.error = RadioError::INVALID_RESPONSE;
         } else {
@@ -4475,7 +4487,7 @@ int radio::getNetworkSelectionModeResponse(int slotId,
         RadioResponseInfo responseInfo = {};
         populateResponseInfo(responseInfo, serial, responseType, e);
         bool manual = false;
-        if (response == NULL || responseLen != sizeof(int)) {
+        if (response == NULL || responseLen % sizeof(int) != 0) {
             RLOGE("getNetworkSelectionModeResponse Invalid response: NULL");
             if (e == RIL_E_SUCCESS) responseInfo.error = RadioError::INVALID_RESPONSE;
         } else {
@@ -4559,20 +4571,21 @@ int radio::getAvailableNetworksResponse(int slotId,
 #if VDBG
     RLOGD("getAvailableNetworksResponse: serial %d", serial);
 #endif
+    int qanRespStrings = property_get_int32("ro.ril.telephony.qan_resp_strings", 4);
 
     if (radioService[slotId]->mRadioResponse != NULL) {
         RadioResponseInfo responseInfo = {};
         populateResponseInfo(responseInfo, serial, responseType, e);
         hidl_vec<OperatorInfo> networks;
         if ((response == NULL && responseLen != 0)
-                || responseLen % (4 * sizeof(char *))!= 0) {
+                || responseLen % (qanRespStrings * sizeof(char *)) != 0) {
             RLOGE("getAvailableNetworksResponse Invalid response: NULL");
             if (e == RIL_E_SUCCESS) responseInfo.error = RadioError::INVALID_RESPONSE;
         } else {
             char **resp = (char **) response;
             int numStrings = responseLen / sizeof(char *);
-            networks.resize(numStrings/4);
-            for (int i = 0, j = 0; i < numStrings; i = i + 4, j++) {
+            networks.resize(numStrings/qanRespStrings);
+            for (int i = 0, j = 0; i < numStrings; i = i + qanRespStrings, j++) {
                 networks[j].alphaLong = convertCharPtrToHidlString(resp[i]);
                 networks[j].alphaShort = convertCharPtrToHidlString(resp[i + 1]);
                 networks[j].operatorNumeric = convertCharPtrToHidlString(resp[i + 2]);
@@ -4709,7 +4722,7 @@ int radio::getMuteResponse(int slotId,
         RadioResponseInfo responseInfo = {};
         populateResponseInfo(responseInfo, serial, responseType, e);
         bool enable = false;
-        if (response == NULL || responseLen != sizeof(int)) {
+        if (response == NULL || responseLen % sizeof(int) != 0) {
             RLOGE("getMuteResponse Invalid response: NULL");
             if (e == RIL_E_SUCCESS) responseInfo.error = RadioError::INVALID_RESPONSE;
         } else {
@@ -5226,7 +5239,7 @@ int radio::getPreferredVoicePrivacyResponse(int slotId,
         populateResponseInfo(responseInfo, serial, responseType, e);
         bool enable = false;
         int numInts = responseLen / sizeof(int);
-        if (response == NULL || numInts != 1) {
+        if (response == NULL || numInts < 1) {
             RLOGE("getPreferredVoicePrivacyResponse Invalid response: NULL");
             if (e == RIL_E_SUCCESS) responseInfo.error = RadioError::INVALID_RESPONSE;
         } else {
@@ -5512,7 +5525,7 @@ int radio::getCDMASubscriptionResponse(int slotId,
 
         int numStrings = responseLen / sizeof(char *);
         hidl_string emptyString;
-        if (response == NULL || numStrings != 5) {
+        if (response == NULL || numStrings < 5) {
             RLOGE("getOperatorResponse Invalid response: NULL");
             if (e == RIL_E_SUCCESS) responseInfo.error = RadioError::INVALID_RESPONSE;
             Return<void> retStatus
@@ -5592,7 +5605,7 @@ int radio::getDeviceIdentityResponse(int slotId,
 
         int numStrings = responseLen / sizeof(char *);
         hidl_string emptyString;
-        if (response == NULL || numStrings != 4) {
+        if (response == NULL || numStrings < 4) {
             RLOGE("getDeviceIdentityResponse Invalid response: NULL");
             if (e == RIL_E_SUCCESS) responseInfo.error = RadioError::INVALID_RESPONSE;
             Return<void> retStatus
@@ -5923,7 +5936,7 @@ int radio::getImsRegistrationStateResponse(int slotId,
         bool isRegistered = false;
         int ratFamily = 0;
         int numInts = responseLen / sizeof(int);
-        if (response == NULL || numInts != 2) {
+        if (response == NULL || numInts < 2) {
             RLOGE("getImsRegistrationStateResponse Invalid response: NULL");
             if (e == RIL_E_SUCCESS) responseInfo.error = RadioError::INVALID_RESPONSE;
         } else {
@@ -6965,7 +6978,7 @@ int radio::newSmsStatusReportInd(int slotId,
 int radio::newSmsOnSimInd(int slotId, int indicationType,
                           int token, RIL_Errno e, void *response, size_t responseLen) {
     if (radioService[slotId] != NULL && radioService[slotId]->mRadioIndication != NULL) {
-        if (response == NULL || responseLen != sizeof(int)) {
+        if (response == NULL || responseLen % sizeof(int) != 0) {
             RLOGE("newSmsOnSimInd: invalid response");
             return 0;
         }
@@ -6986,7 +6999,7 @@ int radio::newSmsOnSimInd(int slotId, int indicationType,
 int radio::onUssdInd(int slotId, int indicationType,
                      int token, RIL_Errno e, void *response, size_t responseLen) {
     if (radioService[slotId] != NULL && radioService[slotId]->mRadioIndication != NULL) {
-        if (response == NULL || responseLen != 2 * sizeof(char *)) {
+        if (response == NULL || responseLen < 2 * sizeof(char *)) {
             RLOGE("onUssdInd: invalid response");
             return 0;
         }
@@ -7015,7 +7028,24 @@ int radio::nitzTimeReceivedInd(int slotId,
             RLOGE("nitzTimeReceivedInd: invalid response");
             return 0;
         }
-        hidl_string nitzTime = convertCharPtrToHidlString((char *) response);
+        hidl_string nitzTime;
+        char *resp = strndup((char *) response, responseLen);
+        char *tmp = resp;
+
+        /* Find the 3rd comma */
+        for (int i = 0; i < 3; i++) {
+            if (tmp != NULL) {
+                tmp = strchr(tmp + 1, ',');
+            }
+        }
+
+        /* Make the 3rd comma the end of the string */
+        if (tmp != NULL) {
+            *tmp = '\0';
+        }
+
+        nitzTime = convertCharPtrToHidlString(resp);
+        memsetAndFreeStrings(1, resp);
 #if VDBG
         RLOGD("nitzTimeReceivedInd: nitzTime %s receivedTime %" PRId64, nitzTime.c_str(),
                 nitzTimeReceived[slotId]);
@@ -7345,7 +7375,7 @@ int radio::stkEventNotifyInd(int slotId, int indicationType,
 int radio::stkCallSetupInd(int slotId, int indicationType,
                            int token, RIL_Errno e, void *response, size_t responseLen) {
     if (radioService[slotId] != NULL && radioService[slotId]->mRadioIndication != NULL) {
-        if (response == NULL || responseLen != sizeof(int)) {
+        if (response == NULL || responseLen % sizeof(int) != 0) {
             RLOGE("stkCallSetupInd: invalid response");
             return 0;
         }
@@ -7556,7 +7586,7 @@ int radio::restrictedStateChangedInd(int slotId,
                                      int indicationType, int token, RIL_Errno e, void *response,
                                      size_t responseLen) {
     if (radioService[slotId] != NULL && radioService[slotId]->mRadioIndication != NULL) {
-        if (response == NULL || responseLen != sizeof(int)) {
+        if (response == NULL || responseLen % sizeof(int) != 0) {
             RLOGE("restrictedStateChangedInd: invalid response");
             return 0;
         }
@@ -7630,7 +7660,7 @@ int radio::cdmaOtaProvisionStatusInd(int slotId,
                                      int indicationType, int token, RIL_Errno e, void *response,
                                      size_t responseLen) {
     if (radioService[slotId] != NULL && radioService[slotId]->mRadioIndication != NULL) {
-        if (response == NULL || responseLen != sizeof(int)) {
+        if (response == NULL || responseLen % sizeof(int) != 0) {
             RLOGE("cdmaOtaProvisionStatusInd: invalid response");
             return 0;
         }
@@ -7742,6 +7772,18 @@ int radio::cdmaInfoRecInd(int slotId,
                     record->signal[0].signalType = infoRec->rec.signal.signalType;
                     record->signal[0].alertPitch = infoRec->rec.signal.alertPitch;
                     record->signal[0].signal = infoRec->rec.signal.signal;
+
+                    /* Drop the response to workaround the "ring of death" bug */
+                    if (infoRec->rec.signal.isPresent
+                            /* IS95_CONST_IR_SIGNAL_IS54B */
+                            && infoRec->rec.signal.signalType == 2
+                            /* IS95_CONST_IR_ALERT_MED */
+                            && infoRec->rec.signal.alertPitch == 0
+                            /* IS95_CONST_IR_SIG_IS54B_L */
+                            && infoRec->rec.signal.signal == 1) {
+                        return 0;
+                    }
+
                     break;
                 }
 
@@ -7831,7 +7873,7 @@ int radio::indicateRingbackToneInd(int slotId,
                                    int indicationType, int token, RIL_Errno e, void *response,
                                    size_t responseLen) {
     if (radioService[slotId] != NULL && radioService[slotId]->mRadioIndication != NULL) {
-        if (response == NULL || responseLen != sizeof(int)) {
+        if (response == NULL || responseLen % sizeof(int) != 0) {
             RLOGE("indicateRingbackToneInd: invalid response");
             return 0;
         }
@@ -7870,7 +7912,7 @@ int radio::cdmaSubscriptionSourceChangedInd(int slotId,
                                             int indicationType, int token, RIL_Errno e,
                                             void *response, size_t responseLen) {
     if (radioService[slotId] != NULL && radioService[slotId]->mRadioIndication != NULL) {
-        if (response == NULL || responseLen != sizeof(int)) {
+        if (response == NULL || responseLen % sizeof(int) != 0) {
             RLOGE("cdmaSubscriptionSourceChangedInd: invalid response");
             return 0;
         }
@@ -7894,7 +7936,7 @@ int radio::cdmaPrlChangedInd(int slotId,
                              int indicationType, int token, RIL_Errno e, void *response,
                              size_t responseLen) {
     if (radioService[slotId] != NULL && radioService[slotId]->mRadioIndication != NULL) {
-        if (response == NULL || responseLen != sizeof(int)) {
+        if (response == NULL || responseLen % sizeof(int) != 0) {
             RLOGE("cdmaPrlChangedInd: invalid response");
             return 0;
         }
@@ -7949,7 +7991,7 @@ int radio::voiceRadioTechChangedInd(int slotId,
                                     int indicationType, int token, RIL_Errno e, void *response,
                                     size_t responseLen) {
     if (radioService[slotId] != NULL && radioService[slotId]->mRadioIndication != NULL) {
-        if (response == NULL || responseLen != sizeof(int)) {
+        if (response == NULL || responseLen % sizeof(int) != 0) {
             RLOGE("voiceRadioTechChangedInd: invalid response");
             return 0;
         }
@@ -8161,7 +8203,7 @@ int radio::subscriptionStatusChangedInd(int slotId,
                                         int indicationType, int token, RIL_Errno e, void *response,
                                         size_t responseLen) {
     if (radioService[slotId] != NULL && radioService[slotId]->mRadioIndication != NULL) {
-        if (response == NULL || responseLen != sizeof(int)) {
+        if (response == NULL || responseLen % sizeof(int) != 0) {
             RLOGE("subscriptionStatusChangedInd: invalid response");
             return 0;
         }
@@ -8184,7 +8226,7 @@ int radio::srvccStateNotifyInd(int slotId,
                                int indicationType, int token, RIL_Errno e, void *response,
                                size_t responseLen) {
     if (radioService[slotId] != NULL && radioService[slotId]->mRadioIndication != NULL) {
-        if (response == NULL || responseLen != sizeof(int)) {
+        if (response == NULL || responseLen % sizeof(int) != 0) {
             RLOGE("srvccStateNotifyInd: invalid response");
             return 0;
         }
@@ -8516,7 +8558,7 @@ int radio::networkScanResultInd(int slotId,
 
         V1_1::NetworkScanResult result;
         result.status = (V1_1::ScanStatus) networkScanResult->status;
-        result.error = (RadioError) networkScanResult->error;
+        result.error = (RadioError) e;
         convertRilCellInfoListToHal(
                 networkScanResult->network_infos,
                 networkScanResult->network_infos_length * sizeof(RIL_CellInfo_v12),
