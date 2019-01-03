@@ -202,7 +202,7 @@ on property:vendor.bluetooth.hciattach=false
 # QMUX must be in multiple groups to support external process connections
 service qmuxd /vendor/bin/qmuxd
     class main
-    user radio
+    user root
     group radio audio bluetooth gps diag wakelock
 
 service netmgrd /vendor/bin/netmgrd
