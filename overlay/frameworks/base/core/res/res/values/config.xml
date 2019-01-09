@@ -283,4 +283,8 @@
 
     <!-- True if home app should be pinned via Pinner Service -->
     <bool name="config_pinnerHomeApp">true</bool>
+
+    <!-- If device supports corner radius on windows.
+         This should be turned off on low-end devices to improve animation performance. -->
+    <bool name="config_supportsRoundedCornersOnWindows">false</bool>
 </resources>
