@@ -39,12 +39,11 @@ vendor/lib/libsc-a3xx.so
 vendor/bin/qmuxd
 vendor/bin/netmgrd
 vendor/bin/rmt_storage
-vendor/lib/libconfigdb.so
 vendor/lib/libdiag.so
-vendor/lib/libdsi_netctrl
+vendor/lib/libdsi_netctrl.so
 vendor/lib/libdsutils.so
 vendor/lib/libidl.so
-vendor/lib/libnetmgr
+vendor/lib/libnetmgr.so
 vendor/lib/libqcci_legacy.so
 vendor/lib/libqdi.so
 vendor/lib/libqdp.so
@@ -63,7 +62,7 @@ vendor/bin/radish
 
 # GPS
 vendor/bin/irsc_util
-vendor/lib/libgeofence.o
+vendor/lib/libgeofence.so
 vendor/lib/libizat_core.so
 vendor/lib/libloc_ds_api.so
 
