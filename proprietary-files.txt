@@ -23,24 +23,23 @@ vendor/lib/egl/libEGL_adreno.so
 vendor/lib/egl/libGLESv1_CM_adreno.so
 vendor/lib/egl/libGLESv2_adreno.so
 vendor/lib/egl/libq3dtools_adreno.so
+vendor/lib/libC2D2.so
+vendor/lib/libCB.so
+vendor/lib/libRSDriver_adreno.so
 vendor/lib/libadreno_utils.so
 vendor/lib/libbccQTI.so
-vendor/lib/libC2D2.so
 vendor/lib/libc2d30-a3xx.so
-vendor/lib/libCB.so
 vendor/lib/libgsl.so
 vendor/lib/libllvm-qcom.so
-vendor/lib/librs_adreno_sha1.so
 vendor/lib/librs_adreno.so
-vendor/lib/libRSDriver_adreno.so
+vendor/lib/librs_adreno_sha1.so
 vendor/lib/libsc-a3xx.so
 
 # Radio
-vendor/bin/qmuxd
 vendor/bin/netmgrd
+vendor/bin/qmuxd
 vendor/bin/rmt_storage
 vendor/lib/libdiag.so
-vendor/lib/libdsi_netctrl.so
 vendor/lib/libdsutils.so
 vendor/lib/libidl.so
 vendor/lib/libnetmgr.so
@@ -62,6 +61,7 @@ vendor/bin/radish
 
 # GPS
 vendor/bin/irsc_util
+vendor/lib/libdsi_netctrl.so
 vendor/lib/libgeofence.so
 vendor/lib/libizat_core.so
 vendor/lib/libloc_ds_api.so
@@ -73,6 +73,8 @@ vendor/lib/libsensors.so
 # Camera
 vendor/bin/mm-qcamera-daemon
 vendor/lib/hw/camera.vendor.msm8960.so
+vendor/lib/libTsAccm.so
+vendor/lib/libTsAwb.so
 vendor/lib/libadsprpc.so
 vendor/lib/libchromatix_imx175_antishake.so
 vendor/lib/libchromatix_imx175_default_video.so
@@ -113,8 +115,6 @@ vendor/lib/libmmmpod.so
 vendor/lib/libmmstillomx.so
 vendor/lib/liboemcamera.so
 vendor/lib/libsensor1.so
-vendor/lib/libTsAccm.so
-vendor/lib/libTsAwb.so
 
 # Perf
 vendor/lib/libqti-perfd-client.so
