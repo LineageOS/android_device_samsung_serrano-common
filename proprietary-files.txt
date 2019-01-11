@@ -67,8 +67,8 @@ vendor/lib/libizat_core.so
 vendor/lib/libloc_ds_api.so
 
 # Sensors
+vendor/lib/hw/sensors.vendor.msm8960.so
 vendor/bin/geomagneticd
-vendor/lib/libsensors.so
 
 # Camera
 vendor/bin/mm-qcamera-daemon
