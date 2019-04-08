@@ -122,6 +122,9 @@ on post-fs-data
     mkdir /data/vendor/wifi/wpa 0771 wifi wifi
     mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
 
+    # Create directories for wifihal services
+    mkdir /dev/socket/wifihal 2770 wifi wifi
+
     # Create directory used by audio subsystem
     mkdir /data/misc/audio 0770 audio audio
 
