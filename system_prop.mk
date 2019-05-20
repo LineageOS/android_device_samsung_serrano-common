@@ -11,6 +11,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
     audio.offload.disable=1 \
+    debug.stagefright.ccodec=0 \
     media.aac_51_output_enabled=true \
     mm.enable.smoothstreaming=true \
     persist.vendor.audio.fluence.speaker=true \
