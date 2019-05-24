@@ -102,9 +102,6 @@ TARGET_PROCESS_SDK_VERSION_OVERRIDE += \
 # Network Routing
 TARGET_NEEDS_NETD_DIRECT_CONNECT_RULE := true
 
-# LineageHW
-JAVA_SOURCE_OVERLAYS := org.lineageos.hardware|$(COMMON_PATH)/lineagehw|**/*.java
-
 # Vendor init
 TARGET_INIT_VENDOR_LIB := libinit_serrano
 TARGET_RECOVERY_DEVICE_MODULES := libinit_serrano
