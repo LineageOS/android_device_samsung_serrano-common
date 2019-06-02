@@ -1,0 +1,20 @@
+cc_binary {
+    name: "vendor.lineage.livedisplay@2.0-service.serrano",
+    defaults: ["hidl_defaults"],
+    relative_install_path: "hw",
+    init_rc: ["vendor.lineage.livedisplay@2.0-service.serrano.rc"],
+    srcs: [
+        "DisplayColorCalibration.cpp",
+        "DisplayModes.cpp",
+        "SunlightEnhancement.cpp",
+        "service.cpp",
+    ],
+    shared_libs: [
+        "libbase",
+        "libhidlbase",
+        "libhidltransport",
+        "libutils",
+        "vendor.lineage.livedisplay@2.0",
+    ],
+    vendor: true,
+}
