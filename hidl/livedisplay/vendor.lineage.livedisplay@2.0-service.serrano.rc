@@ -1,4 +1,6 @@
 service vendor.livedisplay-hal-2-0-serrano /vendor/bin/hw/vendor.lineage.livedisplay@2.0-service.serrano
+    interface vendor.lineage.livedisplay@2.0::IDisplayColorCalibration default
+    interface vendor.lineage.livedisplay@2.0::ISunlightEnhancement default
     class late_start
     user system
     group system
