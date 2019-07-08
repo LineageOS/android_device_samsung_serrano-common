@@ -189,3 +189,16 @@
 /dev/uio0                 0660   system     system
 /dev/uio1                 0660   system     system
 /dev/uio2                 0660   system     system
+
+# sys-fs display
+/sys/class/graphics/fb*     format_3d                0664    system  graphics
+/sys/class/graphics/fb*     hpd                      0664    system  graphics
+/sys/class/graphics/fb*     msm_fps_level            0664    system  graphics
+/sys/class/graphics/fb*     pa                       0664    system  graphics
+/sys/class/graphics/fb*     product_description      0664    system  graphics
+/sys/class/graphics/fb*     vendor_name              0664    system  graphics
+/sys/class/graphics/fb*     video_mode               0664    system  graphics
+
+/sys/class/graphics/fb0     csc_cfg                  0664    system  camera
+/sys/class/graphics/fb0     mode                     0664    system  graphics
+/sys/class/graphics/fb0     modes                    0664    system  graphics
