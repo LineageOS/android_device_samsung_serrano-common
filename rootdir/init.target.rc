@@ -414,7 +414,7 @@ service charger /charger
     class charger
     critical
     group system
-    seclabel u:r:healthd:s0
+    seclabel u:r:charger:s0
 
 service geomagneticd /vendor/bin/geomagneticd
     class late_start
