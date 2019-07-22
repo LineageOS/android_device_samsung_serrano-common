@@ -23,6 +23,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.composition.type=c2d \
     debug.hwui.use_buffer_age=false \
+    debug.sf.enable_gl_backpressure=1 \
     ro.sf.lcd_density=240 \
     ro.opengles.version=196608 \
     ro.qualcomm.cabl=0 \
