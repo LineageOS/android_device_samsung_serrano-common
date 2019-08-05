@@ -36,9 +36,9 @@ vendor/lib/librs_adreno_sha1.so
 vendor/lib/libsc-a3xx.so
 
 # Radio
-etc/plmn_se13.bin
 vendor/bin/qmuxd
 vendor/bin/rmt_storage
+vendor/etc/plmn_se13.bin
 vendor/lib/libconfigdb.so
 vendor/lib/libdiag.so
 vendor/lib/libdsutils.so
