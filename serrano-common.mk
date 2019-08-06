@@ -127,6 +127,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vendor.lineage.livedisplay@2.0-service.serrano
 
+# Health HAL
+PRODUCT_PACKAGES += \
+    android.hardware.health@2.0-service.serrano
+
 # IPv6 tethering
 PRODUCT_PACKAGES += \
     ebtables

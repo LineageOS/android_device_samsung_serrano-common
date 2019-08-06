@@ -1,0 +1,39 @@
+cc_binary {
+    name: "android.hardware.health@2.0-service.serrano",
+    defaults: ["hidl_defaults"],
+    vendor: true,
+    relative_install_path: "hw",
+    init_rc: ["android.hardware.health@2.0-service.serrano.rc"],
+    srcs: [
+        "HealthService.cpp",
+    ],
+
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
+
+    static_libs: [
+        "android.hardware.health@2.0-impl",
+        "android.hardware.health@1.0-convert",
+        "libhealthservice",
+        "libbatterymonitor",
+        "libhealthstoragedefault",
+    ],
+
+    shared_libs: [
+        "libbase",
+        "libcutils",
+        "libhidlbase",
+        "libhidltransport",
+        "libhwbinder",
+        "libutils",
+        "android.hardware.health@2.0",
+    ],
+
+    header_libs: ["libhealthd_headers"],
+
+    overrides: [
+        "healthd",
+    ],
+}
