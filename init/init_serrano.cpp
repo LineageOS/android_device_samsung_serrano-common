@@ -57,20 +57,23 @@ void vendor_load_properties()
         property_override("ro.build.description", "serranoltebmc-user 4.4.2 KOT49H I257MVLUBNE6 release-keys");
         property_override_dual("ro.product.model", "ro.product.vendor.model", "SGH-I257M");
         property_override_dual("ro.product.device", "ro.product.vendor.device", "serranoltebmc");
+        property_override_dual("ro.build.product", "ro.lineage.device", "serranoltebmc");
     } else if (model == "I9195") {
         /* serranoltexx */
         property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "samsung/serranoltexx/serranolte:4.4.2/KOT49H/I9195XXUCNE6:user/release-keys");
         property_override("ro.build.description", "serranoltexx-user 4.4.2 KOT49H I9195XXUCNE6 release-keys");
         property_override_dual("ro.product.model", "ro.product.vendor.model", "GT-I9195");
-        property_override_dual("ro.product.device", "ro.product.vendor.device", "serranoltexx");
+        property_override_dual("ro.product.device", "ro.product.vendor.device", "serranolte");
+        property_override_dual("ro.build.product", "ro.lineage.device", "serranolte");
     } else if (model == "E370K") {
         /* serranoltektt */
         property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint",  "samsung/serranoltektt/serranoltektt:4.4.4/KTU84P/E370KKTU2BNK5:user/release-keys");
         property_override("ro.build.description", "serranoltektt-user 4.4.4 KTU84P E370KKTU2BNK5 release-keys");
         property_override_dual("ro.product.model", "ro.product.vendor.model", "SHV-E370K");
         property_override_dual("ro.product.device", "ro.product.vendor.device", "serranoltektt");
+        property_override_dual("ro.build.product", "ro.lineage.device", "serranoltektt");
     }
 
-    const std::string device = android::base::GetProperty("ro.product.device", "");
-    LOG(INFO) << "Found bootloader " << bootloader.c_str() << ". " << "Setting build properties for " << device.c_str() << ".\n";
+    const std::string device = GetProperty("ro.product.device", "");
+    LOG(INFO) << "Found bootloader " << bootloader << ". " << "Setting build properties for " << device << ".\n";
 }
