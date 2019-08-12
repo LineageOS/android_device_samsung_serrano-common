@@ -5,7 +5,6 @@ cc_binary {
     init_rc: ["vendor.lineage.livedisplay@2.0-service.serrano.rc"],
     srcs: [
         "DisplayColorCalibration.cpp",
-        "DisplayModes.cpp",
         "SunlightEnhancement.cpp",
         "service.cpp",
     ],

@@ -21,7 +21,6 @@
 #include <hidl/HidlTransportSupport.h>
 
 #include "DisplayColorCalibration.h"
-#include "DisplayModes.h"
 #include "SunlightEnhancement.h"
 
 using android::hardware::configureRpcThreadpool;
@@ -32,14 +31,11 @@ using android::OK;
 
 using ::vendor::lineage::livedisplay::V2_0::IDisplayColorCalibration;
 using ::vendor::lineage::livedisplay::V2_0::implementation::DisplayColorCalibration;
-using ::vendor::lineage::livedisplay::V2_0::IDisplayModes;
-using ::vendor::lineage::livedisplay::V2_0::implementation::DisplayModes;
 using ::vendor::lineage::livedisplay::V2_0::ISunlightEnhancement;
 using ::vendor::lineage::livedisplay::V2_0::implementation::SunlightEnhancement;
 
 int main() {
     sp<DisplayColorCalibration> displayColorCalibration;
-    sp<DisplayModes> displayModes;
     sp<SunlightEnhancement> sunlightEnhancement;
     status_t status;
 
@@ -48,12 +44,6 @@ int main() {
     displayColorCalibration = new DisplayColorCalibration();
     if (displayColorCalibration == nullptr) {
         LOG(ERROR) << "Can not create an instance of LiveDisplay HAL DisplayColorCalibration Iface, exiting.";
-        goto shutdown;
-    }
-
-    displayModes = new DisplayModes();
-    if (displayModes == nullptr) {
-        LOG(ERROR) << "Can not create an instance of LiveDisplay HAL DisplayModes Iface, exiting.";
         goto shutdown;
     }
 
@@ -70,16 +60,6 @@ int main() {
         if (status != OK) {
             LOG(ERROR)
                 << "Could not register service for LiveDisplay HAL DisplayColorCalibration Iface ("
-                << status << ")";
-            goto shutdown;
-        }
-    }
-
-    if (displayModes->isSupported()) {
-        status = displayModes->registerAsService();
-        if (status != OK) {
-            LOG(ERROR)
-                << "Could not register service for LiveDisplay HAL DisplayModes Iface ("
                 << status << ")";
             goto shutdown;
         }
