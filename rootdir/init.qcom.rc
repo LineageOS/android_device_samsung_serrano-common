@@ -42,6 +42,9 @@ on init
     mkdir /dev/bus 0755 root root
     mkdir /dev/bus/usb 0755 root root
 
+    # Write WCNSS serial number
+    write /sys/devices/platform/wcnss_wlan.0/serial_number ${ro.serialno}
+
 on early-boot
     # Set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
