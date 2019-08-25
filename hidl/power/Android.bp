@@ -1,8 +1,8 @@
 cc_binary {
-    name: "android.hardware.power@1.0-service.serrano",
+    name: "android.hardware.power@1.1-service.serrano",
     defaults: ["hidl_defaults"],
     relative_install_path: "hw",
-    init_rc: ["android.hardware.power@1.0-service.serrano.rc"],
+    init_rc: ["android.hardware.power@1.1-service.serrano.rc"],
     srcs: [
         "service.cpp",
         "Power.cpp",
@@ -21,7 +21,7 @@ cc_binary {
         "libhwbinder",
         "libutils",
         "libhardware",
-        "android.hardware.power@1.0",
+        "android.hardware.power@1.1",
         "vendor.lineage.power@1.0",
     ],
     arch: {
