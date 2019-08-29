@@ -169,7 +169,7 @@ service irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
     oneshot
 
 service rmt_storage /vendor/bin/rmt_storage
-    class main
+    class core
     user root
     group system wakelock
     shutdown critical
@@ -189,9 +189,9 @@ on property:vendor.bluetooth.hciattach=false
 
 # QMUX must be in multiple groups to support external process connections
 service qmuxd /vendor/bin/qmuxd
-    class main
-    user root
-    group radio audio bluetooth gps diag wakelock
+    class core
+    user radio
+    group radio audio bluetooth gps diag wakelock log
 
 # Adjust socket buffer to enlarge TCP receive window for high bandwidth
 # but only if ro.data.large_tcp_window_size property is set.
