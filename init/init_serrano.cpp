@@ -53,25 +53,25 @@ void vendor_load_properties()
 
     if (model == "I257M") {
         /* serranoltebmc */
-        property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "samsung/serranoltebmc/serranoltebmc:4.4.2/KOT49H/I257MVLUBNE6:user/release-keys");
         property_override("ro.build.description", "serranoltebmc-user 4.4.2 KOT49H I257MVLUBNE6 release-keys");
-        property_override_dual("ro.product.model", "ro.product.vendor.model", "SGH-I257M");
-        property_override_dual("ro.product.device", "ro.product.vendor.device", "serranoltebmc");
+        property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "samsung/serranoltebmc/serranoltebmc:4.4.2/KOT49H/I257MVLUBNE6:user/release-keys");
         property_override("ro.build.product", "serranoltebmc");
+        property_override_dual("ro.product.device", "ro.product.vendor.device", "serranoltebmc");
+        property_override_dual("ro.product.model", "ro.product.vendor.model", "SGH-I257M");
     } else if (model == "I9195") {
         /* serranoltexx */
-        property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "samsung/serranoltexx/serranolte:4.4.2/KOT49H/I9195XXUCNE6:user/release-keys");
-        property_override("ro.build.description", "serranoltexx-user 4.4.2 KOT49H I9195XXUCNE6 release-keys");
-        property_override_dual("ro.product.model", "ro.product.vendor.model", "GT-I9195");
-        property_override_dual("ro.product.device", "ro.product.vendor.device", "serranolte");
+        property_override("ro.build.description", "serranoltexx-user 4.4.2 KOT49H I9195XXUCQL2 release-keys");
+        property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "samsung/serranoltexx/serranolte:4.4.2/KOT49H/I9195XXUCQL2:user/release-keys");
         property_override("ro.build.product", "serranolte");
+        property_override_dual("ro.product.device", "ro.product.vendor.device", "serranolte");
+        property_override_dual("ro.product.model", "ro.product.vendor.model", "GT-I9195");
     } else if (model == "E370K") {
         /* serranoltektt */
-        property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint",  "samsung/serranoltektt/serranoltektt:4.4.4/KTU84P/E370KKTU2BNK5:user/release-keys");
         property_override("ro.build.description", "serranoltektt-user 4.4.4 KTU84P E370KKTU2BNK5 release-keys");
-        property_override_dual("ro.product.model", "ro.product.vendor.model", "SHV-E370K");
-        property_override_dual("ro.product.device", "ro.product.vendor.device", "serranoltektt");
+        property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "samsung/serranoltektt/serranoltektt:4.4.4/KTU84P/E370KKTU2BNK5:user/release-keys");
         property_override("ro.build.product", "serranoltektt");
+        property_override_dual("ro.product.device", "ro.product.vendor.device", "serranoltektt");
+        property_override_dual("ro.product.model", "ro.product.vendor.model", "SHV-E370K");
     }
 
     const std::string device = GetProperty("ro.product.device", "");
