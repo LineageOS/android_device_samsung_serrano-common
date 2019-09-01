@@ -68,7 +68,9 @@ on post-fs-data
     mkdir /dev/socket/mpdecision 2770 root system
 
     # Bluetooth
-    chown bluetooth bluetooth /persist/.bt_nv.bin
+    mkdir /efs/bluetooth 0775 bluetooth bluetooth
+    chown bluetooth bluetooth /efs/bluetooth/bt_addr
+    chmod 0664 /efs/bluetooth/bt_addr
 
     # WiFi
     mkdir /efs/wifi 0775 system system
