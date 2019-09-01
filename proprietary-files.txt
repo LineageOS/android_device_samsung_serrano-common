@@ -10,9 +10,6 @@ vendor/bin/fm_qsoc_patches
 vendor/bin/mpdecision
 vendor/bin/thermald
 
-# Audio
-vendor/lib/libacdbloader.so
-
 # Adreno GPU
 vendor/firmware/a300_pfp.fw
 vendor/firmware/a300_pm4.fw
@@ -81,7 +78,6 @@ vendor/bin/mm-qcamera-daemon
 vendor/lib/hw/camera.vendor.msm8960.so
 vendor/lib/libTsAccm.so
 vendor/lib/libTsAwb.so
-vendor/lib/libadsprpc.so
 vendor/lib/libchromatix_imx175_antishake.so
 vendor/lib/libchromatix_imx175_default_video.so
 vendor/lib/libchromatix_imx175_lls.so
