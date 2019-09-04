@@ -19,6 +19,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_k.mk)
 # Also get non-open-source specific aspects
 $(call inherit-product, vendor/samsung/serrano-common/serrano-common-vendor.mk)
 
+# Soong
+PRODUCT_SOONG_NAMESPACES += $(LOCAL_PATH)
+
 # Common overlay
 DEVICE_PACKAGE_OVERLAYS += device/samsung/serrano-common/overlay
 
