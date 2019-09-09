@@ -34,9 +34,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.bluetooth.dun=true \
-    ro.bluetooth.sap=true \
-    ro.bluetooth.hfp.ver=1.6 \
     ro.bt.bdaddr_path=/efs/bluetooth/bt_addr \
     ro.qualcomm.bt.hci_transport=smd
 
