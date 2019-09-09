@@ -13,6 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Shipping API level
+$(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_k.mk)
+
 # Also get non-open-source specific aspects
 $(call inherit-product, vendor/samsung/serrano-common/serrano-common-vendor.mk)
 
