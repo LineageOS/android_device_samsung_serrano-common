@@ -103,6 +103,10 @@ TARGET_PROCESS_SDK_VERSION_OVERRIDE += \
 # Network Routing
 TARGET_NEEDS_NETD_DIRECT_CONNECT_RULE := true
 
+# Shims
+TARGET_LD_SHIM_LIBS := \
+    /system/vendor/lib/libperipheral_client.so|libshim_binder.so
+
 # Vendor init
 TARGET_INIT_VENDOR_LIB := //$(COMMON_PATH):libinit_serrano
 TARGET_RECOVERY_DEVICE_MODULES := libinit_serrano
