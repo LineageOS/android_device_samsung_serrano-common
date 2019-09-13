@@ -62,7 +62,7 @@ on boot
     # Create QMUX deamon socket area
     mkdir /dev/socket/qmux_audio 2770 media audio
     mkdir /dev/socket/qmux_bluetooth 2770 bluetooth bluetooth
-    mkdir /dev/socket/qmux_gps 20770 gps gps
+    mkdir /dev/socket/qmux_gps 2770 gps gps
     mkdir /dev/socket/qmux_radio 2770 radio radio
 
     symlink /dev/graphics/fb1 /dev/graphics/hdmi
