@@ -37,14 +37,10 @@ void property_override_dual(char const system_prop[], char const vendor_prop[], 
 void vendor_load_properties()
 {
     const std::string bootloader = GetProperty("ro.bootloader", "");
-    const std::string platform = GetProperty("ro.board.platform", "");
     const std::string model = bootloader.substr(0, MODEL_NAME_LEN);
 
     char const *serial_number_file = SERIAL_NUMBER_FILE;
     std::string serial_number;
-
-    if (platform != ANDROID_TARGET)
-        return;
 
     if (ReadFileToString(serial_number_file, &serial_number)) {
         serial_number = Trim(serial_number);
