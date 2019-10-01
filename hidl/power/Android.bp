@@ -16,9 +16,7 @@ cc_binary {
 
     shared_libs: [
         "libhidlbase",
-        "libhidltransport",
         "liblog",
-        "libhwbinder",
         "libutils",
         "libhardware",
         "android.hardware.power@1.1",

@@ -6,9 +6,7 @@ cc_binary {
     srcs: ["service.cpp", "Usb.cpp"],
     shared_libs: [
         "libhidlbase",
-        "libhidltransport",
         "liblog",
-        "libhwbinder",
         "libutils",
         "libhardware",
         "android.hardware.usb@1.0",
