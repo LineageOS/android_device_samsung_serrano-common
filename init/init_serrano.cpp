@@ -17,21 +17,26 @@ using android::base::Trim;
 #define MODEL_NAME_LEN 5
 #define SERIAL_NUMBER_FILE "/efs/FactoryApp/serial_no"
 
-void property_override(char const prop[], char const value[])
-{
-    prop_info *pi;
+// copied from build/tools/releasetools/ota_from_target_files.py
+// but with "." at the end and empty entry
+std::vector<std::string> ro_product_props_default_source_order = {
+    "",
+    "product.",
+    "product_services.",
+    "odm.",
+    "vendor.",
+    "system.",
+};
 
-    pi = (prop_info*) __system_property_find(prop);
-    if (pi)
+void property_override(char const prop[], char const value[], bool add = true)
+{
+    auto pi = (prop_info *) __system_property_find(prop);
+
+    if (pi != nullptr) {
         __system_property_update(pi, value, strlen(value));
-    else
+    } else if (add) {
         __system_property_add(prop, strlen(prop), value, strlen(value));
-}
-
-void property_override_dual(char const system_prop[], char const vendor_prop[], char const value[])
-{
-    property_override(system_prop, value);
-    property_override(vendor_prop, value);
+    }
 }
 
 void vendor_load_properties()
@@ -47,27 +52,42 @@ void vendor_load_properties()
         property_override("ro.serialno", serial_number.c_str());
     }
 
+    const auto set_ro_product_prop = [](const std::string &source,
+            const std::string &prop, const std::string &value) {
+        auto prop_name = "ro.product." + source + prop;
+        property_override(prop_name.c_str(), value.c_str(), false);
+    };
+
     if (model == "I257M") {
         /* serranoltebmc */
+        for (const auto &source : ro_product_props_default_source_order) {
+            set_ro_product_prop(source, "fingerprint", "samsung/serranoltebmc/serranoltebmc:4.4.2/KOT49H/I257MVLUBNE6:user/release-keys");
+            set_ro_product_prop(source, "device", "serranoltebmc");
+            set_ro_product_prop(source, "model", "SGH-I257M");
+            set_ro_product_prop(source, "name", "serranoltebmc");
+        }
         property_override("ro.build.description", "serranoltebmc-user 4.4.2 KOT49H I257MVLUBNE6 release-keys");
-        property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "samsung/serranoltebmc/serranoltebmc:4.4.2/KOT49H/I257MVLUBNE6:user/release-keys");
         property_override("ro.build.product", "serranoltebmc");
-        property_override_dual("ro.product.device", "ro.product.vendor.device", "serranoltebmc");
-        property_override_dual("ro.product.model", "ro.product.vendor.model", "SGH-I257M");
     } else if (model == "I9195") {
         /* serranoltexx */
+        for (const auto &source : ro_product_props_default_source_order) {
+            set_ro_product_prop(source, "fingerprint", "samsung/serranoltexx/serranolte:4.4.2/KOT49H/I9195XXUCQL2:user/release-keys");
+            set_ro_product_prop(source, "device", "serranolte");
+            set_ro_product_prop(source, "model", "GT-I9195");
+            set_ro_product_prop(source, "name", "serranoltexx");
+        }
         property_override("ro.build.description", "serranoltexx-user 4.4.2 KOT49H I9195XXUCQL2 release-keys");
-        property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "samsung/serranoltexx/serranolte:4.4.2/KOT49H/I9195XXUCQL2:user/release-keys");
         property_override("ro.build.product", "serranolte");
-        property_override_dual("ro.product.device", "ro.product.vendor.device", "serranolte");
-        property_override_dual("ro.product.model", "ro.product.vendor.model", "GT-I9195");
     } else if (model == "E370K") {
         /* serranoltektt */
+        for (const auto &source : ro_product_props_default_source_order) {
+            set_ro_product_prop(source, "fingerprint", "samsung/serranoltektt/serranoltektt:4.4.4/KTU84P/E370KKTU2BNK5:user/release-keys");
+            set_ro_product_prop(source, "device", "serranoltektt");
+            set_ro_product_prop(source, "model", "SHV-E370K");
+            set_ro_product_prop(source, "name", "serranoltektt");
+        }
         property_override("ro.build.description", "serranoltektt-user 4.4.4 KTU84P E370KKTU2BNK5 release-keys");
-        property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "samsung/serranoltektt/serranoltektt:4.4.4/KTU84P/E370KKTU2BNK5:user/release-keys");
         property_override("ro.build.product", "serranoltektt");
-        property_override_dual("ro.product.device", "ro.product.vendor.device", "serranoltektt");
-        property_override_dual("ro.product.model", "ro.product.vendor.model", "SHV-E370K");
     }
 
     const std::string device = GetProperty("ro.product.device", "");
