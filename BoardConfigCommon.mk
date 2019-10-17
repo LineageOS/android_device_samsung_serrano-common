@@ -35,9 +35,6 @@ TARGET_SPECIFIC_HEADER_PATH += $(COMMON_PATH)/include
 # Manifests
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/manifest.xml
 
-# Set default locale
-PRODUCT_LOCALES := en-GB
-
 # Kernel
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=22 msm_rtb.filter=0x3F ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1
 BOARD_KERNEL_BASE := 0x80200000

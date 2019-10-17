@@ -55,3 +55,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Vendor security patch level
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.lineage.build.vendor_security_patch=2016-08-01
+
+# Set default locale
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.product.locale=en-GB
