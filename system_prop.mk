@@ -16,6 +16,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.audio.fluence.speaker=true \
     persist.vendor.audio.fluence.voicecall=true \
     ro.vendor.audio.sdk.fluencetype=fluence \
+    ro.vendor.fm.use_audio_session=true \
     vendor.dedicated.device.for.voip=true \
     vendor.voice.path.for.pcm.voip=true
 
