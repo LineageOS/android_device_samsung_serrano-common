@@ -155,7 +155,7 @@ on post-fs-data
     mkdir /data/misc/audio 0770 audio audio
 
     # Create directory used by radio subsystem
-    mkdir /data/radio 0770 radio radio
+    mkdir /data/radio 0770 radio radio encryption=Require
 
     # Chown polling nodes as needed from UI running on system server
     chmod 0664 /sys/devices/platform/msm_sdcc.1/polling
@@ -368,12 +368,8 @@ on post-fs-data
     # NFC_BROADCOM
     chmod 0600 /dev/bcm2079x
     chown nfc nfc /dev/bcm2079x
-    mkdir /data/nfc
-    mkdir /data/nfc/param
-    chmod 0770 /data/nfc
-    chmod 0770 /data/nfc/param
-    chown nfc nfc /data/nfc
-    chown nfc nfc /data/nfc/param
+    mkdir /data/nfc 0770 nfc nfc encryption=Require
+    mkdir /data/nfc/param 0770 nfc nfc
 
     # MDNIE
     chown system system  /sys/class/mdnie/mdnie/lcdtype
