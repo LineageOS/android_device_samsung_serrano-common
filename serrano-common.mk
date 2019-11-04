@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+$(LOCAL_PATH) := device/samsung/serrano-common
+
 # Shipping API level
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_k.mk)
 
@@ -23,7 +25,7 @@ $(call inherit-product, vendor/samsung/serrano-common/serrano-common-vendor.mk)
 PRODUCT_SOONG_NAMESPACES += $(LOCAL_PATH)
 
 # Common overlay
-DEVICE_PACKAGE_OVERLAYS += device/samsung/serrano-common/overlay
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # Device uses high-density artwork where available
 PRODUCT_AAPT_CONFIG := normal
@@ -157,10 +159,10 @@ PRODUCT_PACKAGES += \
     libsecnativefeature
 
 # call common serrano system props
-$(call inherit-product, device/samsung/serrano-common/system_prop.mk)
+$(call inherit-product, $(LOCAL_PATH)/system_prop.mk)
 
 # call common serrano system debug props
-#$(call inherit-product, device/samsung/serrano-common/system_prop_debug.mk)
+#$(call inherit-product, $(LOCAL_PATH)/system_prop_debug.mk)
 
 # call common msm8930
 $(call inherit-product, device/samsung/msm8930-common/msm8930.mk)
