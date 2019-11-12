@@ -140,10 +140,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.health@2.0-service.serrano
 
-# IPv6 tethering
-PRODUCT_PACKAGES += \
-    ebtables
-
 # Doze
 PRODUCT_PACKAGES += \
     SamsungDoze
