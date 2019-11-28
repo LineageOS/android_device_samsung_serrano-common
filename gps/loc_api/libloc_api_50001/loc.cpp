@@ -238,7 +238,7 @@ extern "C" const GpsInterface* get_gps_interface()
             LOC_LOGE("GSS open failed: %s\n", strerror(errno));
         }
         else {
-            LOC_LOGD("GSS open success! CAPABILITIES %0lx\n",
+            LOC_LOGD("GSS open success! CAPABILITIES %0x\n",
                      gps_conf.CAPABILITIES);
         }
         break;
@@ -249,7 +249,7 @@ extern "C" const GpsInterface* get_gps_interface()
     case GNSS_QCA1530:
         // qca1530 chip is present
         gps_conf.CAPABILITIES &= ~(GPS_CAPABILITY_MSA | GPS_CAPABILITY_MSB);
-        LOC_LOGD("qca1530 present: CAPABILITIES %0lx\n", gps_conf.CAPABILITIES);
+        LOC_LOGD("qca1530 present: CAPABILITIES %0x\n", gps_conf.CAPABILITIES);
         break;
     }
     return &sLocEngInterface;
@@ -1030,7 +1030,7 @@ static int loc_agps_revoke_certificates(const Sha1CertificateFingerprint* finger
                                         size_t length)
 {
     ENTRY_LOG();
-    LOC_LOGE("%s:%d]: agps_revoke_certificates not supported");
+    LOC_LOGE("%s:%d]: agps_revoke_certificates not supported",__func__, __LINE__);
     int ret_val = AGPS_CERTIFICATE_ERROR_GENERIC;
     EXIT_LOG(%d, ret_val);
     return ret_val;
