@@ -99,6 +99,7 @@ struct LocSsrMsg : public LocMsg {
     inline void locallog() {
         LOC_LOGV("LocSsrMsg");
     }
+    using LocMsg::log;
     inline virtual void log() {
         locallog();
     }
@@ -120,6 +121,7 @@ struct LocOpenMsg : public LocMsg {
         LOC_LOGV("%s:%d]: LocOpen Mask: %x\n",
                  __func__, __LINE__, mMask);
     }
+    using LocMsg::log;
     inline virtual void log() {
         locallog();
     }
@@ -128,8 +130,8 @@ struct LocOpenMsg : public LocMsg {
 LocApiBase::LocApiBase(const MsgTask* msgTask,
                        LOC_API_ADAPTER_EVENT_MASK_T excludedMask,
                        ContextBase* context) :
-    mExcludedMask(excludedMask), mMsgTask(msgTask),
-    mMask(0), mSupportedMsg(0), mContext(context)
+    mMsgTask(msgTask), mContext(context), mSupportedMsg(0),
+    mMask(0), mExcludedMask(excludedMask)
 {
     memset(mLocAdapters, 0, sizeof(mLocAdapters));
 }
@@ -262,7 +264,7 @@ void LocApiBase::reportSv(HaxxSvStatus &svStatus,
              " mask: %x/%x/%x\n      sv: prn         snr       elevation      azimuth",
              svStatus.num_svs, svStatus.ephemeris_mask,
              svStatus.almanac_mask, svStatus.gps_used_in_fix_mask,
-             svStatus.glo_used_in_fix_mask, svStatus.bds_used_in_fix_mask);
+             svStatus.glo_used_in_fix_mask, (unsigned)svStatus.bds_used_in_fix_mask);
     for (int i = 0; i < svStatus.num_svs && i < GPS_MAX_SVS; i++) {
         LOC_LOGV("   %d:   %d    %f    %f    %f",
                  i,

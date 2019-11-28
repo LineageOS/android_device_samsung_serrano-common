@@ -2512,7 +2512,7 @@ static int loc_eng_set_server(loc_eng_data_s_type &loc_eng_data,
         const char nohost[] = "NONE";
         if (hostname == NULL ||
             strncasecmp(nohost, hostname, sizeof(nohost)) == 0) {
-            url[0] = NULL;
+            url[0] = 0;
         } else {
             len = snprintf(url, sizeof(url), "%s:%u", hostname, (unsigned) port);
         }
@@ -2665,7 +2665,7 @@ int loc_eng_agps_install_certificates(loc_eng_data_s_type &loc_eng_data,
         for (int i=0; i < numberOfCerts; ++i)
         {
             if (certificates[i].length > AGPS_CERTIFICATE_MAX_LENGTH) {
-                LOC_LOGE("cert#(%u) length of %u is too big! greater than %u",
+                LOC_LOGE("cert#(%u) length of %u is too big!",
                         certificates[i].length, AGPS_CERTIFICATE_MAX_LENGTH);
                 ret_val = AGPS_CERTIFICATE_ERROR_GENERIC;
                 break;
