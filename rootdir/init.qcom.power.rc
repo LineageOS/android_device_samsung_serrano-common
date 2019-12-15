@@ -37,6 +37,9 @@ on enable-low-power
     write /sys/devices/platform/msm_sdcc.3/idle_timeout 10
 
 on fs
+    wait /dev/block/platform/${ro.boot.bootdevice}
+    symlink /dev/block/platform/${ro.boot.bootdevice} /dev/block/bootdevice
+
     setprop sys.usb.ffs.aio_compat 1
 
 on boot

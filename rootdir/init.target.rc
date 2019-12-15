@@ -37,9 +37,6 @@ on post-fs
     chmod 0222 /sys/kernel/debug/tracing/trace_marker
 
 on fs
-    wait /dev/block/platform/${ro.boot.bootdevice}
-    symlink /dev/block/platform/${ro.boot.bootdevice} /dev/block/bootdevice
-
     mount_all fstab.qcom
 
     restorecon_recursive /persist
