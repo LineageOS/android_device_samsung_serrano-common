@@ -1,3 +1,7 @@
+on fs
+    wait /dev/block/platform/${ro.boot.bootdevice}
+    symlink /dev/block/platform/${ro.boot.bootdevice} /dev/block/bootdevice
+
 on charger
     wait /dev/block/platform/msm_sdcc.1/by-name/system
     mount ext4 /dev/block/platform/msm_sdcc.1/by-name/system /system ro barrier=1
