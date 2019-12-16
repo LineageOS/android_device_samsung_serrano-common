@@ -51,6 +51,9 @@ endif
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := MSM8960
 
+# LMKD stats logging
+TARGET_LMKD_STATS_LOG := true
+
 # Recovery
 LZMA_RAMDISK_TARGETS := recovery
 TARGET_RECOVERY_FSTAB := $(COMMON_PATH)/rootdir/fstab.qcom
