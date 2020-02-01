@@ -18,16 +18,9 @@
 
 #include <log/log.h>
 
-#include <hardware/hardware.h>
 #include <hardware/vibrator.h>
 
 #include "Vibrator.h"
-
-#include <cinttypes>
-#include <cmath>
-#include <iostream>
-#include <fstream>
-
 
 namespace android {
 namespace hardware {

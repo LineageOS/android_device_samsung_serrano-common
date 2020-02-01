@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
+#include "DisplayColorCalibration.h"
+
 #include <android-base/file.h>
 #include <android-base/strings.h>
 
 #include <fstream>
-
-#include "DisplayColorCalibration.h"
 
 using android::base::ReadFileToString;
 using android::base::Split;

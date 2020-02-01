@@ -19,9 +19,9 @@
 
 #include <android/hardware/power/1.1/IPower.h>
 #include <vendor/lineage/power/1.0/ILineagePower.h>
+#include <hardware/power.h>
 #include <hidl/MQDescriptor.h>
 #include <hidl/Status.h>
-#include <hardware/power.h>
 
 extern "C" {
 void power_init(void);

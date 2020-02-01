@@ -19,7 +19,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include <utils/Errors.h>
+#include <log/log.h>
 #include <utils/StrongPointer.h>
 
 #include "Usb.h"

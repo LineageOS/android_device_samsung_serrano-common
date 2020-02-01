@@ -16,12 +16,9 @@
 
 #define LOG_TAG "android.hardware.power@1.1-service.serrano"
 
-#include <android/log.h>
 #include <hidl/HidlTransportSupport.h>
 #include <hardware/power.h>
-#ifdef ARCH_ARM_32
 #include <hwbinder/ProcessState.h>
-#endif
 #include "Power.h"
 
 using android::sp;
@@ -36,9 +33,7 @@ using android::hardware::joinRpcThreadpool;
 using android::hardware::power::V1_1::implementation::Power;
 
 int main() {
-#ifdef ARCH_ARM_32
     android::hardware::ProcessState::initWithMmapSize((size_t)16384);
-#endif
     status_t status;
     android::sp<Power> service = nullptr;
 
@@ -65,7 +60,6 @@ int main() {
 
 shutdown:
     // In normal operation, we don't expect the thread pool to exit
-
     ALOGE("Power Service is shutting down");
     return 1;
 }
