@@ -9,11 +9,11 @@ cc_binary {
         "service.cpp",
     ],
     shared_libs: [
+        "vendor.lineage.livedisplay@2.0",
         "libbase",
         "libhidlbase",
         "libhidltransport",
         "libutils",
-        "vendor.lineage.livedisplay@2.0",
     ],
     vendor: true,
 }

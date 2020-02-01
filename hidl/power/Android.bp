@@ -1,12 +1,14 @@
 cc_binary {
     name: "android.hardware.power@1.1-service.serrano",
     defaults: ["hidl_defaults"],
+    vendor: true,
     relative_install_path: "hw",
     init_rc: ["android.hardware.power@1.1-service.serrano.rc"],
+
     srcs: [
-        "service.cpp",
         "Power.cpp",
         "power.c",
+        "service.cpp",
     ],
 
     cflags: [
@@ -15,19 +17,13 @@ cc_binary {
     ],
 
     shared_libs: [
+        "android.hardware.power@1.1",
+        "vendor.lineage.power@1.0",
+        "libhardware",
         "libhidlbase",
         "libhidltransport",
         "liblog",
         "libhwbinder",
         "libutils",
-        "libhardware",
-        "android.hardware.power@1.1",
-        "vendor.lineage.power@1.0",
     ],
-    arch: {
-        arm: {
-            cflags: ["-DARCH_ARM_32"],
-        },
-    },
-    vendor: true,
 }

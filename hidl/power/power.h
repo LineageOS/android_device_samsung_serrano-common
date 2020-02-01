@@ -15,8 +15,6 @@
  * limitations under the License.
  */
 
-#include <hardware/power.h>
-
 /* Video encode hint optimisations */
 #define VID_ENC_TIMER_RATE 30000
 #define VID_ENC_IO_IS_BUSY 0

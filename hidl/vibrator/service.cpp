@@ -19,10 +19,7 @@
 #include <android/hardware/vibrator/1.0/IVibrator.h>
 #include <hidl/HidlSupport.h>
 #include <hidl/HidlTransportSupport.h>
-#ifdef ARCH_ARM_32
 #include <hwbinder/ProcessState.h>
-#endif
-#include <utils/Errors.h>
 #include <utils/StrongPointer.h>
 
 #include "Vibrator.h"
@@ -37,9 +34,7 @@ using namespace android;
 static const char *ENABLE_PATH = "/sys/class/timed_output/vibrator/enable";
 
 int main() {
-#ifdef ARCH_ARM_32
     android::hardware::ProcessState::initWithMmapSize((size_t)8192);
-#endif
     std::ofstream enable{ENABLE_PATH};
     if (!enable) {
         int error = errno;
