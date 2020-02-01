@@ -107,8 +107,7 @@ PRODUCT_PACKAGES += \
 
 # IR package
 PRODUCT_PACKAGES += \
-    android.hardware.ir@1.0-impl \
-    consumerir.msm8960
+    android.hardware.ir@1.0-service.samsung
 
 # Lights
 PRODUCT_PACKAGES += \
