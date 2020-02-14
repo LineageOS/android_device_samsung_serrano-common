@@ -229,7 +229,6 @@ on property:persist.sys.ssr.restart_level=3
 
 on property:sys.boot_completed=1
     start qcom-audio
-    setprop sys.io.scheduler cfq
 
     # Symlink telephony.db and preferred-apn.xml
     mkdir /data/data/com.android.providers.telephony/databases 0700 radio radio
