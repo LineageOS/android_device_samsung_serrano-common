@@ -52,6 +52,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dex2oat-swap=false
 
+# Enable traced by default
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.traced.enable=1
+
 # Vendor security patch level
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.lineage.build.vendor_security_patch=2016-08-01
