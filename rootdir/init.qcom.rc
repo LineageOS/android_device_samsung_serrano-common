@@ -111,13 +111,14 @@ on boot
     # Set freeze timeout to 2 seconds
     write /sys/power/pm_freeze_timeout 2000
 
-    # Set SSR level
-    setprop persist.sys.ssr.restart_level 3
-
     # Wifi firmware reload path
     chown wifi wifi /sys/module/wlan/parameters/fwpath
 
-    start qcamerasvr
+    # Set subsystem restart level
+    # 1 = SOC
+    # 2 = COUPLED
+    # 3 = INDEPENDENT
+    write /sys/module/subsystem_restart/parameters/restart_level 3
 
 on fs
     mount_all /vendor/etc/fstab.qcom
@@ -604,12 +605,6 @@ service qcom-audio /vendor/bin/init.qcom.audio.sh
 on property:ro.data.large_tcp_window_size=true
     # Adjust socket buffer to enlarge TCP receive window for high bandwidth (e.g. DO-RevB)
     write /proc/sys/net/ipv4/tcp_adv_win_scale  2
-
-# Limit to SoC reset (1) and independent SSR (3)
-on property:persist.sys.ssr.restart_level=1
-    write /sys/module/subsystem_restart/parameters/restart_level 1
-on property:persist.sys.ssr.restart_level=3
-    write /sys/module/subsystem_restart/parameters/restart_level 3
 
 on property:sys.boot_completed=1
     start qcom-audio
