@@ -509,15 +509,15 @@ service qcamerasvr /vendor/bin/mm-qcamera-daemon
     user camera
     group camera system inet input graphics
 
-service thermald /vendor/bin/thermald
-    class main
-    user root
-    group radio system
+#service thermald /vendor/bin/thermald
+#    class main
+#    user root
+#    group radio system
 
-service mpdecision /vendor/bin/mpdecision --no_sleep --avg_comp
-    class main
-    user root
-    group root system readproc wakelock
+#service mpdecision /vendor/bin/mpdecision --no_sleep --avg_comp
+#    class main
+#    user root
+#    group root system readproc wakelock
 
 service charger /charger
     class charger
