@@ -122,6 +122,7 @@ on boot
 
 on fs
     mount_all /vendor/etc/fstab.qcom
+    mount none /system/etc/gps.conf /system/etc/gps_debug.conf bind
 
     restorecon_recursive /persist
     restorecon_recursive /efs
