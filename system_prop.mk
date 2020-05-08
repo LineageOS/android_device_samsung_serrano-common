@@ -2,6 +2,7 @@
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.android.mobiledata=false \
     ro.ril.telephony.qan_resp_strings=6 \
+    persist.data.qmi.adb_logmask=0 \
     persist.radio.add_power_save=1
 
 # GPS
