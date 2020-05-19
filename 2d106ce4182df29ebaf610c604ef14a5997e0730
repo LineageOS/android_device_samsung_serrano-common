@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "849c1c80_57f3ee58",
+        "filename": "gps/core/LocApiBase.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 18205
+      },
+      "writtenOn": "2020-05-19T17:42:01Z",
+      "side": 1,
+      "message": "+\u003d",
+      "revId": "2d106ce4182df29ebaf610c604ef14a5997e0730",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    }
+  ]
+}
