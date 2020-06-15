@@ -107,7 +107,9 @@ PRODUCT_COPY_FILES += \
 # GPS HAL
 PRODUCT_PACKAGES += \
     gps.msm8960 \
+    flp.conf \
     gps.conf \
+    izat.conf \
     sap.conf
 
 # IR package
