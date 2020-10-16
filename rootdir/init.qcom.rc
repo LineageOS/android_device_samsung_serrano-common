@@ -615,6 +615,9 @@ on property:ro.data.large_tcp_window_size=true
 on property:sys.boot_completed=1
     start qcom-audio
 
+    exec u:r:vendor_init:s0 -- /vendor/bin/dumpsys deviceidle whitelist +com.android.deskclock
+    exec u:r:vendor_init:s0 -- /vendor/bin/dumpsys deviceidle whitelist +com.android.messaging
+
     # Symlink telephony.db and preferred-apn.xml
     mkdir /data/data/com.android.providers.telephony/databases 0700 radio radio
     mkdir /data/data/com.android.providers.telephony/shared_prefs 0700 radio radio
