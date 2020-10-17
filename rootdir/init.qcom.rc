@@ -580,11 +580,6 @@ service loc_launcher /vendor/bin/loc_launcher
     class late_start
     group gps inet net_raw diag net_admin wifi
 
-# Adjust socket buffer to enlarge TCP receive window for high bandwidth
-# but only if ro.data.large_tcp_window_size property is set.
-on property:ro.data.large_tcp_window_size=true
-    write /proc/sys/net/ipv4/tcp_adv_win_scale  2
-
 service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     -O/data/vendor/wifi/wpa/sockets -puse_p2p_group_interface=1 \
     -g@android:wpa_wlan0
@@ -607,11 +602,11 @@ service vendor.fm /vendor/bin/init.qcom.fm.sh
     oneshot
 
 service qcom-audio /vendor/bin/init.qcom.audio.sh
-   class late_start
-   user root
-   group system
-   disabled
-   oneshot
+    class late_start
+    user root
+    group system
+    disabled
+    oneshot
 
 on property:ro.data.large_tcp_window_size=true
     # Adjust socket buffer to enlarge TCP receive window for high bandwidth (e.g. DO-RevB)
