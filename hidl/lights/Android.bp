@@ -1,5 +1,6 @@
 cc_binary {
     name: "android.hardware.light@2.0-service.serrano",
+    vintf_fragments: ["android.hardware.light@2.0-service.serrano.xml"],
     defaults: ["hidl_defaults"],
     vendor: true,
     relative_install_path: "hw",

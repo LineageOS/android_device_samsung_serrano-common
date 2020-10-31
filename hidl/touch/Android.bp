@@ -1,5 +1,6 @@
 cc_binary {
     name: "vendor.lineage.touch@1.0-service.serrano",
+    vintf_fragments: ["vendor.lineage.touch@1.0-service.serrano.xml"],
     defaults: ["hidl_defaults"],
     vendor: true,
     relative_install_path: "hw",
