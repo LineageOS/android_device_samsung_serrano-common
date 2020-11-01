@@ -502,10 +502,6 @@ on post-fs-data
     chown system system /sys/class/misc/backlightnotification/notification_led
     chown system system /sys/class/misc/backlightnotification/notification_led_mask
 
-    # PCC
-    chown system system /sys/devices/virtual/graphics/fb0/rgb
-    chmod 0660 /sys/devices/virtual/graphics/fb0/rgb
-
     # Touchkey
     chown system system /sys/class/sec/sec_touchkey/touchkey_enable
     chmod 0660 /sys/class/sec/sec_touchkey/touchkey_enable
