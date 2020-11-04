@@ -126,6 +126,8 @@ on boot
     # 3 = INDEPENDENT
     write /sys/module/subsystem_restart/parameters/restart_level 3
 
+    setprop init.svc.console stopped
+
 on fs
     mount_all /vendor/etc/fstab.qcom
     mount none /system/etc/gps.conf /system/etc/gps_debug.conf bind
