@@ -53,10 +53,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dex2oat-swap=false
 
-# Enable traced by default
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.traced.enable=1
-
 # Vendor security patch level
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.lineage.build.vendor_security_patch=2016-08-01
@@ -64,13 +60,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Set default locale
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.locale=en-GB
-
-# LMKD
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.lmk.kill_heaviest_task=true \
-    ro.lmk.kill_timeout_ms=100 \
-    ro.lmk.log_stats=true \
-    ro.lmk.use_minfree_levels=true
 
 # Charger
 PRODUCT_PRODUCT_PROPERTIES += \
