@@ -594,6 +594,18 @@ service qcom-audio /vendor/bin/init.qcom.audio.sh
     disabled
     oneshot
 
+service vendor.wifi_hal_legacy /vendor/bin/hw/android.hardware.wifi@1.0-service.legacy
+    override
+    interface android.hardware.wifi@1.0::IWifi default
+    interface android.hardware.wifi@1.1::IWifi default
+    interface android.hardware.wifi@1.2::IWifi default
+    interface android.hardware.wifi@1.3::IWifi default
+    interface android.hardware.wifi@1.4::IWifi default
+    class hal
+    capabilities NET_ADMIN NET_RAW SYS_MODULE
+    user root
+    group wifi gps
+
 on property:ro.data.large_tcp_window_size=true
     # Adjust socket buffer to enlarge TCP receive window for high bandwidth (e.g. DO-RevB)
     write /proc/sys/net/ipv4/tcp_adv_win_scale  2
