@@ -420,7 +420,7 @@ on post-fs-data
 
     # Vibetonz
     chmod 0660 /dev/tspdrv
-    chown vibe vibe /dev/tspdrv
+    chown system system /dev/tspdrv
 
     # volume up/down key
     chown radio system /sys/class/sec/sec_key/wakeup_keys
