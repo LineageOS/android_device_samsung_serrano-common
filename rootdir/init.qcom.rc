@@ -502,10 +502,6 @@ on post-fs-data
     chown system system /sys/class/misc/backlightnotification/notification_led
     chown system system /sys/class/misc/backlightnotification/notification_led_mask
 
-    # Touchkey
-    chown system system /sys/class/sec/sec_touchkey/touchkey_enable
-    chmod 0660 /sys/class/sec/sec_touchkey/touchkey_enable
-
     setprop vold.post_fs_data_done 1
 
 # Start camera server as daemon
