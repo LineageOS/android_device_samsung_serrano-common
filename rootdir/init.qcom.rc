@@ -514,9 +514,9 @@ on post-fs-data
 
 # Start camera server as daemon
 service qcamerasvr /vendor/bin/mm-qcamera-daemon
-    class late_start
+    class core
     user camera
-    group camera system inet input graphics
+    group camera system inet input graphics media
 
 #service thermald /vendor/bin/thermald
 #    class main
