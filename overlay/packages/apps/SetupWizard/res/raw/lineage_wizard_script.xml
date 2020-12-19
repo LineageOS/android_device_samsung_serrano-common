@@ -49,7 +49,7 @@
         <result wizard:action="location_settings" />
     </WizardAction>
 
-    <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_RECOVERY_UPDATE;end" id="recovery_update">
+    <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_RECOVERY_UPDATE;end" id="location_settings">
         <result wizard:action="lineage_settings" />
     </WizardAction>
 
