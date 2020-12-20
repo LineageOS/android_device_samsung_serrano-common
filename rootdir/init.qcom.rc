@@ -52,8 +52,6 @@ on early-boot
     rm /data/data/com.android.providers.telephony/databases/telephony.db
     rm /data/data/com.android.providers.telephony/shared_prefs/preferred-apn.xml
 
-    start qcamerasvr
-
 on boot
     # Permissions for bluetooth
     chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
@@ -508,10 +506,9 @@ on post-fs-data
 
 # Start camera server as daemon
 service qcamerasvr /vendor/bin/mm-qcamera-daemon
-    class main
+    class early_hal
     user camera
     group camera system inet input graphics media
-    disabled
 
 #service thermald /vendor/bin/thermald
 #    class main
