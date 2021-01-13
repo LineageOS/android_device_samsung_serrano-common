@@ -3,8 +3,12 @@ on init
     chown system system /sys/devices/virtual/graphics/fb0/rgb
     chmod 0660 /sys/devices/virtual/graphics/fb0/rgb
 
+on post-fs-data
+    mkdir /data/vendor/display 0770 system system
+
 service vendor.livedisplay-hal-2-0-serrano /vendor/bin/hw/vendor.lineage.livedisplay@2.0-service.serrano
     interface vendor.lineage.livedisplay@2.0::IDisplayColorCalibration default
+    interface vendor.lineage.livedisplay@2.0::IDisplayModes default
     interface vendor.lineage.livedisplay@2.0::ISunlightEnhancement default
     class late_start
     user system
