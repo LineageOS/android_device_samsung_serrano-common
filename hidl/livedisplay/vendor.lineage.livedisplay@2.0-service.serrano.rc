@@ -10,3 +10,7 @@ service vendor.livedisplay-hal-2-0-serrano /vendor/bin/hw/vendor.lineage.livedis
     class late_start
     user system
     group system
+    disabled
+
+on property:sys.boot_completed=1
+    start vendor.livedisplay-hal-2-0-serrano
