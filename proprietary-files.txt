@@ -60,7 +60,10 @@ vendor/bin/radish
 
 # GPS
 vendor/bin/irsc_util
+vendor/bin/loc_launcher
+vendor/lib/hw/flp.default.so
 vendor/lib/libdsi_netctrl.so
+vendor/lib/libflp.so
 vendor/lib/libgeofence.so
 vendor/lib/libizat_core.so
 vendor/lib/liblbs_core.so
