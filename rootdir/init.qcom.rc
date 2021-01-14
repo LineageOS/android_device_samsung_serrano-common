@@ -32,99 +32,11 @@ import /vendor/etc/init/hw/init.target.rc
 on early-init
     mount debugfs debugfs /sys/kernel/debug
     chown system system /sys/kernel/debug/kgsl/proc
-    chmod 644 /proc/cmdline
+    chmod 0644 /proc/cmdline
 
 on init
-    # Create USB host bus directory here so that libusbhost
-    # can start monitoring.
-    mkdir /dev/bus 0755 root root
-    mkdir /dev/bus/usb 0755 root root
-
     # Write WCNSS serial number
     write /sys/devices/platform/wcnss_wlan.0/serial_number ${ro.boot.serialno}
-
-on early-boot
-    # Set RLIMIT_MEMLOCK to 64MB
-    setrlimit 8 67108864 67108864
-
-    # Remove symlinks to avoid issues with migrate after nandroid restores
-    # Will be recreated at end of boot
-    rm /data/data/com.android.providers.telephony/databases/telephony.db
-    rm /data/data/com.android.providers.telephony/shared_prefs/preferred-apn.xml
-
-on boot
-    # Permissions for bluetooth
-    chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
-    chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
-
-    # Permissions for fm
-    chown system system /sys/module/radio_iris_transport/parameters/fmsmd_set
-    chmod 0660 /sys/module/radio_iris_transport/parameters/fmsmd_set
-
-    # Create QMUX deamon socket area
-    mkdir /dev/socket/qmux_audio 2770 media audio
-    mkdir /dev/socket/qmux_bluetooth 2770 bluetooth bluetooth
-    mkdir /dev/socket/qmux_gps 2770 gps gps
-    mkdir /dev/socket/qmux_radio 2770 radio radio
-
-    symlink /dev/graphics/fb1 /dev/graphics/hdmi
-
-    # Change permission for the backlight control
-    chown system system /sys/class/leds/button-backlight/brightness
-    chown system system /sys/class/leds/lcd-backlight/brightness
-    chmod 0664 /sys/class/leds/button-backlight/brightness
-    chmod 0664 /sys/class/leds/lcd-backlight/brightness
-
-    # For disabling softkeys
-    chown root system /sys/class/leds/button-backlight/max_brightness
-    chmod 0664 /sys/class/leds/button-backlight/max_brightness
-
-    # For bridgemgr daemon to inform the USB driver of the correct transport
-    chown radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
-
-    # To allow interfaces to get v6 address when tethering is enabled
-    write /proc/sys/net/ipv6/conf/rmnet0/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet1/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet2/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet3/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet4/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet5/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet6/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet7/accept_ra 2
-
-    # Assign TCP buffer thresholds to be ceiling value of technology maximums
-    # Increased technology maximums should be reflected here.
-    write /proc/sys/net/core/rmem_max 2097152
-    write /proc/sys/net/core/wmem_max 2097152
-
-    # To prevent out of order acknowledgements from making
-    # connection tracking to treat them as not belonging to
-    # the connection they belong to.
-    # Otherwise, a weird issue happens in which some long
-    # connections on high-throughput links get dropped when
-    # an ack packet comes out of order
-    write /proc/sys/net/netfilter/nf_conntrack_tcp_be_liberal 1
-
-    # Flash storage isn't a good entropy source, and only causes locking
-    # overhead in the kernel. Turn it off.
-    write /sys/block/mmcblk0/queue/add_random 0
-
-    # Don't disable dmesg access for apps
-    write /proc/sys/kernel/dmesg_restrict 0
-
-    # Set freeze timeout to 2 seconds
-    write /sys/power/pm_freeze_timeout 2000
-
-    # Wifi firmware reload path
-    chown wifi wifi /sys/module/wlan/parameters/fwpath
-
-    # Set subsystem restart level
-    # 1 = SOC
-    # 2 = COUPLED
-    # 3 = INDEPENDENT
-    write /sys/module/subsystem_restart/parameters/restart_level 3
-
-    setprop init.svc.console stopped
 
 on fs
     mount_all /vendor/etc/fstab.qcom
@@ -137,9 +49,6 @@ on fs
 
     restorecon_recursive /efs
     restorecon_recursive /persist
-
-    chown system radio /dev/block/platform/msm_sdcc.1/by-name
-    chmod 0775 /dev/block/platform/msm_sdcc.1/by-name
 
 on post-fs
     # Allow writing to the kernel trace log.
@@ -415,13 +324,13 @@ on post-fs-data
     chown system radio /sys/class/camera/rear/rear_camtype
     chown system media_rw /sys/class/camera/rear/rear_checkApp
     chown system camera /sys/class/camera/flash/rear_flash
-    chmod 664 /sys/class/camera/flash/rear_flash
+    chmod 0664 /sys/class/camera/flash/rear_flash
     chown system radio /sys/class/camera/front/front_camfw
     chown system radio /sys/class/camera/front/front_camtype
 
     # Ap thermister permission
     chown system radio /sys/bus/platform/devices/msm8930-tmu/curr_temp
-    chmod 664 /sys/bus/platform/devices/msm8930-tmu/curr_temp
+    chmod 0664 /sys/bus/platform/devices/msm8930-tmu/curr_temp
 
     # Vibetonz
     chmod 0660 /dev/tspdrv
@@ -459,15 +368,15 @@ on post-fs-data
     chown radio system /sys/class/kgsl/kgsl-3d0/max_pwrlevel
     chown radio system /sys/class/kgsl/kgsl-3d0/min_pwrlevel
     chown radio system /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies
-    chmod 664 /sys/power/cpufreq_max_limit
-    chmod 664 /sys/power/cpufreq_min_limit
-    chmod 664 /sys/power/cpufreq_table
-    chmod 664 /sys/class/kgsl/kgsl-3d0/max_pwrlevel
-    chmod 664 /sys/class/kgsl/kgsl-3d0/min_pwrlevel
-    chmod 664 /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies
+    chmod 0664 /sys/power/cpufreq_max_limit
+    chmod 0664 /sys/power/cpufreq_min_limit
+    chmod 0664 /sys/power/cpufreq_table
+    chmod 0664 /sys/class/kgsl/kgsl-3d0/max_pwrlevel
+    chmod 0664 /sys/class/kgsl/kgsl-3d0/min_pwrlevel
+    chmod 0664 /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies
 
     chown radio system /sys/devices/system/cpu/kernel_max
-    chmod 664 /sys/devices/system/cpu/kernel_max
+    chmod 0664 /sys/devices/system/cpu/kernel_max
 
     # OTG Test
     chown system radio /sys/class/host_notify/usb_otg/booster
@@ -509,73 +418,94 @@ on post-fs-data
 
     setprop vold.post_fs_data_done 1
 
-# Start camera server as daemon
-service vendor.qcamerasvr /vendor/bin/mm-qcamera-daemon
-    class early_hal
-    user camera
-    group camera system inet input graphics
+on early-boot
+    # Set RLIMIT_MEMLOCK to 64MB
+    setrlimit 8 67108864 67108864
 
-#service thermald /vendor/bin/thermald
-#    class main
-#    user root
-#    group radio system
+    # Remove symlinks to avoid issues with migrate after nandroid restores
+    # Will be recreated at end of boot
+    rm /data/data/com.android.providers.telephony/databases/telephony.db
+    rm /data/data/com.android.providers.telephony/shared_prefs/preferred-apn.xml
 
-#service mpdecision /vendor/bin/mpdecision --no_sleep --avg_comp
-#    class main
-#    user root
-#    group root system readproc wakelock
+on boot
+    # Permissions for bluetooth
+    chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
+    chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
+
+    # Permissions for fm
+    chown system system /sys/module/radio_iris_transport/parameters/fmsmd_set
+    chmod 0660 /sys/module/radio_iris_transport/parameters/fmsmd_set
+
+    # Create QMUX daemon socket area
+    mkdir /dev/socket/qmux_audio 2770 media audio
+    mkdir /dev/socket/qmux_bluetooth 2770 bluetooth bluetooth
+    mkdir /dev/socket/qmux_gps 2770 gps gps
+    mkdir /dev/socket/qmux_radio 2770 radio radio
+
+    symlink /dev/graphics/fb1 /dev/graphics/hdmi
+
+    # Change permission for the backlight control
+    chown system system /sys/class/leds/button-backlight/brightness
+    chown system system /sys/class/leds/lcd-backlight/brightness
+    chmod 0664 /sys/class/leds/button-backlight/brightness
+    chmod 0664 /sys/class/leds/lcd-backlight/brightness
+
+    # For disabling softkeys
+    chown root system /sys/class/leds/button-backlight/max_brightness
+    chmod 0664 /sys/class/leds/button-backlight/max_brightness
+
+    # For bridgemgr daemon to inform the USB driver of the correct transport
+    chown radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
+
+    # To allow interfaces to get v6 address when tethering is enabled
+    write /proc/sys/net/ipv6/conf/rmnet0/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet1/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet2/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet3/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet4/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet5/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet6/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet7/accept_ra 2
+
+    # Assign TCP buffer thresholds to be ceiling value of technology maximums
+    # Increased technology maximums should be reflected here.
+    write /proc/sys/net/core/rmem_max 2097152
+    write /proc/sys/net/core/wmem_max 2097152
+
+    # To prevent out of order acknowledgements from making
+    # connection tracking to treat them as not belonging to
+    # the connection they belong to.
+    # Otherwise, a weird issue happens in which some long
+    # connections on high-throughput links get dropped when
+    # an ack packet comes out of order
+    write /proc/sys/net/netfilter/nf_conntrack_tcp_be_liberal 1
+
+    # Flash storage isn't a good entropy source, and only causes locking
+    # overhead in the kernel. Turn it off.
+    write /sys/block/mmcblk0/queue/add_random 0
+
+    # Don't disable dmesg access for apps
+    write /proc/sys/kernel/dmesg_restrict 0
+
+    # Set freeze timeout to 2 seconds
+    write /sys/power/pm_freeze_timeout 2000
+
+    # Wifi firmware reload path
+    chown wifi wifi /sys/module/wlan/parameters/fwpath
+
+    # Set subsystem restart level
+    # 1 = SOC
+    # 2 = COUPLED
+    # 3 = INDEPENDENT
+    write /sys/module/subsystem_restart/parameters/restart_level 3
+
+    setprop init.svc.console stopped
 
 service charger /system/bin/charger
     class charger
     critical
     group system
     seclabel u:r:charger:s0
-
-service vendor.geomagneticd /vendor/bin/geomagneticd
-    class late_start
-    user compass
-    group system input
-
-service vendor.wcnss-service /vendor/bin/wcnss_service
-    class main
-    user system
-    group system wifi radio
-    oneshot
-
-service vendor.irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
-    class main
-    user root
-    oneshot
-
-service vendor.rmt_storage /vendor/bin/rmt_storage
-    class core
-    user root
-    group system wakelock
-    shutdown critical
-
-service vendor.hciattach /vendor/bin/init.qcom.bt.sh
-    class late_start
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
-
-on property:vendor.bluetooth.hciattach=true
-    start vendor.hciattach
-
-on property:vendor.bluetooth.hciattach=false
-    setprop vendor.bluetooth.status off
-
-# QMUX must be in multiple groups to support external process connections
-service vendor.qmuxd /vendor/bin/qmuxd
-    class core
-    user radio
-    group radio audio bluetooth gps diag wakelock log
-
-service vendor.loc_launcher /vendor/bin/loc_launcher
-    # loc_launcher will start as root and set its uid to gps
-    class late_start
-    group gps inet net_raw diag net_admin wifi
 
 service vendor.fm /vendor/bin/init.qcom.fm.sh
     class late_start
@@ -584,11 +514,55 @@ service vendor.fm /vendor/bin/init.qcom.fm.sh
     disabled
     oneshot
 
+service vendor.geomagneticd /vendor/bin/geomagneticd
+    class late_start
+    user compass
+    group system input
+
+service vendor.hciattach /vendor/bin/init.qcom.bt.sh
+    class late_start
+    user bluetooth
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
+
+service vendor.irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
+    class main
+    user root
+    oneshot
+
+service vendor.loc_launcher /vendor/bin/loc_launcher
+    # loc_launcher will start as root and set its uid to gps
+    class late_start
+    group gps inet net_raw diag net_admin wifi
+
+service vendor.qcamerasvr /vendor/bin/mm-qcamera-daemon
+    class early_hal
+    user camera
+    group camera system inet input graphics
+
 service vendor.qcom-audio /vendor/bin/init.qcom.audio.sh
     class late_start
     user root
     group system
     disabled
+    oneshot
+
+service vendor.qmuxd /vendor/bin/qmuxd
+    class core
+    user radio
+    group radio audio bluetooth gps diag wakelock log
+
+service vendor.rmt_storage /vendor/bin/rmt_storage
+    class core
+    user root
+    group system wakelock
+    shutdown critical
+
+service vendor.wcnss-service /vendor/bin/wcnss_service
+    class main
+    user system
+    group system wifi radio
     oneshot
 
 service vendor.wifi_hal_legacy /vendor/bin/hw/android.hardware.wifi@1.0-service.legacy
@@ -602,6 +576,12 @@ service vendor.wifi_hal_legacy /vendor/bin/hw/android.hardware.wifi@1.0-service.
     capabilities NET_ADMIN NET_RAW SYS_MODULE
     user root
     group wifi gps
+
+on property:vendor.bluetooth.hciattach=true
+    start vendor.hciattach
+
+on property:vendor.bluetooth.hciattach=false
+    setprop vendor.bluetooth.status off
 
 on property:ro.data.large_tcp_window_size=true
     # Adjust socket buffer to enlarge TCP receive window for high bandwidth (e.g. DO-RevB)
