@@ -42,11 +42,6 @@ on fs
     mount_all /vendor/etc/fstab.qcom
     mount none /system/etc/gps.conf /system/etc/gps_debug.conf bind
 
-    exec u:r:vendor_toolbox:s0 -- /vendor/bin/toybox_vendor find /efs -type d \
-        -exec /vendor/bin/toybox_vendor setfattr -x security.sehash {} \;
-    exec u:r:vendor_toolbox:s0 -- /vendor/bin/toybox_vendor find /persist -type d \
-        -exec /vendor/bin/toybox_vendor setfattr -x security.sehash {} \;
-
     restorecon_recursive /efs
     restorecon_recursive /persist
 
