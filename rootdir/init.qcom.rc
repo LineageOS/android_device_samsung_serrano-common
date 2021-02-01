@@ -39,11 +39,14 @@ on init
     write /sys/devices/platform/wcnss_wlan.0/serial_number ${ro.boot.serialno}
 
 on fs
-    mount_all /vendor/etc/fstab.qcom
+    mount_all /vendor/etc/fstab.qcom --early
     mount none /system/etc/gps.conf /system/etc/gps_debug.conf bind
 
     restorecon_recursive /efs
     restorecon_recursive /persist
+
+on late-fs
+    mount_all /vendor/etc/fstab.qcom --late
 
 on post-fs
     # Allow writing to the kernel trace log.

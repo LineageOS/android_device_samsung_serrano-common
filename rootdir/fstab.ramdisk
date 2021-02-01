@@ -1,0 +1,2 @@
+/dev/block/platform/msm_sdcc.1/by-name/system    /system    ext4    ro,errors=panic       wait,first_stage_mount
+/dev/block/platform/msm_sdcc.1/by-name/efs       /efs       ext4    rw,no_sehash_xattr    wait,first_stage_mount
