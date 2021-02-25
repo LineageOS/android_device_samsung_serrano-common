@@ -1,8 +1,8 @@
-/cache          ext4    /dev/block/platform/msm_sdcc.1/by-name/cache       flags=display="Cache"
-/data           ext4    /dev/block/platform/msm_sdcc.1/by-name/userdata    flags=display="Data";encryptable=footer;length=-16384
-/system         ext4    /dev/block/platform/msm_sdcc.1/by-name/system      flags=display="System"
-/system_image   emmc    /dev/block/platform/msm_sdcc.1/by-name/system      flags=display="System Image"
-/boot           emmc    /dev/block/platform/msm_sdcc.1/by-name/boot        flags=display="Boot"
+/cache          ext4    /dev/block/platform/msm_sdcc.1/by-name/cache       flags=display="Cache";backup=1
+/data           ext4    /dev/block/platform/msm_sdcc.1/by-name/userdata    flags=display="Data";encryptable=footer;length=-16384;backup=1
+/system         ext4    /dev/block/platform/msm_sdcc.1/by-name/system      flags=display="System";backup=1
+/system_image   emmc    /dev/block/platform/msm_sdcc.1/by-name/system      flags=display="System Image";backup=1;flashimg=1
+/boot           emmc    /dev/block/platform/msm_sdcc.1/by-name/boot        flags=display="Boot";backup=1
 /recovery       emmc    /dev/block/platform/msm_sdcc.1/by-name/recovery    flags=display="Recovery";backup=1
 /firmware       vfat    /dev/block/platform/msm_sdcc.1/by-name/modem       flags=display="Modem";backup=1
 /efs            ext4    /dev/block/platform/msm_sdcc.1/by-name/efs         flags=display="EFS";backup=1
