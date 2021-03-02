@@ -148,6 +148,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.health@2.0-service.serrano
 
+# Doze
+PRODUCT_PACKAGES += \
+    SamsungDoze
+
 # Camera
 PRODUCT_PACKAGES += \
     Snap
