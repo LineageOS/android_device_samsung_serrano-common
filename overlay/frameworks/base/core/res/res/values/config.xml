@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Enables or disables fading edges when marquee is enabled in TextView.
-         Off by default, since the framebuffer readback used to implement the
-         fading edges is prohibitively expensive on most GPUs. -->
-    <bool name="config_ui_enableFadingMarquee">false</bool>
-
     <!-- Device configuration indicating whether we should avoid using accelerated graphics
          in certain places to reduce RAM footprint.  This is ignored if ro.config.low_ram
          is true (in that case this is assumed true as well).  It can allow you to tune down
