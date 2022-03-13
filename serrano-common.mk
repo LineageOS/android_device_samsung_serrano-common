@@ -27,6 +27,9 @@ PRODUCT_SOONG_NAMESPACES += $(LOCAL_PATH)
 # Common overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
+# Wallpaper overlay
+#PRODUCT_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay_wallpaper
+
 # Device uses high-density artwork where available
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := hdpi
