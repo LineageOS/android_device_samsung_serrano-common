@@ -18,6 +18,7 @@ RECOVERY_SDCARD_ON_DATA := true
 RECOVERY_VARIANT := twrp
 TARGET_RECOVERY_FSTAB := device/samsung/serrano-common/rootdir/twrp.fstab
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
+TW_EXCLUDE_PYTHON := true
 TW_EXCLUDE_TWRPAPP := true
 TW_HAS_DOWNLOAD_MODE := true
 TW_INCLUDE_CRYPTO := true
